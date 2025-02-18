@@ -9,8 +9,20 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        background: "#ffffff",
+        foreground: "#333333",
+        primary: "var(--color-primary)",
+        secondary: "var(--color-secondary)",
+        "secondary-accent": "var(--color-secondary-accent)",
+        accent: "var(--color-accent)",
+        error: "var(--color-error)",
+        success: "var(--color-success)",
+        warning: "var(--color-warning)",
+        "primary-hover": "var(--color-primary-hover)",
+        "accent-hover": "var(--color-accent-hover)",
+      },
+      backgroundColor: {
+        "light-gray": "var(--light-gray)",
       },
     },
   },
