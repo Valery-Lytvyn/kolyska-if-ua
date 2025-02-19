@@ -1,20 +1,16 @@
 "use client";
 
-import React, { Usable } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import ProductList from "@/components/productList/ProductList";
-import { notFound } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
 import Loader from "@/app/loading";
 import CustomLink from "@/components/ui/CustomLink";
 
-interface CatalogPageProps {
-  params: Usable<{ page: string }>;
-}
-
-export default function CatalogPage({ params }: CatalogPageProps) {
-  const unwrappedParams = React.use(params);
-  const { page } = unwrappedParams;
+export default function CatalogPage() {
+  const params = useParams();
+  const page = Number(params?.page);
 
   const categories = useSelector(
     (state: RootState) => state.catalog.categoryMap

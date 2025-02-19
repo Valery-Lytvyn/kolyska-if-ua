@@ -1,10 +1,10 @@
 "use client";
 
-import React, { Usable } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import ProductList from "@/components/productList/ProductList";
-import { notFound } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
 import {
   selectOffersByCategory,
   selectSubcategoriesByCategory,
@@ -13,13 +13,9 @@ import { categorySlugToIdMap } from "@/lib/data";
 import Loader from "@/app/loading";
 import CustomLink from "@/components/ui/CustomLink";
 
-interface CatalogPageProps {
-  params: Usable<{ categorySlug: string | string[] }>;
-}
-
-function CatalogPage({ params }: CatalogPageProps) {
-  const unwrappedParams = React.use(params);
-  const { categorySlug } = unwrappedParams;
+function CatalogPage() {
+  const params = useParams();
+  const categorySlug = params?.categorySlug;
 
   const normalizedCategorySlug = Array.isArray(categorySlug)
     ? categorySlug[0]

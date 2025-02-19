@@ -1,11 +1,11 @@
 "use client";
-import React, { useMemo, useCallback, Usable } from "react";
+import React, { useMemo, useCallback } from "react";
 import { useSelector } from "react-redux";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { RootState } from "@/store/store";
 import dynamic from "next/dynamic";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
-import ProductCard from "@/components/ui/ProductCard";
+import ProductCard from "@/components/ui/productCard/ProductCard";
 
 const Pagination = dynamic(
   () => import("@/components/productList/Pagination"),
@@ -14,24 +14,19 @@ const Pagination = dynamic(
   }
 );
 
-interface SearchPageProps {
-  searchParams: Usable<{
-    q?: string;
-    page?: string;
-  }>;
-}
 const ITEMS_PER_PAGE = 12;
 
-const SearchPage: React.FC<SearchPageProps> = ({ searchParams }) => {
+const SearchPage: React.FC = () => {
   const router = useRouter();
-  const { q: searchQuery = "", page: pageParam = "1" } =
-    React.use(searchParams);
-  const currentPage = parseInt(pageParam, 10) || 1;
+  const searchParams = useSearchParams();
 
-  // Fetch offers from Redux store
+  const searchQuery = searchParams?.get("q") || "";
+  const page = searchParams?.get("page") || "1";
+
+  const currentPage = parseInt(page, 10);
+
   const offers = useSelector((state: RootState) => state.catalog.offers);
 
-  // Filter offers based on search term
   const filteredOffers = useMemo(() => {
     if (!searchQuery) return [];
     return offers.filter((offer) =>
@@ -39,14 +34,12 @@ const SearchPage: React.FC<SearchPageProps> = ({ searchParams }) => {
     );
   }, [offers, searchQuery]);
 
-  // Pagination logic
   const paginatedOffers = useMemo(() => {
     const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
     const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
     return filteredOffers.slice(indexOfFirstItem, indexOfLastItem);
   }, [filteredOffers, currentPage]);
 
-  // Handle page change
   const handlePageChange = useCallback(
     (pageNumber: number) => {
       router.push(`/search?q=${searchQuery}&page=${pageNumber}`);
@@ -54,7 +47,6 @@ const SearchPage: React.FC<SearchPageProps> = ({ searchParams }) => {
     [router, searchQuery]
   );
 
-  // Loading state
   if (!offers.length) {
     return (
       <main className="w-full max-w-7xl mx-auto p-4 z-10 relative flex flex-col items-center justify-center min-h-[60vh]">
@@ -63,7 +55,6 @@ const SearchPage: React.FC<SearchPageProps> = ({ searchParams }) => {
     );
   }
 
-  // No results found
   if (!paginatedOffers.length) {
     return (
       <main className="w-full max-w-7xl mx-auto p-4 z-10 relative flex flex-col items-center justify-center min-h-[60vh]">
@@ -73,8 +64,6 @@ const SearchPage: React.FC<SearchPageProps> = ({ searchParams }) => {
       </main>
     );
   }
-  console.log("Filtered Offers:", filteredOffers);
-  console.log("Paginated Offers:", paginatedOffers);
 
   return (
     <main className="w-full max-w-7xl mx-auto p-4 z-10 relative flex flex-col">
