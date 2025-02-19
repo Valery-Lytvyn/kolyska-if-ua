@@ -1,17 +1,53 @@
-import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {
+  createAsyncThunk,
+  createSelector,
+  createSlice,
+  PayloadAction,
+} from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { CatalogState, Categories, Offer } from "@/types/types";
-// import { renameCategory } from "@/helpers/renameCategory";
+import { CatalogState, Categories, Category, Offer } from "@/types/types";
+import { fetchCatalogData } from "@/lib/fetchCatalogData";
+import { fetchAdminData } from "@/lib/fetchAdminData";
+import { renameCategory } from "@/helpers/renameCategory";
 
-// Початковий стан
 const initialState: CatalogState = {
   categoryMap: [],
   offers: [],
+  bestOffers: [],
+  newOffers: [],
   selectedProduct: null,
   loaded: false,
   loading: false,
   error: null,
 };
+
+export const fetchCatalog = createAsyncThunk(
+  "catalog/fetchCatalog",
+  async (_, { dispatch }) => {
+    const data = await fetchCatalogData();
+    const adminData = await fetchAdminData();
+
+    const renamedCategories = data.yml_catalog.shop.categories.category
+      .map((category: Category) => {
+        if (!category || !category.$ || !category._) {
+          console.error("Invalid category data:", category);
+          return null;
+        }
+        return {
+          categoryId: category.$.id,
+          name: renameCategory(category._),
+          cyrillicName: category._,
+        };
+      })
+      .filter(Boolean);
+
+    dispatch(setCategories(renamedCategories));
+    dispatch(setOffers(data.yml_catalog.shop.offers.offer));
+    dispatch(setBestOffers(adminData.bestOffer));
+    dispatch(setNewOffers(adminData.newOffer));
+    dispatch(setLoaded(true));
+  }
+);
 
 const catalogSlice = createSlice({
   name: "catalog",
@@ -30,6 +66,16 @@ const catalogSlice = createSlice({
     },
     setOffers: (state, action: PayloadAction<Offer[]>) => {
       state.offers = action.payload;
+      state.loading = false;
+      state.error = null;
+    },
+    setBestOffers: (state, action: PayloadAction<string[]>) => {
+      state.bestOffers = action.payload;
+      state.loading = false;
+      state.error = null;
+    },
+    setNewOffers: (state, action: PayloadAction<string[]>) => {
+      state.newOffers = action.payload;
       state.loading = false;
       state.error = null;
     },
@@ -80,6 +126,8 @@ export const selectSubcategoriesByCategory = createSelector(
 // Експорт дій та редюсера
 export const {
   setOffers,
+  setBestOffers,
+  setNewOffers,
   setCategories,
   setSelectedProduct,
   setLoading,

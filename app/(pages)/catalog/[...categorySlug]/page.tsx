@@ -11,6 +11,7 @@ import {
 } from "@/store/slices/catalogSlice";
 import { categorySlugToIdMap } from "@/lib/data";
 import Loader from "@/app/loading";
+import CustomLink from "@/components/ui/CustomLink";
 
 interface CatalogPageProps {
   params: Usable<{ categorySlug: string | string[] }>;
@@ -44,7 +45,8 @@ function CatalogPage({ params }: CatalogPageProps) {
   }
 
   return (
-    <div className="w-full mx-auto relative z-10 bg-white overflow-hidden min-h-[calc(100vh-13rem)] flex justify-center items-center">
+    <div className="w-full mx-auto relative z-10 bg-white overflow-hidden min-h-[calc(100vh-13rem)] flex flex-col justify-center items-center">
+      <CustomLink href="/" label="Повернутися на головну" />
       <ProductList
         categories={categories}
         offers={offers}

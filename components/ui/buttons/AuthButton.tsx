@@ -8,7 +8,6 @@ import Image from "next/image";
 const AuthButton = React.memo(() => {
   const router = useRouter();
   const { status, data: session } = useSession();
-  // console.log(session?.user);
 
   if (status === "authenticated") {
     return (

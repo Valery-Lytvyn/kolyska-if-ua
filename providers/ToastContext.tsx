@@ -1,9 +1,10 @@
 "use client";
 import Toast from "@/components/toast/Toast";
 import React, { createContext, useContext, useState } from "react";
+import { ToastType } from "@/types/types";
 
 interface ToastContextType {
-  showToast: (message: string, duration?: number) => void;
+  showToast: (message: string, type?: ToastType, duration?: number) => void;
 }
 
 const ToastContext = createContext<ToastContextType | undefined>(undefined);
@@ -13,11 +14,12 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [toast, setToast] = useState<{
     message: string;
+    type?: ToastType;
     duration?: number;
   } | null>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const showToast = (message: string, duration?: number) => {
-    setToast({ message, duration });
+  const showToast = (message: string, type?: ToastType, duration?: number) => {
+    setToast({ message, type, duration });
     setIsVisible(true);
   };
 
@@ -34,6 +36,7 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({
           isVisible={isVisible}
           duration={toast.duration}
           onClose={hideToast}
+          type={toast.type}
         />
       )}
     </ToastContext.Provider>

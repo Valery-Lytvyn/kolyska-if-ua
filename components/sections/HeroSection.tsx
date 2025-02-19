@@ -6,21 +6,24 @@ import Link from "next/link";
 
 const HeroSection: React.FC = () => {
   return (
-    <div className="w-full max-h-[calc(100vh-13rem)]  relative overflow-hidden">
+    <section className="w-full h-screen max-h-[calc(100vh-13rem)]  relative overflow-hidden  ">
       <motion.div
         initial={{ opacity: 0, scale: 1.1 }}
-        animate={{ opacity: 1, scale: 1 }}
+        animate={{ opacity: 0.7, scale: 1 }}
         transition={{ duration: 1, ease: "easeOut" }}
-        className="w-full h-full flex justify-end"
+        className="w-full h-full flex justify-end overflow-hidden"
       >
         {/* Background Image */}
         <Image
           src="/hero.webp"
           width={1500}
-          height={1500}
-          className="h-full min-h-full w-auto  object-cover "
-          alt="Hero Background"
+          height={1000}
+          className="h-full  w-auto object-cover"
+          alt="Фонове зображення коляски"
           priority={true}
+          quality={75}
+          loading="eager"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </motion.div>
       {/* Overlay Content */}
@@ -60,7 +63,7 @@ const HeroSection: React.FC = () => {
           </h3>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

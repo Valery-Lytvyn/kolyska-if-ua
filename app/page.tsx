@@ -1,17 +1,36 @@
-import BestOffers from "@/components/sections/BestOffersSection";
-import CatalogSection from "@/components/sections/CatalogSection";
-import HeroSection from "@/components/sections/HeroSection";
-import NewOffersSection from "@/components/sections/NewOffersSection";
-import ShopBlurbSection from "@/components/sections/ShopBlurbSection";
+"use client";
+import React, { lazy, Suspense } from "react";
+import Loader from "./loading";
+const HeroSection = lazy(() => import("@/components/sections/HeroSection"));
+const NewOffersSection = lazy(
+  () => import("@/components/sections/NewOffersSection")
+);
+const CatalogSection = lazy(
+  () => import("@/components/sections/CatalogSection")
+);
+const BestOffersSection = lazy(
+  () => import("@/components/sections/BestOffersSection")
+);
+const ShopBlurbSection = lazy(
+  () => import("@/components/sections/ShopBlurbSection")
+);
+const ViewedProductsSection = lazy(
+  () => import("@/components/sections/ViewedProductsSection")
+);
 
-export default function Home() {
+const Home: React.FC = () => {
   return (
-    <main className="flex-1 ">
-      <HeroSection />
-      <NewOffersSection />
-      <CatalogSection />
-      <BestOffers />
-      <ShopBlurbSection />
+    <main className="flex-1 bg-gray-50">
+      <Suspense fallback={<Loader />}>
+        <HeroSection />
+        <NewOffersSection />
+        <CatalogSection />
+        <BestOffersSection />
+        <ShopBlurbSection />
+        <ViewedProductsSection />
+      </Suspense>
     </main>
   );
-}
+};
+
+export default Home;

@@ -2,7 +2,7 @@ import { menuItems, navItems } from "@/lib/data";
 import Link from "next/link";
 import React from "react";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
-import MobileMenu from "../menu/MobileMenu";
+import ExpandedMenu from "../menu/MobileMenu";
 
 const Footer: React.FC = () => {
   return (
@@ -11,33 +11,7 @@ const Footer: React.FC = () => {
         {/* Catalog */}
         <div className="flex-col  flex gap-4">
           <h2 className="text-lg font-bold mb-4 text-accent">Каталог</h2>
-          {/* <ul className="space-y-2">
-            {menuItems.map(({ title, href, children }) => (
-              <li key={href}>
-                <Link
-                  href={href}
-                  className="hover:text-accent transition-colors duration-200"
-                >
-                  {title}
-                </Link>
-                {children && (
-                  <ul className="pl-4 mt-2 space-y-1">
-                    {children.map((child) => (
-                      <li key={child.href}>
-                        <Link
-                          href={child.href}
-                          className="hover:text-accent transition-colors duration-200"
-                        >
-                          {child.title}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </li>
-            ))}
-          </ul> */}
-          <MobileMenu menuItems={menuItems} />
+          <ExpandedMenu menuItems={menuItems} />
         </div>
 
         <div className="flex-col  flex gap-8 justify-between">

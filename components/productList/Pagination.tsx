@@ -22,7 +22,7 @@ const Pagination: React.FC<PaginationProps> = ({
   };
 
   return (
-    <nav aria-label="Pagination" className="flex justify-center my-8">
+    <nav aria-label="Pagination" className="flex justify-center my-8 ">
       <ul className="flex gap-2 items-center">
         {/* Previous Button */}
         <li>

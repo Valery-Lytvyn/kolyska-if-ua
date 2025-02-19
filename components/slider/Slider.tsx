@@ -19,11 +19,11 @@ const Slider: React.FC<CarouselProps> = ({ slides, renderSlide }) => {
         modules={[Navigation, Autoplay]}
         spaceBetween={24}
         slidesPerView={1}
-        // autoplay={{
-        //   delay: 3000,
-        //   disableOnInteraction: false,
-        //   pauseOnMouseEnter: true,
-        // }}
+        autoplay={{
+          delay: 3000,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        }}
         loop={true}
         speed={2000}
         navigation={{
@@ -44,7 +44,7 @@ const Slider: React.FC<CarouselProps> = ({ slides, renderSlide }) => {
         className="w-full"
       >
         {slides.map((slide, index) => (
-          <SwiperSlide key={slide.$.id} className="h-auto">
+          <SwiperSlide key={slide.$.id} className="h-full w-full py-6">
             {renderSlide(slide, index)}
           </SwiperSlide>
         ))}

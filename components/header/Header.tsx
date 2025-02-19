@@ -1,9 +1,7 @@
 "use client";
-
 import Link from "next/link";
-import { IoHeartOutline, IoMenu, IoClose } from "react-icons/io5";
+import { IoMenu } from "react-icons/io5";
 import { MdLocalPhone } from "react-icons/md";
-import { motion } from "framer-motion";
 import { useState } from "react";
 import AuthButton from "../ui/buttons/AuthButton";
 import CartButton from "../ui/buttons/CartButton";
@@ -11,10 +9,25 @@ import { menuItems, navItems } from "@/lib/data";
 import Navbar from "./Navbar";
 import SearchBar from "./SearchBar";
 import DesktopMenu from "../menu/DesktopMenu";
-import MobileMenu from "../menu/MobileMenu";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import WishlistButton from "../ui/buttons/WishlistButton";
+import { useRouter } from "next/navigation";
+import { AnimatePresence } from "motion/react";
+import MobileMenu from "./MobileMenu";
 
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const router = useRouter();
+  const cartItems = useSelector((state: RootState) => state.cart.items);
+  const quantityWishedItems = useSelector(
+    (state: RootState) => state.wishedProducts.wishedProductIds.length
+  );
+
+  const quantityItemsInCart = cartItems.reduce(
+    (acc, item) => acc + item.quantity,
+    0
+  );
 
   return (
     <header className="w-full flex flex-col bg-white shadow-sm">
@@ -54,19 +67,15 @@ const Header: React.FC = () => {
         <div className="flex items-center gap-4 justify-between w-full md:w-fit">
           {/* Cart & Auth & Wishlist */}
           <div className="flex items-center gap-4">
-            <motion.button
-              className="p-2 bg-primary text-white rounded-lg hover:bg-primary-hover transition-colors relative"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              aria-label="Wishlist"
-            >
-              <IoHeartOutline className="text-2xl" />
-              <span className="absolute -top-1 -right-1 bg-accent text-white text-xs rounded-full w-4 h-4 flex justify-center items-center">
-                1
-              </span>
-            </motion.button>
+            <WishlistButton
+              quantityWishedItems={quantityWishedItems}
+              onClick={() => router.push("/wished-products")}
+            />
             {/* Cart */}
-            <CartButton />
+            <CartButton
+              quantityItemsInCart={quantityItemsInCart}
+              onClick={() => router.push("/cart")}
+            />
             {/* Auth */}
             <AuthButton />
           </div>
@@ -82,70 +91,21 @@ const Header: React.FC = () => {
       </div>
 
       {/* Navigation */}
-      <div className="w-full border-t border-gray-200 hidden md:block">
+      <div className="w-full border-y border-gray-200 hidden md:block">
         <nav className="max-w-7xl mx-auto p-4">
           <DesktopMenu menuItems={menuItems} />
         </nav>
       </div>
-
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 bg-primary bg-opacity-95 z-50">
-          {/* Close button */}
-          <button
-            className="absolute top-4 right-4 text-white text-2xl"
+      <AnimatePresence>
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <MobileMenu
+            navItems={navItems}
+            menuItems={menuItems}
             onClick={() => setMobileMenuOpen(false)}
-            aria-label="Закрити мобільне меню"
-          >
-            <IoClose />
-          </button>
-
-          <div className="flex flex-col items-center justify-center h-full gap-8">
-            {/* Top-level navItems as icons */}
-            <div className="flex gap-6">
-              {navItems.map(({ item, href, icon }) => (
-                <Link
-                  key={item}
-                  href={href}
-                  className="text-white text-2xl hover:text-accent transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                  aria-label={item}
-                >
-                  {icon}
-                </Link>
-              ))}
-            </div>
-
-            {/* Menu items as a dropdown list */}
-            {/* <ul className="flex flex-col  gap-4">
-              {menuItems.map(({ title, href, children }) => (
-                <li key={title} className="text-white text-lg">
-                  <Link href={href} onClick={() => setMobileMenuOpen(false)}>
-                    {title}
-                  </Link>
-                  {children && (
-                    <ul className="pl-4 mt-2">
-                      {children.map((child) => (
-                        <li key={child.title} className="text-sm">
-                          <Link
-                            href={child.href}
-                            onClick={() => setMobileMenuOpen(false)}
-                          >
-                            {child.title}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </li>
-              ))}
-            </ul> */}
-            <div className="flex-col  flex gap-4">
-              <MobileMenu menuItems={menuItems} />
-            </div>
-          </div>
-        </div>
-      )}
+          />
+        )}
+      </AnimatePresence>
     </header>
   );
 };

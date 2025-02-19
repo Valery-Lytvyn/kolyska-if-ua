@@ -3,9 +3,12 @@ import { useState, useMemo, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Offer, Categories } from "@/types/types";
 import SortControls from "./SortControls";
-import ProductCard from "../ui/ProductCard";
+import ProductCard from "../ui/productCard/ProductCard";
 import Pagination from "./Pagination";
 import LoadingSpinner from "../ui/LoadingSpinner";
+import ProductListSkeleton from "./ProductListSkeleton";
+import ViewedProductList from "../viewedProductList/ViewedProductList";
+import { useViewedProducts } from "@/hooks/useViewedProducts";
 
 interface ProductListProps {
   categories: Categories[];
@@ -27,6 +30,7 @@ const ProductList: React.FC<ProductListProps> = ({
   const [selectedCategories, setSelectedCategories] = useState<string[]>(
     categoryId || []
   );
+  const filteredProducts = useViewedProducts();
 
   // Синхронізація selectedCategories з categoryId
   useEffect(() => {
@@ -94,7 +98,6 @@ const ProductList: React.FC<ProductListProps> = ({
     });
   }, []);
 
-  // Відображення завантажувального спінера, якщо немає товарів
   if (currentItems.length === 0) {
     return <LoadingSpinner />;
   }
@@ -114,18 +117,22 @@ const ProductList: React.FC<ProductListProps> = ({
       />
 
       {/* Сітка товарів */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 my-8 flex-1">
-        {currentItems.map((offer, index) => (
-          <ProductCard
-            index={index}
-            key={offer.$.id}
-            productId={offer.$.id}
-            price={offer.price}
-            imageUrl={offer.picture}
-            productName={offer.name}
-          />
-        ))}
-      </section>
+      {!!currentItems.length ? (
+        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 my-8 flex-1">
+          {currentItems.map((offer, index) => (
+            <ProductCard
+              index={index}
+              key={offer.$.id}
+              productId={offer.$.id}
+              price={offer.price}
+              imageUrl={offer.picture}
+              productName={offer.name}
+            />
+          ))}
+        </section>
+      ) : (
+        <ProductListSkeleton />
+      )}
 
       {/* Пагінація */}
       {filteredOffers.length > 0 && (
@@ -137,6 +144,12 @@ const ProductList: React.FC<ProductListProps> = ({
           categorySlug={categorySlug}
         />
       )}
+
+      <ViewedProductList
+        products={filteredProducts}
+        linkHref="/viewed-products"
+        linkLabel="Всі переглянуті"
+      />
     </main>
   );
 };

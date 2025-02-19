@@ -7,6 +7,8 @@ import AnimatedWrapper from "@/components/ui/AnimatedWrapper";
 import CustomButton from "@/components/ui/buttons/CustomButton";
 import { useForm } from "@/hooks/useForm";
 import GoogleLoginButton from "@/components/ui/buttons/GoogleLoginButton";
+import { setUser } from "@/store/slices/userSlice";
+import { useDispatch } from "react-redux";
 
 const LoginForm = ({ goToLink }: { goToLink: (path: string) => void }) => {
   const { formData, error, setError, handleChange } = useForm({
@@ -14,11 +16,13 @@ const LoginForm = ({ goToLink }: { goToLink: (path: string) => void }) => {
     email: "",
     password: "",
   });
+  const dispatch = useDispatch();
 
   const handleSubmit = async (ev: React.FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
     if (!formData.name || !formData.email || !formData.password) {
       setError("Потрібно заповнити всі поля!");
+
       return;
     } else {
       const res = await signIn("credentials", {
@@ -31,6 +35,7 @@ const LoginForm = ({ goToLink }: { goToLink: (path: string) => void }) => {
         setError(res.error as string);
       }
       if (res?.ok) {
+        dispatch(setUser({ name: formData.name, email: formData.email }));
         return goToLink("/");
       }
     }

@@ -74,11 +74,13 @@ const CatalogSection: FC = () => {
           className="flex w-full h-full justify-end items-end "
         >
           <Image
-            src="/bg-offers.jpg"
-            alt="Background"
+            src="/bg-offers.webp"
+            alt="Фонове зображення коляски"
             width={800}
             height={600}
             loading="lazy"
+            quality={75}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className=" h-full w-auto object-cover opacity-30 object-right-bottom"
           />
         </motion.div>

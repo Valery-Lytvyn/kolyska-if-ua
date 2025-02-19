@@ -14,12 +14,14 @@ const notoSans = Noto_Sans({
   subsets: ["cyrillic"],
   weight: ["400", "500", "700", "900"],
   variable: "--font-noto-sans",
+  display: "swap",
 });
 
 const comfortaa = Comfortaa({
   subsets: ["cyrillic"],
   weight: ["400", "700"],
   variable: "--font-comfortaa",
+  display: "swap",
 });
 
 export const metadata: Metadata = {

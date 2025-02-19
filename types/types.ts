@@ -71,6 +71,8 @@ export interface Categories {
 export interface CatalogState {
   categoryMap: Categories[];
   offers: Offer[];
+  bestOffers: string[];
+  newOffers: string[];
   selectedProduct: Offer | null;
   loaded: boolean;
   loading: boolean;
@@ -100,13 +102,21 @@ export interface ViewedProduct {
 }
 
 export interface ViewedProductsState {
-  products: ViewedProduct[];
+  viewedProductIds: string[];
+}
+export interface WishedProductsState {
+  wishedProductIds: string[];
 }
 
-export interface UserState {
-  id: string;
-  available: string;
+export type ToastType = "success" | "error" | "info";
+export interface ToastState {
+  message: string;
+  isVisible: boolean;
+  duration?: number;
+  type?: ToastType;
 }
-export interface ViewedProductsState {
-  products: ViewedProduct[];
+export interface UserState {
+  name: string;
+  email: string;
+  isAuthenticated: boolean;
 }

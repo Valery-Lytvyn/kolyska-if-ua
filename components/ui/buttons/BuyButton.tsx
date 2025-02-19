@@ -4,16 +4,16 @@ import { AnimatePresence, motion } from "motion/react";
 
 interface BuyButtonProps {
   onClick: () => void;
-  styles?: string;
+  className?: string;
 }
-const BuyButton: React.FC<BuyButtonProps> = ({ onClick, styles }) => {
+const BuyButton: React.FC<BuyButtonProps> = ({ onClick, className }) => {
   const [isHovered, setIsHovered] = useState(false);
   const handleMouseEnter = () => setIsHovered(true);
   const handleMouseLeave = () => setIsHovered(false);
 
   return (
     <motion.button
-      className={`relative px-4 py-2 bg-secondary text-white rounded-lg focus:outline-none focus:ring-0 focus:ring-accent/50   overflow-hidden z-10 ${styles}`}
+      className={`relative px-4 py-2 bg-secondary text-white rounded-lg focus:outline-none focus:ring-0 focus:ring-accent/50   overflow-hidden z-10 ${className}`}
       aria-label={`Додати товар до кошика`}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}

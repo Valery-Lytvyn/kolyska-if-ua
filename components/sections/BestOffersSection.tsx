@@ -1,20 +1,24 @@
 "use client";
 import React from "react";
 import SectionTitle from "../typography/SectionTitle";
-import ProductCard from "../ui/ProductCard";
+import ProductCard from "../ui/productCard/ProductCard";
 import CustomLink from "../ui/CustomLink";
 import SectionSlogan from "../typography/SectionSlogan";
-import Loader from "@/app/loading";
-import useOffers from "@/hooks/useOffers";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { selectOffersByIds } from "@/store/slices/catalogSlice";
+import ProductListSkeleton from "../productList/ProductListSkeleton";
 
 const BestOffersSection: React.FC = () => {
-  const { offers, loading, error } = useOffers("bestOffer");
-
-  if (loading) return <Loader />;
-  if (error) return <div>Error: {error}</div>;
+  const bestOffers = useSelector(
+    (state: RootState) => state.catalog.bestOffers
+  );
+  const offers = useSelector((state: RootState) =>
+    selectOffersByIds(state, bestOffers)
+  );
 
   return (
-    <div className="w-full mx-auto relative z-20 bg-white">
+    <section className="w-full mx-auto relative z-20 bg-white">
       <div className="w-full max-w-7xl p-4  mx-auto flex flex-col  relative  z-20">
         {/* Section Title with Slogan */}
         <div className="mt-12 mb-8 text-center">
@@ -24,13 +28,13 @@ const BestOffersSection: React.FC = () => {
             знижками!"
           />
         </div>
-        {/* New Offers Link */}
+        {/* Best Offers Link */}
         <CustomLink href="/best-offers" label="Переглянути всі пропозиції" />
         <div className="w-full  mx-auto">
           {/* Products List */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 my-8">
-            {!!offers.length &&
-              offers
+          {!!offers.length ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 my-8">
+              {offers
                 .filter((offer) => offer.price !== "0.00")
                 .map(({ $: { id }, price, picture, name }, index) => (
                   <ProductCard
@@ -42,7 +46,10 @@ const BestOffersSection: React.FC = () => {
                     productName={name}
                   />
                 ))}
-          </div>
+            </div>
+          ) : (
+            <ProductListSkeleton />
+          )}
         </div>
       </div>
       {/* Background elements */}
@@ -58,7 +65,7 @@ const BestOffersSection: React.FC = () => {
       <div className="absolute inset-y-0 right-0 w-full h-full -z-0  overflow-hidden">
         <div className="wiggle w-full h-full"></div>
       </div>
-    </div>
+    </section>
   );
 };
 

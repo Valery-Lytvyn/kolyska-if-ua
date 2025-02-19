@@ -1,18 +1,22 @@
 "use client";
 import React from "react";
 import SectionTitle from "../typography/SectionTitle";
-import ProductCard from "../ui/ProductCard";
+import ProductCard from "../ui/productCard/ProductCard";
 import Slider from "../slider/Slider";
 import CustomLink from "../ui/CustomLink";
 import SectionSlogan from "../typography/SectionSlogan";
-import Loader from "@/app/loading";
-import useOffers from "@/hooks/useOffers";
+
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { selectOffersByIds } from "@/store/slices/catalogSlice";
+import ProductListSkeleton from "../productList/ProductListSkeleton";
 
 const NewOffersSection: React.FC = () => {
-  const { offers, loading, error } = useOffers("newOffer");
+  const newOffers = useSelector((state: RootState) => state.catalog.bestOffers);
+  const offers = useSelector((state: RootState) =>
+    selectOffersByIds(state, newOffers)
+  );
 
-  if (loading) return <Loader />;
-  if (error) return <div>Error: {error}</div>;
   return (
     <section className="w-full mx-auto  min-h-screen bg-white relative overflow-hidden">
       {/* Background elements */}
@@ -43,19 +47,23 @@ const NewOffersSection: React.FC = () => {
         <CustomLink href="/new-offers" label="Переглянути всі новинки" />
 
         {/* Slider */}
-        <Slider
-          slides={offers.filter((offer) => offer.price !== "0.00")}
-          renderSlide={({ $: { id }, price, picture, name }, index) => (
-            <ProductCard
-              key={id}
-              index={index}
-              productId={id}
-              price={price}
-              imageUrl={picture}
-              productName={name}
-            />
-          )}
-        />
+        {!!offers.length ? (
+          <Slider
+            slides={offers.filter((offer) => offer.price !== "0.00")}
+            renderSlide={({ $: { id }, price, picture, name }, index) => (
+              <ProductCard
+                key={id}
+                index={index}
+                productId={id}
+                price={price}
+                imageUrl={picture}
+                productName={name}
+              />
+            )}
+          />
+        ) : (
+          <ProductListSkeleton />
+        )}
       </div>
     </section>
   );

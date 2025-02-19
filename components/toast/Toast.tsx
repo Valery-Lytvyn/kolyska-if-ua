@@ -1,13 +1,20 @@
 "use client";
+import { ToastType } from "@/types/types";
 import { AnimatePresence, motion } from "motion/react";
 import React, { useEffect } from "react";
-import { IoCloseOutline } from "react-icons/io5";
+import {
+  IoCloseOutline,
+  IoCheckmarkCircle,
+  IoWarning,
+  IoInformationCircle,
+} from "react-icons/io5";
 
 interface ToastProps {
   message: string;
   isVisible: boolean;
   duration?: number;
   onClose: () => void;
+  type?: ToastType;
 }
 
 const Toast: React.FC<ToastProps> = ({
@@ -15,6 +22,7 @@ const Toast: React.FC<ToastProps> = ({
   isVisible,
   duration = 3000,
   onClose,
+  type = "info",
 }) => {
   useEffect(() => {
     if (isVisible) {
@@ -25,21 +33,52 @@ const Toast: React.FC<ToastProps> = ({
     }
   }, [isVisible, duration, onClose]);
 
+  const getToastStyles = (type: ToastType) => {
+    switch (type) {
+      case "success":
+        return "bg-green-500 border-green-600";
+      case "error":
+        return "bg-red-500 border-red-600";
+      case "info":
+        return "bg-blue-500 border-blue-600";
+      default:
+        return "bg-primary border-primary";
+    }
+  };
+
+  const getToastIcon = (type: ToastType) => {
+    switch (type) {
+      case "success":
+        return <IoCheckmarkCircle className="text-2xl" />;
+      case "error":
+        return <IoWarning className="text-2xl" />;
+      case "info":
+        return <IoInformationCircle className="text-2xl" />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <AnimatePresence>
       {isVisible && (
-        <div className="fixed top-4 inset-x-0 flex justify-center">
+        <div className="fixed top-4 inset-x-0 flex justify-center z-50">
           <motion.div
-            initial={{ opacity: 0, y: -50 }}
+            initial={{ opacity: 0, y: -100 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -50 }}
+            exit={{ opacity: 0, y: "-100%" }}
             transition={{ duration: 0.3, easing: "easeInOut" }}
-            className=" w-fit bg-primary  px-6 pt-4 pb-2 rounded-md shadow-md z-[500] flex  relative border-2 border-error"
+            className={`w-fit ${getToastStyles(
+              type
+            )} px-6 pt-2 pb-1 rounded-md shadow-md z-[500] flex items-center relative border-2`}
           >
-            <div className="text-white p-4 rounded-md ">{message}</div>
+            <div className="text-white p-4 rounded-md flex items-center">
+              {getToastIcon(type)}
+              <span className="ml-2">{message}</span>
+            </div>
             {/* Close button */}
             <motion.button
-              className="absolute top-1 right-1 text-white "
+              className="absolute top-1 right-1 text-white"
               onClick={onClose}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

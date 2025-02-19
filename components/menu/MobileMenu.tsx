@@ -2,17 +2,17 @@ import { MenuItem } from "@/lib/data";
 import Link from "next/link";
 import React from "react";
 
-interface MenuItemProps {
+interface ExpandedMenuProps {
   menuItems: MenuItem[];
 }
-const MobileMenu: React.FC<MenuItemProps> = ({ menuItems }) => {
+const ExpandedMenu: React.FC<ExpandedMenuProps> = ({ menuItems }) => {
   return (
-    <ul className="space-y-2">
+    <ul className="space-y-2 relative z-50">
       {menuItems.map(({ title, href, children }) => (
         <li key={href}>
           <Link
             href={href}
-            className="hover:text-accent transition-colors duration-200"
+            className="hover:text-accent text-white transition-colors duration-200"
           >
             {title}
           </Link>
@@ -22,7 +22,7 @@ const MobileMenu: React.FC<MenuItemProps> = ({ menuItems }) => {
                 <li key={child.href}>
                   <Link
                     href={child.href}
-                    className="hover:text-accent transition-colors duration-200"
+                    className="hover:text-accent transition-colors duration-200 text-white"
                   >
                     {child.title}
                   </Link>
@@ -36,4 +36,4 @@ const MobileMenu: React.FC<MenuItemProps> = ({ menuItems }) => {
   );
 };
 
-export default MobileMenu;
+export default ExpandedMenu;

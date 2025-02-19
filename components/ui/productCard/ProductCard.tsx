@@ -2,11 +2,14 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import BuyButton from "./buttons/BuyButton";
+import BuyButton from "../buttons/BuyButton";
 import { ProductCardProps } from "@/types/types";
-import ProductImage from "./ProductImage";
+import ProductImage from "../ProductImage";
 import { formatPrice } from "@/helpers/formatPrice";
 import { useCart } from "@/hooks/useCart";
+import { useToast } from "@/providers/ToastContext";
+import WishButton from "../buttons/WishButton";
+import useWishlist from "@/hooks/useWishlist";
 
 const ProductCard: React.FC<ProductCardProps> = ({
   index,
@@ -17,11 +20,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const { handleAddToCart } = useCart();
-  // const { showToast } = useToast();
+  const { showToast } = useToast();
+  const { isWished, handleToggleWishlist } = useWishlist(productId);
+
   const formattedPrice = formatPrice(price || "");
   const handleAddToCartClick = async () => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate async operation
       handleAddToCart({
         id: productId,
         name: productName,
@@ -29,23 +33,22 @@ const ProductCard: React.FC<ProductCardProps> = ({
         quantity: 1,
         imageUrl: imageUrl,
       });
-
-      // showToast("Додано до кошика");
+      showToast("Додано до кошика", "success");
     } catch (err) {
       console.error(err);
-      // showToast("Failed to add product to cart.");
+      showToast("Помилка при додаванні до кошика.");
     }
   };
 
   return (
     <motion.article
-      key={`${productId}-${index}`}
-      className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300 h-full group w-full border border-transparent hover:border-accent-hover "
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      // key={`${productId}-${index}`}
+      initial={{ y: 20 }}
+      whileInView={{ y: 0 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
       viewport={{ once: true }}
-      layoutId={productId}
+      // layoutId={productId}
+      className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300 h-full flex group w-full border border-transparent hover:border-accent-hover relative"
     >
       <Link
         href={`/product/${productId}`}
@@ -94,6 +97,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
           </AnimatePresence>
         </motion.section>
       </Link>
+      {/* Wish Button */}
+      <div className="absolute top-0 right-0">
+        <WishButton
+          onToggleWishlist={handleToggleWishlist}
+          isWished={isWished}
+          className="text-2xl"
+        />
+      </div>
     </motion.article>
   );
 };

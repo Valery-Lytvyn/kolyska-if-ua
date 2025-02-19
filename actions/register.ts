@@ -9,7 +9,7 @@ export const register = async (values: {
   password: string;
 }) => {
   const { name, email, password } = values;
-  //   console.log("Password type:", typeof password);
+
   try {
     await dbConnect();
     const userFound = await User.findOne({ email });
