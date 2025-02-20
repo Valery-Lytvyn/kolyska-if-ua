@@ -23,29 +23,34 @@ const initialState: CatalogState = {
 
 export const fetchCatalog = createAsyncThunk(
   "catalog/fetchCatalog",
-  async (_, { dispatch }) => {
-    const data = await fetchCatalogData();
-    const adminData = await fetchAdminData();
+  async (_, { dispatch, rejectWithValue }) => {
+    try {
+      const data = await fetchCatalogData();
+      const adminData = await fetchAdminData();
 
-    const renamedCategories = data.yml_catalog.shop.categories.category
-      .map((category: Category) => {
-        if (!category || !category.$ || !category._) {
-          console.error("Invalid category data:", category);
-          return null;
-        }
-        return {
-          categoryId: category.$.id,
-          name: renameCategory(category._),
-          cyrillicName: category._,
-        };
-      })
-      .filter(Boolean);
+      const renamedCategories = data.yml_catalog.shop.categories.category
+        .map((category: Category) => {
+          if (!category || !category.$ || !category._) {
+            console.error("Invalid category data:", category);
+            return null;
+          }
+          return {
+            categoryId: category.$.id,
+            name: renameCategory(category._),
+            cyrillicName: category._,
+          };
+        })
+        .filter(Boolean);
 
-    dispatch(setCategories(renamedCategories));
-    dispatch(setOffers(data.yml_catalog.shop.offers.offer));
-    dispatch(setBestOffers(adminData.bestOffer));
-    dispatch(setNewOffers(adminData.newOffer));
-    dispatch(setLoaded(true));
+      dispatch(setCategories(renamedCategories));
+      dispatch(setOffers(data.yml_catalog.shop.offers.offer));
+      dispatch(setBestOffers(adminData.bestOffer));
+      dispatch(setNewOffers(adminData.newOffer));
+      dispatch(setLoaded(true));
+    } catch (error) {
+      console.error("Error fetching catalog data:", error);
+      return rejectWithValue(error);
+    }
   }
 );
 

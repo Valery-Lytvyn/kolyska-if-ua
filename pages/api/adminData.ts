@@ -8,30 +8,42 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  await mongoose.connect(MONGODB_URI);
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  try {
+    await mongoose.connect(MONGODB_URI);
+    console.log("Connected to MongoDB");
 
-  if (req.method === "GET") {
-    const data = await AdminData.findOne();
-    return res
-      .status(200)
-      .json(data || { bestOffer: [], newOffer: [], bgImagePath: [] });
-  }
-
-  if (req.method === "POST") {
-    const { bestOffer, newOffer, bgImagePath } = req.body;
-    let data = await AdminData.findOne();
-
-    if (!data) {
-      data = new AdminData({ bestOffer, newOffer, bgImagePath });
-    } else {
-      data.bestOffer = bestOffer;
-      data.newOffer = newOffer;
-      data.bgImagePath = bgImagePath;
+    if (req.method === "GET") {
+      const data = await AdminData.findOne();
+      return res
+        .status(200)
+        .json(data || { bestOffer: [], newOffer: [], bgImagePath: [] });
     }
 
-    await data.save();
-    return res.status(200).json({ message: "Data updated successfully" });
-  }
+    if (req.method === "POST") {
+      const { bestOffer, newOffer, bgImagePath } = req.body;
+      let data = await AdminData.findOne();
 
-  return res.status(405).json({ message: "Method not allowed" });
+      if (!data) {
+        data = new AdminData({ bestOffer, newOffer, bgImagePath });
+      } else {
+        data.bestOffer = bestOffer;
+        data.newOffer = newOffer;
+        data.bgImagePath = bgImagePath;
+      }
+
+      await data.save();
+      return res.status(200).json({ message: "Data updated successfully" });
+    }
+
+    return res.status(405).json({ message: "Method not allowed" });
+  } catch (error) {
+    console.error("Error in API handler:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  } finally {
+    await mongoose.disconnect();
+    console.log("Disconnected from MongoDB");
+  }
 }
