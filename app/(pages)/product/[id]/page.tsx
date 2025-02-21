@@ -18,6 +18,8 @@ import { useCart } from "@/hooks/useCart";
 import { addViewedProduct } from "@/store/slices/viewedProductsSlice";
 import WishButton from "@/components/ui/buttons/WishButton";
 import useWishlist from "@/hooks/useWishlist";
+import { useToast } from "@/providers/ToastContext";
+import Loader from "@/app/loading";
 
 const ProductPage = () => {
   const { count, increment, decrement } = useCounter(1, 1, 9);
@@ -27,6 +29,7 @@ const ProductPage = () => {
   const dispatch = useDispatch();
   const params = useParams<{ id: string }>();
   const productId = params?.id;
+  const { showToast } = useToast();
 
   const product = useSelector((state: RootState) =>
     selectProductById(state, productId as string)
@@ -51,33 +54,38 @@ const ProductPage = () => {
     setIsDescriptionExpanded((prev) => !prev);
   }, []);
 
+  const formattedPrice = formatPrice(price || "");
+
   const handleAddToCartClick = useCallback(async () => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate async operation
       handleAddToCart({
         id: productId as string,
         name: productName as string,
-        price: formatPrice(price || ""),
+        price: formattedPrice,
         quantity: count,
         imageUrl: imageUrl as string,
       });
-      // showToast("Додано до кошика");
+      showToast("Додано до кошика", "success");
     } catch (err) {
       console.error(err);
-      // showToast("Failed to add product to cart.");
+      showToast("Помилка при додаванні до кошика.");
     }
-  }, [count, handleAddToCart, imageUrl, price, productId, productName]);
+  }, [
+    formattedPrice,
+    count,
+    handleAddToCart,
+    imageUrl,
+    productId,
+    productName,
+    showToast,
+  ]);
 
   if (!product) {
-    return (
-      <div className="flex items-center justify-center min-h-[calc(100vh-13rem)] w-full bg-light-gray">
-        <p className="text-secondary text-lg">На жаль товар не знайдено.</p>
-      </div>
-    );
+    return <Loader />;
   }
 
   return (
-    <div className="flex items-center justify-center p-4 bg-light-gray min-h-[calc(100vh-13rem)]">
+    <main className="flex items-center justify-center p-4 bg-light-gray min-h-[calc(100vh-13rem)]">
       <motion.div
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -117,7 +125,7 @@ const ProductPage = () => {
           {/* Content Section */}
           <div className="p-8 space-y-6 flex-1">
             <p className="text-3xl font-semibold text-accent">
-              {formatPrice(price || "")} {" грн"}
+              {formattedPrice} {" грн"}
             </p>
 
             {/* Description with Expand/Collapse */}
@@ -168,7 +176,7 @@ const ProductPage = () => {
           </div>
         </div>
       </motion.div>
-    </div>
+    </main>
   );
 };
 

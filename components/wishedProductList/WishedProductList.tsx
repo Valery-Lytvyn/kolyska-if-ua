@@ -6,6 +6,7 @@ import ProductCard from "../ui/productCard/ProductCard";
 import CustomLink from "../ui/CustomLink";
 import SectionTitle from "../typography/SectionTitle";
 import { Offer } from "@/types/types";
+import { ROUTES } from "@/routes/routes";
 
 interface WishedProductListProps {
   products: Offer[];
@@ -18,9 +19,8 @@ const WishedProductList: React.FC<WishedProductListProps> = ({ products }) => {
         <section className="w-full mx-auto border-t">
           <div className="w-full max-w-7xl p-4  mx-auto flex flex-col  relative z-20">
             <SectionTitle title="Товари, які вам сподобались." />
-            <CustomLink href="/" label="Повернутися на головну" />
+            <CustomLink href={ROUTES.home} label="Повернутися на головну" />
             {/* Products List */}
-
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 my-8">
               {products
                 .filter((offer) => offer.price !== "0.00")

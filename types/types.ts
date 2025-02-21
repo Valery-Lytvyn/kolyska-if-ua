@@ -120,3 +120,10 @@ export interface UserState {
   email: string;
   isAuthenticated: boolean;
 }
+
+export interface ContactLocation {
+  name: string;
+  address: string;
+  mapLink: string;
+  image: string;
+}

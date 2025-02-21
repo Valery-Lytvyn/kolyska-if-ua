@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { selectOffersByIds } from "@/store/slices/catalogSlice";
 import ProductListSkeleton from "../productList/ProductListSkeleton";
+import { ROUTES } from "@/routes/routes";
 
 const BestOffersSection: React.FC = () => {
   const bestOffers = useSelector(
@@ -29,7 +30,10 @@ const BestOffersSection: React.FC = () => {
           />
         </div>
         {/* Best Offers Link */}
-        <CustomLink href="/best-offers" label="Переглянути всі пропозиції" />
+        <CustomLink
+          href={ROUTES.bestOffers}
+          label="Переглянути всі пропозиції"
+        />
         <div className="w-full  mx-auto">
           {/* Products List */}
           {!!offers.length ? (

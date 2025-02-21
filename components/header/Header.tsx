@@ -15,6 +15,7 @@ import WishlistButton from "../ui/buttons/WishlistButton";
 import { useRouter } from "next/navigation";
 import { AnimatePresence } from "motion/react";
 import MobileMenu from "./MobileMenu";
+import { ROUTES } from "@/routes/routes";
 
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -55,7 +56,7 @@ const Header: React.FC = () => {
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row flex-wrap justify-between items-center p-4 gap-4 w-full">
         {/* Logo */}
         <Link
-          href="/"
+          href={ROUTES.home}
           className="text-2xl font-bold text-primary hover:text-primary-hover transition-colors title"
         >
           Kolyska.if.ua

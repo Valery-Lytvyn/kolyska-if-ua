@@ -1,7 +1,7 @@
 import React from "react";
 
 interface CustomInputProps {
-  type: "text" | "email" | "password";
+  type: "text" | "email" | "password" | "tel";
   placeholder: string;
   name: string;
   label?: string;

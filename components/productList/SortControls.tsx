@@ -1,28 +1,23 @@
 "use client";
-import { Categories } from "@/types/types";
 import React, { useCallback } from "react";
 import CustomDropdown from "./CustomDropdown";
 
 interface SortControlsProps {
   sortBy: "name" | "price";
   sortDirection: "asc" | "desc";
-  selectedCategories: string[]; // Тепер це масив
-  categories: Categories[];
+  categorySlug?: string;
   onSortByChange: (sortBy: "name" | "price") => void;
   onSortDirectionChange: (sortDirection: "asc" | "desc") => void;
   onCategoryChange: (categoryId: string | null) => void;
-  isCategoryDisabled?: boolean;
 }
 
 const SortControls: React.FC<SortControlsProps> = ({
   sortBy,
   sortDirection,
-  selectedCategories,
-  categories,
+  categorySlug,
   onSortByChange,
   onSortDirectionChange,
   onCategoryChange,
-  isCategoryDisabled = false,
 }) => {
   const handleSortByChange = useCallback(
     (type: "name" | "price") => {
@@ -37,8 +32,7 @@ const SortControls: React.FC<SortControlsProps> = ({
   );
 
   return (
-    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4 ">
-      {/* Кнопки сортування */}
+    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
       <div className="flex gap-4">
         <button
           onClick={() => handleSortByChange("name")}
@@ -66,16 +60,12 @@ const SortControls: React.FC<SortControlsProps> = ({
         </button>
       </div>
 
-      {/* Випадаючий список категорій */}
-      {!isCategoryDisabled && (
-        <CustomDropdown
-          categories={categories}
-          selectedCategories={selectedCategories}
-          onCategoryChange={onCategoryChange}
-        />
-      )}
+      <CustomDropdown
+        categorySlug={categorySlug}
+        onCategoryChange={onCategoryChange}
+      />
     </div>
   );
 };
 
-export default SortControls;
+export default React.memo(SortControls);

@@ -3,6 +3,7 @@ import Image from "next/image";
 import React from "react";
 import { motion } from "motion/react";
 import Link from "next/link";
+import { ROUTES } from "@/routes/routes";
 
 const HeroSection: React.FC = () => {
   return (
@@ -49,7 +50,7 @@ const HeroSection: React.FC = () => {
                 bounce: 0.6,
               }}
             >
-              <Link href="/" aria-label="Перейти до каталогу">
+              <Link href={ROUTES.catalog} aria-label="Перейти до каталогу">
                 <div className="px-6 py-3 text-lg md:text-2xl font-semibold bg-accent text-black rounded-lg shadow-lg hover:bg-accent-hover transform duration-300 hover:scale-105">
                   Перейти до каталогу
                 </div>

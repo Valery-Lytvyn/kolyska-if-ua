@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { selectOffersByIds } from "@/store/slices/catalogSlice";
 import ProductListSkeleton from "../productList/ProductListSkeleton";
+import { ROUTES } from "@/routes/routes";
 
 const NewOffersSection: React.FC = () => {
   const newOffers = useSelector((state: RootState) => state.catalog.bestOffers);
@@ -44,7 +45,7 @@ const NewOffersSection: React.FC = () => {
           />
         </div>
         {/* New Offers Link */}
-        <CustomLink href="/new-offers" label="Переглянути всі новинки" />
+        <CustomLink href={ROUTES.newOffers} label="Переглянути всі новинки" />
 
         {/* Slider */}
         {!!offers.length ? (

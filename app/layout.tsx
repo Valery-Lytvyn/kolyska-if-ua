@@ -9,6 +9,7 @@ import ScrollToTop from "@/components/ui/ScrollToTop";
 import Footer from "@/components/footer/Footer";
 import { ToastProvider } from "@/providers/ToastContext";
 import StoreProvider from "@/providers/StoreProvider";
+import PhoneLinkModal from "@/components/ui/PhoneLinkModal";
 
 const notoSans = Noto_Sans({
   subsets: ["cyrillic"],
@@ -45,6 +46,7 @@ export default function RootLayout({
               <Header />
               <main className="flex-1">
                 <Suspense fallback={<Loading />}>{children}</Suspense>
+                <PhoneLinkModal />
               </main>
               <Footer />
               <ScrollToTop />

@@ -9,19 +9,20 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const BestOffers: React.FC = () => {
-  const bestOffers = useSelector(
-    (state: RootState) => state.catalog.bestOffers
-  );
+  const newOffers = useSelector((state: RootState) => state.catalog.bestOffers);
   const offers = useSelector((state: RootState) =>
-    selectOffersByIds(state, bestOffers)
+    selectOffersByIds(state, newOffers)
   );
   return (
     <main className="bg-white min-h-[calc(100vh-13rem)]">
       <section className="w-full max-w-7xl p-4 mx-auto flex flex-col">
         {/* Section Title with Slogan */}
         <div className="mt-12 mb-8 text-center">
-          <SectionTitle title="Найкращі пропозиції" />
-          <SectionSlogan slogan="Оберіть найвигідніші пропозиції та насолоджуйтесь ексклюзивними знижками!" />
+          <SectionTitle title="Наші новинки" />
+          <SectionSlogan
+            slogan=" Відкрийте для себе найсвіжіші пропозиції, які ми підготували
+            спеціально для вас."
+          />
         </div>
         <div className="w-full mx-auto">
           {/* Products List */}

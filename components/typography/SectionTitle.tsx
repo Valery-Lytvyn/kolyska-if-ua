@@ -1,6 +1,6 @@
 "use client";
-import React from "react";
-import { motion } from "motion/react";
+import React, { useRef } from "react";
+import { motion, useInView } from "motion/react";
 
 interface SectionTitleProps {
   title: string;
@@ -8,11 +8,14 @@ interface SectionTitleProps {
 }
 
 const SectionTitle: React.FC<SectionTitleProps> = ({ title, className }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref);
   return (
     <motion.h2
+      ref={ref}
       className={`${className} text-4xl md:text-5xl lg:text-6xl  text-balance font-bold text-primary py-2`}
       initial={{ scale: 0, opacity: 0 }}
-      whileInView={{ scale: 1, opacity: 1 }}
+      animate={isInView ? { scale: 1, opacity: 1 } : {}}
       transition={{
         type: "spring",
         stiffness: 100,

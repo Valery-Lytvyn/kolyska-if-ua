@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 import { IoLogInOutline, IoLogOutOutline } from "react-icons/io5";
 import Image from "next/image";
+import { ROUTES } from "@/routes/routes";
 
 const AuthButton = React.memo(() => {
   const router = useRouter();
@@ -48,7 +49,7 @@ const AuthButton = React.memo(() => {
   } else {
     return (
       <motion.button
-        onClick={() => router.push("/login")}
+        onClick={() => router.push(ROUTES.login)}
         className="p-2 bg-primary text-white rounded-lg hover:bg-primary-hover transition-colors"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}

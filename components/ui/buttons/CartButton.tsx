@@ -21,7 +21,7 @@ const CartButton: React.FC<CartButtonProps> = ({
     >
       <IoCartOutline className="text-2xl" />
       {!!quantityItemsInCart && (
-        <span className="absolute -top-1 -right-1 bg-accent text-white text-xs rounded-full w-4 h-4 flex justify-center items-center">
+        <span className="absolute -top-1 -right-1 bg-accent text-white text-xs rounded-full w-5 h-5 flex justify-center items-center text-center">
           {quantityItemsInCart}
         </span>
       )}

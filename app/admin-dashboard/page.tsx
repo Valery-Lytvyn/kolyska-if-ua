@@ -1,5 +1,6 @@
 "use client";
 import { useToast } from "@/providers/ToastContext";
+import { ROUTES } from "@/routes/routes";
 import { useRouter } from "next/navigation";
 import { useState, useEffect, useCallback } from "react";
 
@@ -80,7 +81,7 @@ const AdminDashboard: React.FC = () => {
       console.error("Error saving data:", error);
       alert("Failed to save data. Please try again.");
     } finally {
-      router.push("/");
+      router.push(ROUTES.home);
     }
   };
 

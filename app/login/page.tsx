@@ -9,6 +9,7 @@ import { useForm } from "@/hooks/useForm";
 import GoogleLoginButton from "@/components/ui/buttons/GoogleLoginButton";
 import { setUser } from "@/store/slices/userSlice";
 import { useDispatch } from "react-redux";
+import { ROUTES } from "@/routes/routes";
 
 const LoginForm = ({ goToLink }: { goToLink: (path: string) => void }) => {
   const { formData, error, setError, handleChange } = useForm({
@@ -36,7 +37,7 @@ const LoginForm = ({ goToLink }: { goToLink: (path: string) => void }) => {
       }
       if (res?.ok) {
         dispatch(setUser({ name: formData.name, email: formData.email }));
-        return goToLink("/");
+        return goToLink(ROUTES.home);
       }
     }
   };

@@ -5,7 +5,7 @@ export const useForm = (initialState: Record<string, string>) => {
   const [error, setError] = useState("");
 
   const handleChange = useCallback(
-    (ev: React.ChangeEvent<HTMLInputElement>) => {
+    (ev: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { name, value } = ev.target;
       setFormData((prev) => ({ ...prev, [name]: value }));
     },

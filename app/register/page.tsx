@@ -6,6 +6,7 @@ import AnimatedWrapper from "@/components/ui/AnimatedWrapper";
 import CustomInput from "@/components/ui/CustomInput";
 import CustomButton from "@/components/ui/buttons/CustomButton";
 import { useForm } from "@/hooks/useForm";
+import { ROUTES } from "@/routes/routes";
 
 const RegisterForm = ({ goToLink }: { goToLink: (path: string) => void }) => {
   const { formData, error, setError, handleChange } = useForm({
@@ -32,7 +33,7 @@ const RegisterForm = ({ goToLink }: { goToLink: (path: string) => void }) => {
         setError(res.error as string);
         return;
       } else {
-        return goToLink("/login");
+        return goToLink(ROUTES.login);
       }
     }
   };
@@ -77,7 +78,7 @@ const RegisterForm = ({ goToLink }: { goToLink: (path: string) => void }) => {
       />
       <CustomButton label="Зареєструватися" name="Зареєструватися" />
       <span
-        onClick={() => goToLink("/login")}
+        onClick={() => goToLink(ROUTES.login)}
         className="text-sm text-[#888] transition duration-150 ease hover:text-black hover:underline cursor-pointer"
       >
         Вже маєте акаунт?

@@ -2,7 +2,8 @@ import { menuItems, navItems } from "@/lib/data";
 import Link from "next/link";
 import React from "react";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
-import ExpandedMenu from "../menu/MobileMenu";
+import ExpandedMenu from "../menu/ExpandedMenu";
+import { ROUTES } from "@/routes/routes";
 
 const Footer: React.FC = () => {
   return (
@@ -21,14 +22,15 @@ const Footer: React.FC = () => {
             <p className="mb-2">
               Телефон:{" "}
               <a
-                href="tel:+380XXXXXXXXX"
+                href="tel:+380662958583"
                 className="hover:text-accent transition-colors duration-200"
               >
-                +380XXXXXXXXX
+                +380662958583
               </a>
             </p>
             <p className="mb-2">Адреси магазинів:</p>
             <ul className="space-y-1">
+              <li>м. Івано-Франківськ</li>
               <li>вул. Любомира Гузара, 24a, 2ий поверх</li>
               <li>вул. Павла Тичини, 7, 2ий поверх</li>
             </ul>
@@ -71,7 +73,7 @@ const Footer: React.FC = () => {
         <p className="text-sm">
           © {new Date().getFullYear()}{" "}
           <Link
-            href="/"
+            href={ROUTES.home}
             className="font-bold text-accent hover:text-accent-hover transition-colors duration-200"
           >
             Kolyska.if.ua

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import BuyButton from "../buttons/BuyButton";
@@ -24,7 +24,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const { isWished, handleToggleWishlist } = useWishlist(productId);
 
   const formattedPrice = formatPrice(price || "");
-  const handleAddToCartClick = async () => {
+
+  const handleAddToCartClick = useCallback(async () => {
     try {
       handleAddToCart({
         id: productId,
@@ -38,8 +39,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
       console.error(err);
       showToast("Помилка при додаванні до кошика.");
     }
-  };
-
+  }, [
+    formattedPrice,
+    handleAddToCart,
+    imageUrl,
+    productId,
+    productName,
+    showToast,
+  ]);
   return (
     <motion.article
       // key={`${productId}-${index}`}
@@ -48,7 +55,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       transition={{ duration: 0.5, ease: "easeInOut" }}
       viewport={{ once: true }}
       // layoutId={productId}
-      className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300 h-full flex group w-full border border-transparent hover:border-accent-hover relative"
+      className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300 h-full flex group w-full border min-h-[480px] border-transparent hover:border-accent-hover relative"
     >
       <Link
         href={`/product/${productId}`}

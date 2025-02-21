@@ -4,8 +4,9 @@ import React from "react";
 
 interface ExpandedMenuProps {
   menuItems: MenuItem[];
+  onClick?: () => void;
 }
-const ExpandedMenu: React.FC<ExpandedMenuProps> = ({ menuItems }) => {
+const ExpandedMenu: React.FC<ExpandedMenuProps> = ({ menuItems, onClick }) => {
   return (
     <ul className="space-y-2 relative z-50">
       {menuItems.map(({ title, href, children }) => (
@@ -13,6 +14,7 @@ const ExpandedMenu: React.FC<ExpandedMenuProps> = ({ menuItems }) => {
           <Link
             href={href}
             className="hover:text-accent text-white transition-colors duration-200"
+            onClick={onClick}
           >
             {title}
           </Link>
@@ -23,6 +25,7 @@ const ExpandedMenu: React.FC<ExpandedMenuProps> = ({ menuItems }) => {
                   <Link
                     href={child.href}
                     className="hover:text-accent transition-colors duration-200 text-white"
+                    onClick={onClick}
                   >
                     {child.title}
                   </Link>

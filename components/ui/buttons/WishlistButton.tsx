@@ -22,7 +22,7 @@ const WishlistButton: React.FC<WishlistButtonProps> = ({
     >
       <IoHeartOutline className="text-2xl" />
       {quantityWishedItems > 0 && (
-        <span className="absolute -top-1 -right-1 bg-accent text-white text-xs rounded-full w-4 h-4 flex justify-center items-center">
+        <span className="absolute -top-1 -right-1 bg-accent text-white text-xs rounded-full w-5 h-5 flex justify-center items-center">
           {quantityWishedItems}
         </span>
       )}

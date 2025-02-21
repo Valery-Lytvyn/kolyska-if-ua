@@ -4,8 +4,9 @@ import { useSelector } from "react-redux";
 import { useRouter, useSearchParams } from "next/navigation";
 import { RootState } from "@/store/store";
 import dynamic from "next/dynamic";
-import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import ProductCard from "@/components/ui/productCard/ProductCard";
+import { ITEMS_PER_PAGE } from "@/lib/contants";
+import Loader from "@/app/loading";
 
 const Pagination = dynamic(
   () => import("@/components/productList/Pagination"),
@@ -13,8 +14,6 @@ const Pagination = dynamic(
     ssr: false,
   }
 );
-
-const ITEMS_PER_PAGE = 12;
 
 const SearchPage: React.FC = () => {
   const router = useRouter();
@@ -48,11 +47,7 @@ const SearchPage: React.FC = () => {
   );
 
   if (!offers.length) {
-    return (
-      <main className="w-full max-w-7xl mx-auto p-4 z-10 relative flex flex-col items-center justify-center min-h-[60vh]">
-        <LoadingSpinner />
-      </main>
-    );
+    return <Loader />;
   }
 
   if (!paginatedOffers.length) {

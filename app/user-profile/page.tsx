@@ -9,6 +9,7 @@ import Link from "next/link";
 import Modal from "@/components/ui/Modal";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import DeleteButton from "@/components/ui/buttons/DeleteButton";
+import { ROUTES } from "@/routes/routes";
 
 const adminName = process.env.NEXT_PUBLIC_ADMIN_NAME;
 const adminEmail = process.env.NEXT_PUBLIC_ADMIN_EMAIL;
@@ -36,12 +37,12 @@ const UserProfile = () => {
       if (!response.ok) throw new Error(data.error || "Failed to delete user");
 
       await signOut({ redirect: false });
-      router.push("/");
+      router.push(ROUTES.home);
     } catch (err) {
       if (err instanceof Error) {
         if (err.message === "User not found") {
           await signOut({ redirect: false });
-          router.push("/");
+          router.push(ROUTES.home);
         } else {
           setError(err.message);
         }
@@ -100,7 +101,7 @@ const UserProfile = () => {
           <div className="w-full flex justify-center flex-col sm:flex-row gap-4">
             {/* Back to Home Link */}
             <Link
-              href="/"
+              href={ROUTES.home}
               className="w-full bg-accent text-white py-3 px-1 font-medium rounded-lg hover:bg-accent/90 transition-colors duration-200 text-center"
             >
               ← Повернутися на головну
@@ -114,7 +115,7 @@ const UserProfile = () => {
 
           {adminName === userData?.name && adminEmail === userData?.email && (
             <Link
-              href="/admin-dashboard"
+              href={ROUTES.adminDashboard}
               className="w-full bg-primary text-accent mt-6
              py-3 px-1 font-medium rounded-lg hover:bg-secondary transition-colors duration-200 text-center"
             >

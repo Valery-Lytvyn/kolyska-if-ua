@@ -1,47 +1,55 @@
 "use client";
+import React, { useState, useRef, useCallback, useMemo } from "react";
 import { useOnClickOutside } from "@/hooks/useOnClickOutside";
-import { Categories } from "@/types/types";
-import { useState, useRef } from "react";
+import { MenuItem, menuItems } from "@/lib/data";
+import Link from "next/link";
 
 interface CustomDropdownProps {
-  categories: Categories[];
-  selectedCategories: string[]; // Тепер це масив
-  onCategoryChange: (categoryId: string | null) => void;
+  categorySlug?: string;
+  onCategoryChange?: (categoryId: string | null) => void;
 }
 
-const CustomDropdown: React.FC<CustomDropdownProps> = ({
-  categories,
-  selectedCategories,
-  onCategoryChange,
-}) => {
+const CustomDropdown: React.FC<CustomDropdownProps> = ({ categorySlug }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  // Close dropdown when clicking outside
   useOnClickOutside(dropdownRef as React.RefObject<HTMLElement>, () =>
     setIsOpen(false)
   );
 
-  const handleCategorySelect = (categoryId: string | null) => {
-    onCategoryChange(categoryId);
-    setIsOpen(false);
-  };
+  // Memoize the current category to avoid recalculating on every render
+  const currentCategory = useMemo(() => {
+    const findCategory = (
+      items: MenuItem[],
+      slug: string
+    ): string | undefined => {
+      for (const item of items) {
+        if (item.label === slug) return item.title;
+        if (item.children) {
+          const found = findCategory(item.children, slug);
+          if (found) return found;
+        }
+      }
+    };
+    return categorySlug
+      ? findCategory(menuItems, categorySlug)
+      : "Всі категорії";
+  }, [categorySlug]);
 
-  if (!categories) return null;
+  // Toggle dropdown visibility
+  const toggleDropdown = useCallback(() => setIsOpen((prev) => !prev), []);
 
   return (
     <div className="relative w-56" ref={dropdownRef}>
+      {/* Dropdown Button */}
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={toggleDropdown}
         aria-label="Filter by category"
-        className="px-4 py-2 rounded-lg bg-light-gray text-primary flex items-center justify-between w-full"
+        aria-expanded={isOpen}
+        className="px-4 py-2 rounded-lg bg-light-gray text-primary hover:bg-accent-hover transition-colors duration-200 flex items-center justify-between w-full focus:outline-none focus:ring-2 focus:ring-accent focus:ring-opacity-50"
       >
-        {selectedCategories.length > 0
-          ? selectedCategories
-              .map(
-                (id) => categories.find((cat) => cat.categoryId === id)?.name
-              )
-              .join(", ")
-          : "Всі категорії"}
+        <span className="truncate">{currentCategory}</span>
         <svg
           className={`w-4 h-4 ml-2 transition-transform ${
             isOpen ? "rotate-180" : ""
@@ -60,25 +68,39 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
         </svg>
       </button>
 
+      {/* Dropdown Menu */}
       {isOpen && (
-        <ul className="absolute z-30 mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden">
-          <li
-            onClick={() => handleCategorySelect(null)}
-            className="px-4 py-2 hover:bg-accent-hover cursor-pointer"
-          >
-            Всі категорії
-          </li>
-          {categories.map((category) => (
-            <li
-              key={category.categoryId}
-              onClick={() => handleCategorySelect(category.categoryId)}
-              className={`px-4 py-2 hover:bg-accent-hover cursor-pointer ${
-                selectedCategories.includes(category.categoryId)
-                  ? "bg-accent text-white"
-                  : ""
-              }`}
-            >
-              {category.cyrillicName}
+        <ul className="absolute z-30 mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden space-y-1 animate-fade-in">
+          {menuItems.map(({ title, href, children }) => (
+            <li key={href}>
+              <Link
+                href={href}
+                className={`block px-4 py-2 text-sm font-semibold text-secondary hover:bg-accent-hover hover:text-white transition-colors duration-200 ${
+                  title === currentCategory ? "bg-accent text-white" : ""
+                }`}
+              >
+                {title}
+              </Link>
+
+              {/* Nested Children */}
+              {children && (
+                <ul className="pl-4 space-y-1">
+                  {children.map((child) => (
+                    <li key={child.href}>
+                      <Link
+                        href={child.href}
+                        className={`block px-4 py-2 text-sm text-secondary hover:bg-accent-hover hover:text-white transition-colors duration-200 ${
+                          child.title === currentCategory
+                            ? "bg-accent text-white"
+                            : ""
+                        }`}
+                      >
+                        {child.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </li>
           ))}
         </ul>
@@ -87,4 +109,4 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
   );
 };
 
-export default CustomDropdown;
+export default React.memo(CustomDropdown);
