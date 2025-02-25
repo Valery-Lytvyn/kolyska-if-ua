@@ -5,11 +5,11 @@ import Header from "@/components/header/Header";
 import "./globals.css";
 import { Suspense } from "react";
 import Loading from "./loading";
-import ScrollToTop from "@/components/ui/ScrollToTop";
+import ScrollToTop from "@/components/shared/buttons/ScrollToTop";
 import Footer from "@/components/footer/Footer";
 import { ToastProvider } from "@/providers/ToastContext";
 import StoreProvider from "@/providers/StoreProvider";
-import PhoneLinkModal from "@/components/ui/PhoneLinkModal";
+import PhoneLinkModal from "@/components/shared/modals/PhoneLinkModal";
 
 const notoSans = Noto_Sans({
   subsets: ["cyrillic"],

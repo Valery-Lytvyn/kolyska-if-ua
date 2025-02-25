@@ -1,5 +1,5 @@
 "use client";
-import Toast from "@/components/toast/Toast";
+import Toast from "@/components/shared/tooltips/Toast";
 import React, { createContext, useContext, useState } from "react";
 import { ToastType } from "@/types/types";
 

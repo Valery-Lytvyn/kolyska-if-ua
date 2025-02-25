@@ -6,9 +6,9 @@ import Image from "next/image";
 import { FaUser } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import Modal from "@/components/ui/Modal";
-import LoadingSpinner from "@/components/ui/LoadingSpinner";
-import DeleteButton from "@/components/ui/buttons/DeleteButton";
+import Modal from "@/components/shared/modals/Modal";
+import LoadingSpinner from "@/components/shared/spiners/LoadingSpinner";
+import DeleteButton from "@/components/shared/buttons/DeleteButton";
 import { ROUTES } from "@/routes/routes";
 
 const adminName = process.env.NEXT_PUBLIC_ADMIN_NAME;

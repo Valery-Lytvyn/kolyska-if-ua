@@ -5,16 +5,13 @@ import { RootState } from "@/store/store";
 import ProductList from "@/components/productList/ProductList";
 import { notFound, useParams } from "next/navigation";
 import Loader from "@/app/loading";
-import CustomLink from "@/components/ui/CustomLink";
+import CustomLink from "@/components/shared/links/CustomLink";
 import { ROUTES } from "@/routes/routes";
 
 export default function CatalogPage() {
   const params = useParams();
   const page = Number(params?.page);
 
-  // const categories = useSelector(
-  //   (state: RootState) => state.catalog.categoryMap
-  // );
   const offers = useSelector((state: RootState) => state.catalog.offers);
   const isLoading = useMemo(() => offers.length === 0, [offers]);
 
@@ -26,17 +23,9 @@ export default function CatalogPage() {
   }
 
   return (
-    <main className="w-full mx-auto relative z-10 bg-white overflow-hidden min-h-screen flex flex-col items-center p-4 sm:p-6 lg:p-8">
-      <CustomLink
-        href={ROUTES.home}
-        label="Повернутися на головну"
-        className="mb-4 self-start"
-      />
-      <ProductList
-        // categories={categories}
-        offers={offers}
-        currentPage={currentPage}
-      />
+    <main className="w-full mx-auto relative z-10 bg-white overflow-hidden min-h-[calc(100vh-13rem)] flex flex-col justify-center items-center">
+      <CustomLink href={ROUTES.home} label="Повернутися на головну" />
+      <ProductList offers={offers} currentPage={currentPage} />
     </main>
   );
 }

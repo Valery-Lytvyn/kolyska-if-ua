@@ -1,16 +1,16 @@
 import { ROUTES } from "@/routes/routes";
-import { ContactLocation, NavItem } from "@/types/types";
+import { MenuItem, NavItem } from "@/types/types";
 import { BsInfoLg } from "react-icons/bs";
 import { IoHomeOutline, IoCardOutline } from "react-icons/io5";
 import { RiContactsBook3Line } from "react-icons/ri";
 import { TbTruckDelivery } from "react-icons/tb";
 
 export const navItems: NavItem[] = [
-  { item: "Головна", href: ROUTES.home, icon: <IoHomeOutline /> },
-  { item: "Про нас", href: ROUTES.about, icon: <BsInfoLg /> },
-  { item: "Доставка", href: ROUTES.delivery, icon: <TbTruckDelivery /> },
-  { item: "Оплата", href: ROUTES.payment, icon: <IoCardOutline /> },
-  { item: "Контакти", href: ROUTES.contact, icon: <RiContactsBook3Line /> },
+  { item: "Головна", href: ROUTES.home, icon: IoHomeOutline },
+  { item: "Про нас", href: ROUTES.about, icon: BsInfoLg },
+  { item: "Доставка", href: ROUTES.delivery, icon: TbTruckDelivery },
+  { item: "Оплата", href: ROUTES.payment, icon: IoCardOutline },
+  { item: "Контакти", href: ROUTES.contact, icon: RiContactsBook3Line },
 ];
 export const categories = [
   {
@@ -94,102 +94,67 @@ export const categorySlugToIdMap = {
   walkers: ["11054"], // Ходунці
   "runners-bikes": ["67665"], // Біговели
 };
-export interface MenuItem {
-  title: string;
-  href: string;
-  children?: MenuItem[];
-  label: string;
-}
-export interface Category {
-  id: string;
-  name: string;
-  slug: string;
-}
 
 export const menuItems: MenuItem[] = [
   {
     title: "Каталог",
-    href: ROUTES.catalog,
-    label: "catalog",
+    href: "catalog",
   },
   {
     title: "Автокрісла",
-    href: ROUTES.carSeats,
-    label: "car-seats",
-    children: [
-      { title: "Автокрісла", href: ROUTES.carSeats, label: "car-seats" },
-    ],
+    href: "car-seats",
+    children: [{ title: "Автокрісла", href: "car-seats" }],
   },
   {
     title: "Візочки",
-    href: ROUTES.allStrollers,
-    label: "all-strollers",
+    href: "all-strollers",
     children: [
       {
         title: "Візочки універсальні",
-        href: ROUTES.universalStrollers,
-        label: "universal-strollers",
+        href: "universal-strollers",
       },
       {
         title: "Візочки прогулянкові",
-        href: ROUTES.strollers,
-        label: "strollers",
+        href: "strollers",
       },
     ],
   },
   {
     title: "Активний відпочинок",
-    href: ROUTES.activeRecreation,
-    label: "active-recreation",
+    href: "active-recreation",
     children: [
-      { title: "Велосипеди", href: ROUTES.twoWheels, label: "two-wheels" },
+      { title: "Велосипеди", href: "two-wheels" },
       {
         title: "Велосипеди триколісні",
-        href: ROUTES.threeWheels,
-        label: "three-wheels",
+
+        href: "three-wheels",
       },
-      { title: "Ходунці", href: ROUTES.walkers, label: "walkers" },
-      { title: "Біговели", href: ROUTES.runnersBikes, label: "runners-bikes" },
+      { title: "Ходунці", href: "walkers" },
+      { title: "Біговели", href: "runners-bikes" },
     ],
   },
   {
     title: "Дитяча кімната",
-    href: ROUTES.nursery,
-    label: "nursery",
+
+    href: "nursery",
     children: [
       {
         title: "Дитячі ліжечка",
-        href: ROUTES.cribsAndMattresses,
-        label: "cribs-and-mattresses",
+
+        href: "cribs-and-mattresses",
       },
       {
         title: "Крісла для годування",
-        href: ROUTES.feedingChairs,
-        label: "feeding-chairs",
+
+        href: "feeding-chairs",
       },
-      { title: "Манежі", href: ROUTES.playpens, label: "playpens" },
+      { title: "Манежі", href: "playpens" },
       {
         title: "Шезлонги",
-        href: ROUTES.childrenChaiseLounges,
-        label: "children-chaise-lounges",
+
+        href: "children-chaise-lounges",
       },
-      { title: "Аксесуари", href: ROUTES.accessories, label: "accessories" },
+      { title: "Аксесуари", href: "accessories" },
     ],
-  },
-];
-export const locations: ContactLocation[] = [
-  {
-    name: 'ТЦ "Альянс"',
-    address: "м. Івано-Франківськ, вул. Любомира Гузара, 24",
-    mapLink:
-      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d194.844980229117!2d24.70699577565619!3d48.92470576865736!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4730c17019a9a84d%3A0x9c1b553566717d2a!2z0JzQsNCz0LDQt9C40L0g0LTQuNGC0Y_Rh9C40YUg0YLQvtCy0LDRgNGW0LIgItCa0L7Qu9C40YHQutCwIg!5e0!3m2!1suk!2sua!4v1689402768118!5m2!1suk!2sua",
-    image: "/alians.webp",
-  },
-  {
-    name: 'ТЦ "Бельведер"',
-    address: "м. Івано-Франківськ, вул. Тичини, 7",
-    mapLink:
-      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d389.68415615156533!2d24.705336615861782!3d48.92544958687183!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4730c113d2397d3b%3A0x8f073310b015d2bb!2z0JrQvtC70LjRgdC60LAgKNC00LjRgtGP0YfRliDQutC-0LvRj9GB0LrQuCAp!5e0!3m2!1suk!2sua!4v1689403324118!5m2!1suk!2sua",
-    image: "/belveder.webp",
   },
 ];

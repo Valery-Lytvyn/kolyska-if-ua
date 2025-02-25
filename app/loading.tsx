@@ -1,5 +1,5 @@
 "use client";
-import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import LoadingSpinner from "@/components/shared/spiners/LoadingSpinner";
 
 const Loader = () => {
   return (

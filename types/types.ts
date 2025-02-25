@@ -1,9 +1,9 @@
-import { JSX } from "react";
+import { IconType } from "react-icons";
 
 export interface NavItem {
   item: string;
   href: string;
-  icon?: JSX.Element;
+  icon: IconType;
 }
 export interface YmlCatalog {
   yml_catalog: {
@@ -100,7 +100,16 @@ export interface ViewedProduct {
   price: number;
   imageUrl: string;
 }
-
+export interface MenuItem {
+  title: string;
+  href: string;
+  children?: { title: string; href: string }[];
+}
+export interface Category {
+  id: string;
+  name: string;
+  slug: string;
+}
 export interface ViewedProductsState {
   viewedProductIds: string[];
 }
@@ -126,4 +135,16 @@ export interface ContactLocation {
   address: string;
   mapLink: string;
   image: string;
+}
+
+export interface Social {
+  href: string;
+  icon: IconType;
+  label: string;
+}
+
+export interface Contact {
+  value: string;
+  icon: React.ElementType;
+  label: string;
 }

@@ -1,6 +1,6 @@
 import React from "react";
-import ProductCard from "../ui/productCard/ProductCard";
-import CustomLink from "../ui/CustomLink";
+import ProductCard from "../productCard/ProductCard";
+import CustomLink from "../shared/links/CustomLink";
 import { Offer } from "@/types/types";
 
 interface ViewedProductListProps {

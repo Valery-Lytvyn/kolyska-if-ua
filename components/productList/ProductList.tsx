@@ -6,8 +6,8 @@ import ProductListSkeleton from "./ProductListSkeleton";
 import SortControls from "./SortControls";
 import { useViewedProducts } from "@/hooks/useViewedProducts";
 import { Offer } from "@/types/types";
-import LoadingSpinner from "../ui/LoadingSpinner";
-import ProductCard from "../ui/productCard/ProductCard";
+import LoadingSpinner from "../shared/spiners/LoadingSpinner";
+import ProductCard from "../productCard/ProductCard";
 import ViewedProductList from "../viewedProductList/ViewedProductList";
 
 interface ProductListProps {

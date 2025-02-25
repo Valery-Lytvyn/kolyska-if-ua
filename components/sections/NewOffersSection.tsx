@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
 import SectionTitle from "../typography/SectionTitle";
-import ProductCard from "../ui/productCard/ProductCard";
-import Slider from "../slider/Slider";
-import CustomLink from "../ui/CustomLink";
+import ProductCard from "../productCard/ProductCard";
+import Slider from "../shared/slider/Slider";
+import CustomLink from "../shared/links/CustomLink";
 import SectionSlogan from "../typography/SectionSlogan";
 
 import { useSelector } from "react-redux";

@@ -2,7 +2,7 @@
 import ProductListSkeleton from "@/components/productList/ProductListSkeleton";
 import SectionSlogan from "@/components/typography/SectionSlogan";
 import SectionTitle from "@/components/typography/SectionTitle";
-import ProductCard from "@/components/ui/productCard/ProductCard";
+import ProductCard from "@/components/productCard/ProductCard";
 import { selectOffersByIds } from "@/store/slices/catalogSlice";
 import { RootState } from "@/store/store";
 import React from "react";

@@ -11,23 +11,6 @@ const ProductImage: React.FC<ProductImageProps> = ({
   productName,
   index,
 }) => {
-  // if (!imageUrl) {
-  //   return (
-  //     <div className="flex flex-col items-center justify-center text-center">
-  //       <Image
-  //         src="/logo.png"
-  //         alt="Заповнювач зображення"
-  //         width={100}
-  //         height={100}
-  //         priority={index < 6}
-  //         loading={index < 6 ? "eager" : "lazy"}
-  //         className="w-20 h-20 object-cover mb-4"
-  //       />
-  //       <span className="text-gray-500">Зображення відсутнє</span>
-  //     </div>
-  //   );
-  // }
-
   return (
     <Image
       src={imageUrl || "/fallback_image.webp"}

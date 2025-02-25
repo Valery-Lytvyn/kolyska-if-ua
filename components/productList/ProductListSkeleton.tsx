@@ -1,5 +1,5 @@
 import React from "react";
-import ProductCardSkeleton from "../ui/productCard/ProductCardSkeleton";
+import ProductCardSkeleton from "../productCard/ProductCardSkeleton";
 
 const ProductListSkeleton: React.FC = () => {
   return (

@@ -6,8 +6,8 @@ import {
 } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { CatalogState, Categories, Category, Offer } from "@/types/types";
-import { fetchCatalogData } from "@/lib/fetchCatalogData";
-import { fetchAdminData } from "@/lib/fetchAdminData";
+import { fetchCatalogData } from "@/lib/api/fetchCatalogData";
+import { fetchAdminData } from "@/lib/api/fetchAdminData";
 import { renameCategory } from "@/helpers/renameCategory";
 
 const initialState: CatalogState = {

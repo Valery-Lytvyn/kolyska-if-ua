@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { authOptions } from "@/lib/auth/auth";
 import User from "@/models/User";
-import { dbConnect } from "@/lib/dbConnect";
+import { dbConnect } from "@/lib/db/dbConnect";
 
 export async function DELETE() {
   try {

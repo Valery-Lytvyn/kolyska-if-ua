@@ -62,7 +62,7 @@ const Toast: React.FC<ToastProps> = ({
   return (
     <AnimatePresence>
       {isVisible && (
-        <div className="fixed top-4 inset-x-0 flex justify-center z-50">
+        <div className="fixed top-4 inset-x-0 flex justify-center z-50 ">
           <motion.div
             initial={{ opacity: 0, y: -100 }}
             animate={{ opacity: 1, y: 0 }}
@@ -70,7 +70,7 @@ const Toast: React.FC<ToastProps> = ({
             transition={{ duration: 0.3, easing: "easeInOut" }}
             className={`w-fit ${getToastStyles(
               type
-            )} px-6 pt-2 pb-1 rounded-md shadow-md z-[500] flex items-center relative border-2`}
+            )} px-6 pt-2 pb-1 rounded-md shadow-md z-[500] flex items-center relative border-2 mx-4`}
           >
             <div className="text-white p-4 rounded-md flex items-center">
               {getToastIcon(type)}

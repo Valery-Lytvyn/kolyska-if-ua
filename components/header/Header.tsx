@@ -1,21 +1,21 @@
 "use client";
 import Link from "next/link";
 import { IoMenu } from "react-icons/io5";
-import { MdLocalPhone } from "react-icons/md";
 import { useState } from "react";
-import AuthButton from "../ui/buttons/AuthButton";
-import CartButton from "../ui/buttons/CartButton";
-import { menuItems, navItems } from "@/lib/data";
+import AuthButton from "../shared/buttons/AuthButton";
+import CartButton from "../shared/buttons/CartButton";
+import { menuItems, navItems } from "@/lib/data/data";
 import Navbar from "./Navbar";
 import SearchBar from "./SearchBar";
 import DesktopMenu from "../menu/DesktopMenu";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import WishlistButton from "../ui/buttons/WishlistButton";
+import WishlistButton from "../shared/buttons/WishlistButton";
 import { useRouter } from "next/navigation";
 import { AnimatePresence } from "motion/react";
 import MobileMenu from "./MobileMenu";
 import { ROUTES } from "@/routes/routes";
+import { CONTACTS, WORKING_HOURS } from "@/lib/data/constants";
 
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -38,15 +38,15 @@ const Header: React.FC = () => {
           <Navbar navItems={navItems} />
           <div className="flex gap-4">
             <a
-              href="tel:0501234567"
+              href={`tel:${CONTACTS.phone}`}
               className="hover:underline flex justify-center items-center group transition-colors text-xl sm:text-lg"
             >
-              <MdLocalPhone className="text-xl text-accent group-hover:text-xl transition-all" />{" "}
-              050-123-45-67
+              <CONTACTS.phone.icon className="text-xl text-accent group-hover:text-xl transition-all" />{" "}
+              {CONTACTS.phone.value}
             </a>
             <div className="hidden sm:flex flex-col text-sm">
-              <span>Пн-Пт: 9:00 - 18:00</span>
-              <span>Сб-Нд: 10:00 - 18:00</span>
+              <span>{WORKING_HOURS.weekdays}</span>
+              <span>{WORKING_HOURS.weekend}</span>
             </div>
           </div>
         </div>

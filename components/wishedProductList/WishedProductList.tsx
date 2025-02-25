@@ -2,8 +2,8 @@
 
 import React from "react";
 
-import ProductCard from "../ui/productCard/ProductCard";
-import CustomLink from "../ui/CustomLink";
+import ProductCard from "../productCard/ProductCard";
+import CustomLink from "../shared/links/CustomLink";
 import SectionTitle from "../typography/SectionTitle";
 import { Offer } from "@/types/types";
 import { ROUTES } from "@/routes/routes";

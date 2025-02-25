@@ -1,5 +1,5 @@
-import { MenuItem } from "@/lib/data";
 import { ROUTES } from "@/routes/routes";
+import { MenuItem } from "@/types/types";
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -21,7 +21,11 @@ const DesktopMenu: React.FC<MenuProps> = ({ menuItems }) => {
           className="relative group"
         >
           <Link
-            href={href === "catalog" ? `${ROUTES.catalog}` : `${href}`}
+            href={
+              href === "catalog"
+                ? `${ROUTES.catalog}`
+                : `${ROUTES.catalogSection(href)}`
+            }
             className="relative inline-block py-2 px-4 text-gray-700 transition-all duration-300 ease-in-out transform group-hover:scale-105 group-hover:text-accent font-bold"
           >
             {title}
@@ -41,7 +45,7 @@ const DesktopMenu: React.FC<MenuProps> = ({ menuItems }) => {
                     {children.map(({ title, href }) => (
                       <li key={title}>
                         <Link
-                          href={href}
+                          href={ROUTES.catalogSection(href)}
                           className="block px-4 py-2 hover:bg-accent hover:text-white transition-colors duration-200"
                         >
                           {title}

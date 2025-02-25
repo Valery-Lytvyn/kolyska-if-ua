@@ -1,7 +1,7 @@
 "use client";
 import Loader from "@/app/loading";
 import SectionTitle from "@/components/typography/SectionTitle";
-import CustomLink from "@/components/ui/CustomLink";
+import CustomLink from "@/components/shared/links/CustomLink";
 import WishedProductList from "@/components/wishedProductList/WishedProductList";
 import { ROUTES } from "@/routes/routes";
 import { selectOffersByIds } from "@/store/slices/catalogSlice";

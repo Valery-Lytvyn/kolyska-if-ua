@@ -1,5 +1,5 @@
 "use client";
-import { menuItems } from "@/lib/data";
+import { menuItems } from "@/lib/data/data";
 import { motion } from "framer-motion"; // Використовуємо framer-motion для анімацій
 import Link from "next/link";
 import { FC } from "react";

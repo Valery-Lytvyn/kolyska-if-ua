@@ -1,20 +1,20 @@
 import MapContainer from "@/components/MapContainer";
 import SectionTitle from "@/components/typography/SectionTitle";
-import { locations } from "@/lib/data";
+import ContactForm from "@/components/ui/ContactForm";
+import { CONTACTS, LOCATIONS, SOCIALS } from "@/lib/data/constants";
 import Image from "next/image";
 import React from "react";
-import { FaFacebookF, FaInstagram } from "react-icons/fa";
 
 const Contact = () => {
   return (
-    <main className="bg-white min-h-screen flex items-center justify-center px-4">
-      <section className="w-full max-w-7xl mx-auto py-12 text-center">
-        <SectionTitle title="Контакти" />
-        <div className="grid md:grid-cols-2  grid-cols-1 gap-8 mt-4">
-          {locations.map((location, index) => (
-            <div
+    <main className="bg-white min-h-screen flex items-center justify-center px-4 py-12">
+      <section className="w-full max-w-7xl mx-auto">
+        <SectionTitle title="Контакти" className="text-center mb-12" />
+        <div className="grid md:grid-cols-2 grid-cols-1 gap-8 mb-12">
+          {LOCATIONS.map((location, index) => (
+            <article
               key={index}
-              className="bg-light-gray p-6 rounded-lg shadow-lg flex flex-col justify-between"
+              className="bg-light-gray p-6 rounded-lg shadow-lg flex flex-col justify-between transition-transform hover:scale-105"
             >
               <h3 className="text-xl font-semibold text-secondary mb-2">
                 {location.name}
@@ -30,42 +30,47 @@ const Contact = () => {
                     quality={75}
                     loading="eager"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="rounded-lg shadow-lg object-cover "
+                    className="rounded-lg shadow-lg object-cover"
                   />
                 </div>
                 <MapContainer mapLink={location.mapLink} />
               </div>
-            </div>
+            </article>
           ))}
         </div>
-        <div className="mt-10 bg-light-gray p-6 rounded-lg shadow-lg text-center">
-          <h3 className="text-xl font-semibold text-secondary mb-4">
-            Зв&apos;язатися з нами
-          </h3>
-          <p className="flex items-center justify-center gap-2 text-primary">
-            <a
-              href="mailto:kolyskaifua@gmail.com"
-              className="w-5 h-5 text-accent"
-            />{" "}
-            kolyskaifua@gmail.com
-          </p>
-          <p className="flex items-center justify-center gap-2 text-primary mt-2">
-            <a href="tel:+380662958583" className="w-5 h-5 text-accent" />{" "}
-            +380662958583
-          </p>
-          <div className="flex gap-4 mt-6 justify-center">
-            <a
-              href="#"
-              className="hover:text-accent transition-colors duration-200"
-            >
-              <FaFacebookF className="text-2xl" />
-            </a>
-            <a
-              href="#"
-              className=" hover:text-accent transition-colors duration-200"
-            >
-              <FaInstagram className="text-2xl" />
-            </a>
+        <ContactForm />
+        <div className="mt-12 bg-light-gray p-8 rounded-lg shadow-lg text-center ">
+          <a
+            href={`mailto:${CONTACTS.email.value}`}
+            aria-label={CONTACTS.email.label}
+            className="flex gap-2 items-center justify-center hover:scale-105 transition-transform duration-500  p-2 mx-auto"
+          >
+            <CONTACTS.email.icon className="text-2xl text-accent hover:text-accent-hover transition-colors " />
+            {CONTACTS.email.value}
+          </a>
+
+          <a
+            href={`tel:${CONTACTS.phone.value}`}
+            aria-label={CONTACTS.phone.label}
+            className="flex gap-2 items-center justify-center hover:scale-105 transition-transform duration-500 w-fit p-2 mx-auto"
+          >
+            <CONTACTS.phone.icon className="text-2xl text-accent hover:text-accent-hover transition-colors" />
+            {CONTACTS.phone.value}
+          </a>
+
+          <div className="flex gap-6 mt-4 justify-center">
+            {SOCIALS.map(({ href, icon: IconComponent, label }) => (
+              <a
+                key={href}
+                href={href}
+                aria-label={label}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-secondary hover:text-accent transition-colors duration-200"
+              >
+                <IconComponent className="text-2xl" />
+              </a>
+            ))}
           </div>
         </div>
       </section>

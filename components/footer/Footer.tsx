@@ -1,9 +1,10 @@
-import { menuItems, navItems } from "@/lib/data";
+import { menuItems, navItems } from "@/lib/data/data";
 import Link from "next/link";
 import React from "react";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
 import ExpandedMenu from "../menu/ExpandedMenu";
 import { ROUTES } from "@/routes/routes";
+import { CONTACTS, LOCATIONS } from "@/lib/data/constants";
 
 const Footer: React.FC = () => {
   return (
@@ -22,17 +23,27 @@ const Footer: React.FC = () => {
             <p className="mb-2">
               Телефон:{" "}
               <a
-                href="tel:+380662958583"
+                href={`tel:${CONTACTS.phone.value}`}
                 className="hover:text-accent transition-colors duration-200"
+                aria-label={CONTACTS.phone.label}
               >
-                +380662958583
+                {CONTACTS.phone.value}
               </a>
             </p>
             <p className="mb-2">Адреси магазинів:</p>
             <ul className="space-y-1">
-              <li>м. Івано-Франківськ</li>
-              <li>вул. Любомира Гузара, 24a, 2ий поверх</li>
-              <li>вул. Павла Тичини, 7, 2ий поверх</li>
+              <li>
+                <span className="text-accent text-lg pr-2">
+                  {LOCATIONS[0].name}:
+                </span>
+                {LOCATIONS[0].address}
+              </li>
+              <li>
+                <span className="text-accent text-lg pr-2">
+                  {LOCATIONS[1].name}:
+                </span>
+                {LOCATIONS[1].address}
+              </li>
             </ul>
             <div className="flex gap-4 mt-6">
               <a

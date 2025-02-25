@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import CustomInput from "../ui/CustomInput";
-import SearchButton from "../ui/buttons/SearchButton";
+import CustomInput from "../shared/inputs/CustomInput";
+import SearchButton from "../shared/buttons/SearchButton";
 import { useToast } from "@/providers/ToastContext";
 
 const SearchBar: React.FC = () => {

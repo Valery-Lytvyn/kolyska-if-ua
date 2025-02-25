@@ -2,44 +2,56 @@
 import React, { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import CustomInput from "@/components/ui/CustomInput";
-import AnimatedWrapper from "@/components/ui/AnimatedWrapper";
-import CustomButton from "@/components/ui/buttons/CustomButton";
+import CustomInput from "@/components/shared/inputs/CustomInput";
+
+import CustomButton from "@/components/shared/buttons/CustomButton";
 import { useForm } from "@/hooks/useForm";
-import GoogleLoginButton from "@/components/ui/buttons/GoogleLoginButton";
+import GoogleLoginButton from "@/components/shared/buttons/GoogleLoginButton";
 import { setUser } from "@/store/slices/userSlice";
 import { useDispatch } from "react-redux";
+import AnimatedWrapper from "@/components/ui/AnimatedWrapper";
 import { ROUTES } from "@/routes/routes";
+const initialState = {
+  name: "",
+  email: "",
+  password: "",
+};
 
 const LoginForm = ({ goToLink }: { goToLink: (path: string) => void }) => {
-  const { formData, error, setError, handleChange } = useForm({
-    name: "",
-    email: "",
-    password: "",
-  });
+  const {
+    formData,
+    setFormData,
+    errors,
+    setErrors,
+    handleChange,
+    validateForm,
+  } = useForm(initialState);
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (ev: React.FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
-    if (!formData.name || !formData.email || !formData.password) {
-      setError("Потрібно заповнити всі поля!");
+    setLoading(true);
 
+    if (!validateForm()) {
+      setLoading(false);
       return;
-    } else {
-      const res = await signIn("credentials", {
-        name: formData.name,
-        email: formData.email,
-        password: formData.password,
-        redirect: false,
-      });
-      if (res?.error) {
-        setError(res.error as string);
-      }
-      if (res?.ok) {
-        dispatch(setUser({ name: formData.name, email: formData.email }));
-        return goToLink(ROUTES.home);
-      }
     }
+
+    const res = await signIn("credentials", {
+      name: formData.name,
+      email: formData.email,
+      password: formData.password,
+      redirect: false,
+    });
+    if (res?.error) {
+      setErrors((prev) => ({ ...prev, form: res?.error as string }));
+    } else {
+      setFormData(initialState);
+      dispatch(setUser({ name: formData.name, email: formData.email }));
+      goToLink(ROUTES.home);
+    }
+    setLoading(false);
   };
 
   return (
@@ -47,7 +59,7 @@ const LoginForm = ({ goToLink }: { goToLink: (path: string) => void }) => {
       onSubmit={handleSubmit}
       className="p-6 w-full flex flex-col justify-between items-center gap-4 border bg-white rounded-lg shadow-md"
     >
-      {error && <div className="text-red-500">{error}</div>}
+      {errors.form && <div className="text-red-500">{errors.form}</div>}{" "}
       <h1 className="mb-2 w-full text-2xl font-bold">Авторизуватися</h1>
       <CustomInput
         type="text"
@@ -56,6 +68,7 @@ const LoginForm = ({ goToLink }: { goToLink: (path: string) => void }) => {
         label="Ім'я"
         onChange={handleChange}
         value={formData.name}
+        error={errors.name}
       />
       <CustomInput
         type="email"
@@ -64,6 +77,7 @@ const LoginForm = ({ goToLink }: { goToLink: (path: string) => void }) => {
         label="Електронна пошта"
         onChange={handleChange}
         value={formData.email}
+        error={errors.email}
       />
       <CustomInput
         type="password"
@@ -72,9 +86,11 @@ const LoginForm = ({ goToLink }: { goToLink: (path: string) => void }) => {
         label="Пароль"
         onChange={handleChange}
         value={formData.password}
+        error={errors.password}
       />
       <CustomButton
-        name="Авторизуватися"
+        name={loading ? "..." : "Авторизуватися"}
+        disabled={loading}
         label="Авторизуватися"
         aria-label="Авторизуватися"
       />
@@ -102,26 +118,14 @@ const LoginSection = () => {
     <section className="bg-gray-100 w-full  m-auto">
       <div className=" p-4 w-full min-h-[calc(100vh-13rem)] flex-1 max-w-7xl flex items-center justify-center mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2 w-full mx-auto md:max-w-screen-md max-w-sm">
-          <AnimatedWrapper
-            isVisible={isVisible}
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.8, opacity: 0 }}
-            transition={{ duration: 0.5 }}
-          >
+          <AnimatedWrapper isVisible={isVisible}>
             <div className="flex flex-col justify-center items-center w-full h-full border p-6 bg-white rounded-lg shadow-md flex-1 overflow-hidden relative z-10">
               <h2 className="text-5xl font-bold p-4">Kolyska.if.ua</h2>
 
               <GoogleLoginButton />
             </div>
           </AnimatedWrapper>
-          <AnimatedWrapper
-            isVisible={isVisible}
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.8, opacity: 0 }}
-            transition={{ duration: 0.5 }}
-          >
+          <AnimatedWrapper isVisible={isVisible}>
             <LoginForm goToLink={goToLink} />
           </AnimatedWrapper>
         </div>

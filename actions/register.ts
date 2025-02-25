@@ -1,5 +1,5 @@
 "use server";
-import { dbConnect } from "@/lib/dbConnect";
+import { dbConnect } from "@/lib/db/dbConnect";
 import User from "@/models/User";
 import bcrypt from "bcryptjs";
 

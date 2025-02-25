@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
-import CustomInput from "./CustomInput";
-import CustomButton from "./buttons/CustomButton";
+import CustomInput from "../inputs/CustomInput";
+import CustomButton from "../buttons/CustomButton";
 import { useForm } from "@/hooks/useForm";
-import PhoneLinkButton from "./buttons/PhoneLinkButton";
+import PhoneLinkButton from "../buttons/PhoneLinkButton";
 import { IoClose } from "react-icons/io5";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -33,7 +33,7 @@ const PhoneLinkModal: React.FC = () => {
       <AnimatePresence>
         {isModalOpen && (
           <motion.div
-            className="fixed inset-0 bg-gray-500/80 p-4 z-[100] flex justify-center items-center"
+            className="fixed inset-0 bg-black bg-opacity-50 p-4 z-[100] flex justify-center items-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

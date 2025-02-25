@@ -3,8 +3,7 @@ import { motion } from "motion/react";
 import { IoClose } from "react-icons/io5";
 import Link from "next/link";
 import ExpandedMenu from "../menu/ExpandedMenu";
-import { NavItem } from "@/types/types";
-import { MenuItem } from "@/lib/data";
+import { MenuItem, NavItem } from "@/types/types";
 
 interface MobileMenuProps {
   navItems: NavItem[];
@@ -37,15 +36,10 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
       <div className="flex flex-col items-center justify-center h-full gap-8">
         {/* Top-level navItems as icons */}
         <ul className="flex gap-6">
-          {navItems.map(({ item, href, icon }) => (
+          {navItems.map(({ item, href, icon: Icon }) => (
             <li key={item}>
-              <Link
-                href={href}
-                className="text-white text-2xl hover:text-accent transition-colors"
-                onClick={onClick}
-                aria-label={item}
-              >
-                {icon}
+              <Link href={href} onClick={onClick} aria-label={item}>
+                <Icon className="text-white text-2xl hover:text-accent transition-colors" />
               </Link>
             </li>
           ))}

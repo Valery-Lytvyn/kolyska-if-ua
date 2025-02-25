@@ -1,4 +1,5 @@
-import { MenuItem } from "@/lib/data";
+import { ROUTES } from "@/routes/routes";
+import { MenuItem } from "@/types/types";
 import Link from "next/link";
 import React from "react";
 
@@ -12,7 +13,11 @@ const ExpandedMenu: React.FC<ExpandedMenuProps> = ({ menuItems, onClick }) => {
       {menuItems.map(({ title, href, children }) => (
         <li key={href}>
           <Link
-            href={href}
+            href={
+              href === "catalog"
+                ? `${ROUTES.catalog}`
+                : `${ROUTES.catalogSection(href)}`
+            }
             className="hover:text-accent text-white transition-colors duration-200"
             onClick={onClick}
           >
@@ -20,14 +25,14 @@ const ExpandedMenu: React.FC<ExpandedMenuProps> = ({ menuItems, onClick }) => {
           </Link>
           {children && (
             <ul className="pl-4 mt-2 space-y-1">
-              {children.map((child) => (
-                <li key={child.href}>
+              {children.map(({ href, title }) => (
+                <li key={href}>
                   <Link
-                    href={child.href}
+                    href={href}
                     className="hover:text-accent transition-colors duration-200 text-white"
                     onClick={onClick}
                   >
-                    {child.title}
+                    {title}
                   </Link>
                 </li>
               ))}

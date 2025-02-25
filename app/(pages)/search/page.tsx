@@ -4,8 +4,8 @@ import { useSelector } from "react-redux";
 import { useRouter, useSearchParams } from "next/navigation";
 import { RootState } from "@/store/store";
 import dynamic from "next/dynamic";
-import ProductCard from "@/components/ui/productCard/ProductCard";
-import { ITEMS_PER_PAGE } from "@/lib/contants";
+import ProductCard from "@/components/productCard/ProductCard";
+import { ITEMS_PER_PAGE } from "@/lib/data/constants";
 import Loader from "@/app/loading";
 
 const Pagination = dynamic(

@@ -7,19 +7,22 @@ interface CustomInputProps {
   label?: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  error?: string;
 }
+
 const CustomInput: React.FC<CustomInputProps> = ({
   type,
   placeholder,
   name,
   label,
-  value = "",
+  value,
   onChange,
+  error,
 }) => {
   return (
     <div className="flex flex-col w-full gap-1">
       {label && (
-        <label htmlFor={name} className="w-full text-sm">
+        <label htmlFor={name} className="w-full text-sm text-secondary">
           {label}
         </label>
       )}
@@ -31,8 +34,11 @@ const CustomInput: React.FC<CustomInputProps> = ({
         placeholder={placeholder}
         name={name}
         aria-label={label || name}
-        className="w-full h-10 border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-gray-500"
+        className={`w-full h-10 border ${
+          error ? "border-error" : "border-gray-300"
+        } rounded-lg p-2 focus:outline-none focus:border-accent`}
       />
+      {error && <p className="text-error text-sm mt-1">{error}</p>}
     </div>
   );
 };

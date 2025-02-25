@@ -2,13 +2,13 @@
 import React, { useCallback, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import BuyButton from "../buttons/BuyButton";
+import BuyButton from "../shared/buttons/BuyButton";
 import { ProductCardProps } from "@/types/types";
-import ProductImage from "../ProductImage";
+import ProductImage from "./ProductImage";
 import { formatPrice } from "@/helpers/formatPrice";
 import { useCart } from "@/hooks/useCart";
 import { useToast } from "@/providers/ToastContext";
-import WishButton from "../buttons/WishButton";
+import WishButton from "../shared/buttons/WishButton";
 import useWishlist from "@/hooks/useWishlist";
 
 const ProductCard: React.FC<ProductCardProps> = ({

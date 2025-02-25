@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import CountButton from "./buttons/CountButton";
+import CountButton from "../shared/buttons/CountButton";
 import { AnimatePresence, motion } from "motion/react";
 
 interface CountButtonProps {

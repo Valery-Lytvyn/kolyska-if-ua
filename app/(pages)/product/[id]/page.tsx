@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState, useCallback } from "react";
-import BuyButton from "@/components/ui/buttons/BuyButton";
+import BuyButton from "@/components/shared/buttons/BuyButton";
 import Counter from "@/components/ui/Counter";
 import { motion } from "framer-motion";
 import { useParams, useRouter } from "next/navigation";
@@ -8,7 +8,7 @@ import { RootState } from "@/store/store";
 import { useDispatch, useSelector } from "react-redux";
 import { selectProductById } from "@/store/slices/catalogSlice";
 import { useCounter } from "@/hooks/useCounter";
-import ProductImage from "@/components/ui/ProductImage";
+import ProductImage from "@/components/productCard/ProductImage";
 import {
   IoChevronDownCircleOutline,
   IoChevronUpCircleOutline,
@@ -16,7 +16,7 @@ import {
 import { formatPrice } from "@/helpers/formatPrice";
 import { useCart } from "@/hooks/useCart";
 import { addViewedProduct } from "@/store/slices/viewedProductsSlice";
-import WishButton from "@/components/ui/buttons/WishButton";
+import WishButton from "@/components/shared/buttons/WishButton";
 import useWishlist from "@/hooks/useWishlist";
 import { useToast } from "@/providers/ToastContext";
 import Loader from "@/app/loading";

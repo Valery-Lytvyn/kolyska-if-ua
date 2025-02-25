@@ -1,8 +1,10 @@
 "use client";
 import React, { useState, useRef, useCallback, useMemo } from "react";
 import { useOnClickOutside } from "@/hooks/useOnClickOutside";
-import { MenuItem, menuItems } from "@/lib/data";
+import { menuItems } from "@/lib/data/data";
 import Link from "next/link";
+import { MenuItem } from "@/types/types";
+import { ROUTES } from "@/routes/routes";
 
 interface CustomDropdownProps {
   categorySlug?: string;
@@ -25,7 +27,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({ categorySlug }) => {
       slug: string
     ): string | undefined => {
       for (const item of items) {
-        if (item.label === slug) return item.title;
+        if (item.href === slug) return item.title;
         if (item.children) {
           const found = findCategory(item.children, slug);
           if (found) return found;
@@ -74,7 +76,11 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({ categorySlug }) => {
           {menuItems.map(({ title, href, children }) => (
             <li key={href}>
               <Link
-                href={href}
+                href={
+                  href === "catalog"
+                    ? `${ROUTES.catalog}`
+                    : `${ROUTES.catalogSection(href)}`
+                }
                 className={`block px-4 py-2 text-sm font-semibold text-secondary hover:bg-accent-hover hover:text-white transition-colors duration-200 ${
                   title === currentCategory ? "bg-accent text-white" : ""
                 }`}
@@ -85,17 +91,17 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({ categorySlug }) => {
               {/* Nested Children */}
               {children && (
                 <ul className="pl-4 space-y-1">
-                  {children.map((child) => (
-                    <li key={child.href}>
+                  {children.map(({ href, title }) => (
+                    <li key={href}>
                       <Link
-                        href={child.href}
+                        href={ROUTES.catalogSection(href)}
                         className={`block px-4 py-2 text-sm text-secondary hover:bg-accent-hover hover:text-white transition-colors duration-200 ${
-                          child.title === currentCategory
+                          title === currentCategory
                             ? "bg-accent text-white"
                             : ""
                         }`}
                       >
-                        {child.title}
+                        {title}
                       </Link>
                     </li>
                   ))}
