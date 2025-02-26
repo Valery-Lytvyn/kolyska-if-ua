@@ -1,7 +1,8 @@
 "use client";
 import React from "react";
 import { IoHeartOutline } from "react-icons/io5";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
+import { buttonVariants } from "@/lib/animations/animations";
 
 interface WishlistButtonProps {
   quantityWishedItems: number;
@@ -16,8 +17,7 @@ const WishlistButton: React.FC<WishlistButtonProps> = ({
     <motion.button
       onClick={onClick}
       aria-label="Wishlist"
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      {...buttonVariants}
       className="p-2 bg-primary text-white rounded-lg hover:bg-primary-hover transition-colors relative focus:outline-none focus:ring-2 focus:ring-accent focus:ring-opacity-50"
     >
       <IoHeartOutline className="text-2xl" />

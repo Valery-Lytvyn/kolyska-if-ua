@@ -36,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ua">
+    <html lang="uk">
       <body
         className={`${notoSans.variable} ${comfortaa.variable} antialiased flex flex-col overflow-x-hidden min-h-screen h-full w-full`}
       >

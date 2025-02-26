@@ -27,7 +27,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/(pages)/cart"
+    "app/(pages)/cart",
+    "store/serverStore.js"
   ],
   "exclude": ["node_modules"]
 }

@@ -8,12 +8,12 @@ const Navbar: React.FC<NavbarProps> = ({ navItems }) => {
   return (
     <nav aria-label="Верхня навігація">
       <ul className="flex gap-2 sm:gap-4 flex-wrap">
-        {navItems.map(({ item, href, icon: IconComponent }) => (
+        {navItems.map(({ item, href, icon: Icon }) => (
           <li key={item} className="group">
-            <Link href={href}>
+            <Link href={href} aria-label={item}>
               {/* Mobile Navbar */}
               <div className="md:hidden relative py-1 px-2 transition-all duration-300 ease-in-out transform hover:scale-105 hover:text-accent">
-                <IconComponent className="text-2xl" />
+                <Icon className="text-2xl" aria-hidden="true" />
               </div>
               {/* Desktop Navbar */}
               <div className="hidden relative md:inline-block py-1 px-2 transition-all duration-300 ease-in-out transform group-hover:scale-105 group-hover:text-accent">

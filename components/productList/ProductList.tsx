@@ -128,7 +128,7 @@ const ProductList: React.FC<ProductListProps> = ({
       )}
 
       <ViewedProductList
-        products={filteredProducts}
+        products={filteredProducts.slice(0, 8)}
         linkHref="/viewed-products"
         linkLabel="Всі переглянуті"
       />

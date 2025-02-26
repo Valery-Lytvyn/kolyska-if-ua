@@ -1,6 +1,6 @@
 "use client";
 import Toast from "@/components/shared/tooltips/Toast";
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useCallback, useContext, useState } from "react";
 import { ToastType } from "@/types/types";
 
 interface ToastContextType {
@@ -18,14 +18,18 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({
     duration?: number;
   } | null>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const showToast = (message: string, type?: ToastType, duration?: number) => {
-    setToast({ message, type, duration });
-    setIsVisible(true);
-  };
 
-  const hideToast = () => {
+  const showToast = useCallback(
+    (message: string, type?: ToastType, duration?: number) => {
+      setToast({ message, type, duration });
+      setIsVisible(true);
+    },
+    []
+  );
+
+  const hideToast = useCallback(() => {
     setIsVisible(false);
-  };
+  }, []);
 
   return (
     <ToastContext.Provider value={{ showToast }}>

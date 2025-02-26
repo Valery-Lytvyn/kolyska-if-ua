@@ -54,7 +54,7 @@ const RegisterForm = ({ goToLink }: { goToLink: (path: string) => void }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="p-6 w-full  flex flex-col justify-between items-center gap-4       border  bg-white rounded-lg shadow-md "
+      className="p-6 w-full  flex flex-col justify-between items-center gap-4 border  bg-white rounded-lg shadow-md "
     >
       {errors.form && <div className="text-red-500">{errors.form}</div>}
       <h1 className="mb-5 w-full text-2xl font-bold">Реєстрація</h1>
@@ -122,7 +122,7 @@ const RegisterSection: React.FC = () => {
 
   return (
     <section className="bg-gray-100 w-full  m-auto">
-      <div className=" p-4 w-full min-h-[calc(100vh-13rem)] flex-1 max-w-7xl flex items-center justify-center mx-auto">
+      <div className=" p-4 w-full min-h-[calc(100vh-10.5rem)] sm:min-h-[calc(100vh-11.5rem)] md:min-h-[calc(100vh-13rem)] flex-1 max-w-7xl flex items-center justify-center mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2 w-full mx-auto md:max-w-screen-md max-w-sm">
           <AnimatedWrapper isVisible={isVisible}>
             <RegisterForm goToLink={goToLink} />

@@ -1,7 +1,8 @@
 import MapContainer from "@/components/MapContainer";
+import Socials from "@/components/shared/socials/Socials";
 import SectionTitle from "@/components/typography/SectionTitle";
 import ContactForm from "@/components/ui/ContactForm";
-import { CONTACTS, LOCATIONS, SOCIALS } from "@/lib/data/constants";
+import { CONTACTS, LOCATIONS } from "@/lib/data/constants";
 import Image from "next/image";
 import React from "react";
 
@@ -57,21 +58,8 @@ const Contact = () => {
             <CONTACTS.phone.icon className="text-2xl text-accent hover:text-accent-hover transition-colors" />
             {CONTACTS.phone.value}
           </a>
-
-          <div className="flex gap-6 mt-4 justify-center">
-            {SOCIALS.map(({ href, icon: IconComponent, label }) => (
-              <a
-                key={href}
-                href={href}
-                aria-label={label}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-secondary hover:text-accent transition-colors duration-200"
-              >
-                <IconComponent className="text-2xl" />
-              </a>
-            ))}
-          </div>
+          {/* Socials */}
+          <Socials className="text-secondary hover:text-accent transition-colors duration-200" />
         </div>
       </section>
     </main>

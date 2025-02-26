@@ -1,10 +1,10 @@
 import { menuItems, navItems } from "@/lib/data/data";
 import Link from "next/link";
 import React from "react";
-import { FaFacebookF, FaInstagram } from "react-icons/fa";
 import ExpandedMenu from "../menu/ExpandedMenu";
 import { ROUTES } from "@/routes/routes";
 import { CONTACTS, LOCATIONS } from "@/lib/data/constants";
+import Socials from "../shared/socials/Socials";
 
 const Footer: React.FC = () => {
   return (
@@ -45,20 +45,8 @@ const Footer: React.FC = () => {
                 {LOCATIONS[1].address}
               </li>
             </ul>
-            <div className="flex gap-4 mt-6">
-              <a
-                href="#"
-                className="text-white hover:text-accent transition-colors duration-200"
-              >
-                <FaFacebookF className="text-2xl" />
-              </a>
-              <a
-                href="#"
-                className="text-white hover:text-accent transition-colors duration-200"
-              >
-                <FaInstagram className="text-2xl" />
-              </a>
-            </div>
+            {/* Socials */}
+            <Socials className="text-accent hover:text-accent-hover transition-colors duration-200" />
           </div>
           {/* Navigation */}
           <div>
@@ -69,6 +57,7 @@ const Footer: React.FC = () => {
                   <Link
                     href={href}
                     className="hover:text-accent transition-colors duration-200"
+                    aria-label={item}
                   >
                     {item}
                   </Link>

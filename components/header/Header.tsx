@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { IoMenu } from "react-icons/io5";
-import { useState } from "react";
+import React, { useState } from "react";
 import AuthButton from "../shared/buttons/AuthButton";
 import CartButton from "../shared/buttons/CartButton";
 import { menuItems, navItems } from "@/lib/data/data";
@@ -17,7 +17,8 @@ import MobileMenu from "./MobileMenu";
 import { ROUTES } from "@/routes/routes";
 import { CONTACTS, WORKING_HOURS } from "@/lib/data/constants";
 
-const Header: React.FC = () => {
+const Header: React.FC = React.memo(() => {
+  console.log(`Header _ rerender`);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
   const cartItems = useSelector((state: RootState) => state.cart.items);
@@ -36,12 +37,12 @@ const Header: React.FC = () => {
       <div className="bg-primary text-white text-sm py-2 w-full">
         <div className="max-w-7xl mx-auto flex flex-col-reverse gap-4 sm:gap-2 sm:flex-row  justify-between items-center px-4">
           <Navbar navItems={navItems} />
-          <div className="flex gap-4">
+          <div className="flex gap-4 items-center ">
             <a
               href={`tel:${CONTACTS.phone}`}
-              className="hover:underline flex justify-center items-center group transition-colors text-xl sm:text-lg"
+              className=" flex justify-center items-center gap-1 group text-xl sm:text-lg hover:scale-105 transition-transform delay-300"
             >
-              <CONTACTS.phone.icon className="text-xl text-accent group-hover:text-xl transition-all" />{" "}
+              <CONTACTS.phone.icon className="text-xl text-accent  transition-all " />
               {CONTACTS.phone.value}
             </a>
             <div className="hidden sm:flex flex-col text-sm">
@@ -109,6 +110,7 @@ const Header: React.FC = () => {
       </AnimatePresence>
     </header>
   );
-};
+});
+Header.displayName = "Header";
 
 export default Header;

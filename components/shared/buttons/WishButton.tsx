@@ -1,7 +1,8 @@
 "use client";
 import React from "react";
 import { IoHeart, IoHeartOutline } from "react-icons/io5";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
+import { buttonVariants } from "@/lib/animations/animations";
 
 interface WishButtonProps {
   onToggleWishlist: () => void;
@@ -18,8 +19,7 @@ const WishButton: React.FC<WishButtonProps> = ({
     <motion.button
       onClick={onToggleWishlist}
       aria-label={isWished ? "Remove from wishlist" : "Add to wishlist"}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      {...buttonVariants}
       className={`w-12 h-12 text-accent hover:text-accent-hover transition-colors flex justify-center items-center focus:outline-none ${className}`}
     >
       {isWished ? (

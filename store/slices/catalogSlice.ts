@@ -42,14 +42,21 @@ export const fetchCatalog = createAsyncThunk(
         })
         .filter(Boolean);
 
+      const filteredOffers = data.yml_catalog.shop.offers.offer.filter(
+        (offer: Offer) => offer.price !== "0.00" && offer.price !== "0,00"
+      );
       dispatch(setCategories(renamedCategories));
-      dispatch(setOffers(data.yml_catalog.shop.offers.offer));
+      dispatch(setOffers(filteredOffers));
       dispatch(setBestOffers(adminData.bestOffer));
       dispatch(setNewOffers(adminData.newOffer));
       dispatch(setLoaded(true));
-    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
       console.error("Error fetching catalog data:", error);
-      return rejectWithValue(error);
+      return rejectWithValue({
+        message: error?.message || "An error occurred",
+        code: error?.code || "UNKNOWN_ERROR",
+      });
     }
   }
 );

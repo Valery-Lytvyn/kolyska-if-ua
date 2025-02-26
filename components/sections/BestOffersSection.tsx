@@ -10,7 +10,7 @@ import { selectOffersByIds } from "@/store/slices/catalogSlice";
 import ProductListSkeleton from "../productList/ProductListSkeleton";
 import { ROUTES } from "@/routes/routes";
 
-const BestOffersSection: React.FC = () => {
+const BestOffersSection: React.FC = React.memo(() => {
   const bestOffers = useSelector(
     (state: RootState) => state.catalog.bestOffers
   );
@@ -38,18 +38,16 @@ const BestOffersSection: React.FC = () => {
           {/* Products List */}
           {!!offers.length ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 my-8">
-              {offers
-                .filter((offer) => offer.price !== "0.00")
-                .map(({ $: { id }, price, picture, name }, index) => (
-                  <ProductCard
-                    key={index}
-                    index={index}
-                    productId={id}
-                    price={price}
-                    imageUrl={picture}
-                    productName={name}
-                  />
-                ))}
+              {offers.map(({ $: { id }, price, picture, name }, index) => (
+                <ProductCard
+                  key={index}
+                  index={index}
+                  productId={id}
+                  price={price}
+                  imageUrl={picture}
+                  productName={name}
+                />
+              ))}
             </div>
           ) : (
             <ProductListSkeleton />
@@ -71,6 +69,7 @@ const BestOffersSection: React.FC = () => {
       </div>
     </section>
   );
-};
+});
+BestOffersSection.displayName = "BestOffersSection";
 
 export default BestOffersSection;

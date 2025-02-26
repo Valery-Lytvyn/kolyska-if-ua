@@ -4,6 +4,7 @@ import { IoClose } from "react-icons/io5";
 import Link from "next/link";
 import ExpandedMenu from "../menu/ExpandedMenu";
 import { MenuItem, NavItem } from "@/types/types";
+import { slideInLeft } from "@/lib/animations/animations";
 
 interface MobileMenuProps {
   navItems: NavItem[];
@@ -19,10 +20,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
   return (
     <motion.div
       className="md:hidden fixed inset-0 bg-primary bg-opacity-95 z-50"
-      initial={{ opacity: 0, x: "-100%" }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: "-100%" }}
-      transition={{ duration: 0.5 }}
+      {...slideInLeft}
     >
       {/* Close button */}
       <button

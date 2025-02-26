@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import BuyButton from "@/components/shared/buttons/BuyButton";
 import Counter from "@/components/ui/Counter";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { useParams, useRouter } from "next/navigation";
 import { RootState } from "@/store/store";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,13 +13,14 @@ import {
   IoChevronDownCircleOutline,
   IoChevronUpCircleOutline,
 } from "react-icons/io5";
-import { formatPrice } from "@/helpers/formatPrice";
+import { formatPrice, transformStringToNumber } from "@/helpers/formatPrice";
 import { useCart } from "@/hooks/useCart";
 import { addViewedProduct } from "@/store/slices/viewedProductsSlice";
 import WishButton from "@/components/shared/buttons/WishButton";
 import useWishlist from "@/hooks/useWishlist";
 import { useToast } from "@/providers/ToastContext";
 import Loader from "@/app/loading";
+import { scaleUpSlow } from "@/lib/animations/animations";
 
 const ProductPage = () => {
   const { count, increment, decrement } = useCounter(1, 1, 9);
@@ -54,7 +55,7 @@ const ProductPage = () => {
     setIsDescriptionExpanded((prev) => !prev);
   }, []);
 
-  const formattedPrice = formatPrice(price || "");
+  const formattedPrice = transformStringToNumber(price || "");
 
   const handleAddToCartClick = useCallback(async () => {
     try {
@@ -85,11 +86,9 @@ const ProductPage = () => {
   }
 
   return (
-    <main className="flex items-center justify-center p-4 bg-light-gray min-h-[calc(100vh-13rem)]">
+    <main className="flex items-center justify-center p-4 bg-light-gray min-h-[calc(100vh-10.5rem)] sm:min-h-[calc(100vh-11.5rem)] md:min-h-[calc(100vh-13rem)]">
       <motion.div
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.5 }}
+        {...scaleUpSlow}
         className="max-w-7xl w-full bg-white rounded-lg shadow-2xl flex flex-col overflow-hidden group"
       >
         <header className="bg-primary text-white py-6 px-6 text-center space-y-6">
@@ -114,7 +113,7 @@ const ProductPage = () => {
         </header>
         <div className="flex-col md:flex-row flex overflow-hidden">
           {/* Image Section */}
-          <div className="w-full h-96 relative sm:h-[30rem] flex-1 flex justify-center items-center">
+          <div className="w-full min-h-[40rem] relative  flex-1 flex justify-center items-center">
             <ProductImage
               imageUrl={imageUrl || ""}
               productName={productName || ""}
@@ -125,7 +124,7 @@ const ProductPage = () => {
           {/* Content Section */}
           <div className="p-8 space-y-6 flex-1">
             <p className="text-3xl font-semibold text-accent">
-              {formattedPrice} {" грн"}
+              {formatPrice(formattedPrice)} {" грн"}
             </p>
 
             {/* Description with Expand/Collapse */}

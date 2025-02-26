@@ -16,7 +16,7 @@ const BestOffers: React.FC = () => {
     selectOffersByIds(state, bestOffers)
   );
   return (
-    <main className="bg-white min-h-[calc(100vh-13rem)]">
+    <main className="bg-white min-h-[calc(100vh-10.5rem)] sm:min-h-[calc(100vh-11.5rem)] md:min-h-[calc(100vh-13rem)]">
       <section className="w-full max-w-7xl p-4 mx-auto flex flex-col">
         {/* Section Title with Slogan */}
         <div className="mt-12 mb-8 text-center">
@@ -25,20 +25,18 @@ const BestOffers: React.FC = () => {
         </div>
         <div className="w-full mx-auto">
           {/* Products List */}
-          {offers.length > 0 ? (
+          {!!offers.length ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 my-8">
-              {offers
-                .filter((offer) => offer.price !== "0.00")
-                .map(({ $: { id }, price, picture, name }, index) => (
-                  <ProductCard
-                    key={id}
-                    index={index}
-                    productId={id}
-                    price={price}
-                    imageUrl={picture}
-                    productName={name}
-                  />
-                ))}
+              {offers.map(({ $: { id }, price, picture, name }, index) => (
+                <ProductCard
+                  key={id}
+                  index={index}
+                  productId={id}
+                  price={price}
+                  imageUrl={picture}
+                  productName={name}
+                />
+              ))}
             </div>
           ) : (
             <ProductListSkeleton />

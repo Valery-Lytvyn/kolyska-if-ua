@@ -1,6 +1,7 @@
 "use client";
 import SectionSlogan from "@/components/typography/SectionSlogan";
 import SectionTitle from "@/components/typography/SectionTitle";
+import { LOCATIONS } from "@/lib/data/constants";
 import Image from "next/image";
 import React from "react";
 
@@ -43,12 +44,10 @@ const Delivery: React.FC = () => {
               content:
                 "На окремі товари, позначені на сайті, діє безкоштовна доставка. Зверніть увагу: безкоштовна доставка не поширюється на замовлення, оформлені з послугою Оплати Частинами.",
             },
-          ].map((item, index) => (
-            <div key={index} className="space-y-2">
-              <h3 className="text-xl font-semibold text-primary">
-                {item.title}
-              </h3>
-              <p className="text-secondary">{item.content}</p>
+          ].map(({ title, content }) => (
+            <div key={title} className="space-y-2">
+              <h3 className="text-xl font-semibold text-primary">{title}</h3>
+              <p className="text-secondary">{content}</p>
             </div>
           ))}
 
@@ -61,13 +60,12 @@ const Delivery: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
               {
-                address:
-                  'м. Івано-Франківськ, вул. Любомира Гузара, 24 (ТЦ "Альянс")',
-                image: "/alians.webp",
+                address: `${LOCATIONS[0].address}(${LOCATIONS[0].name})`,
+                image: LOCATIONS[0].image,
               },
               {
-                address: 'м. Івано-Франківськ, вул. Тичини, 7 (ТЦ "Бельведер")',
-                image: "/belveder.webp",
+                address: `${LOCATIONS[1].address}(${LOCATIONS[1].name})`,
+                image: LOCATIONS[1].image,
               },
             ].map((item, index) => (
               <div key={index} className="w-full h-64 space-y-2">

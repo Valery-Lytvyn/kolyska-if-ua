@@ -1,15 +1,16 @@
 "use client";
-import React, { useCallback, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import React, { useCallback, useRef, useState } from "react";
+import { AnimatePresence, motion, useInView } from "motion/react";
 import Link from "next/link";
 import BuyButton from "../shared/buttons/BuyButton";
 import { ProductCardProps } from "@/types/types";
 import ProductImage from "./ProductImage";
-import { formatPrice } from "@/helpers/formatPrice";
+import { formatPrice, transformStringToNumber } from "@/helpers/formatPrice";
 import { useCart } from "@/hooks/useCart";
 import { useToast } from "@/providers/ToastContext";
 import WishButton from "../shared/buttons/WishButton";
 import useWishlist from "@/hooks/useWishlist";
+import { slideInBottom } from "@/lib/animations/animations";
 
 const ProductCard: React.FC<ProductCardProps> = ({
   index,
@@ -22,8 +23,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const { handleAddToCart } = useCart();
   const { showToast } = useToast();
   const { isWished, handleToggleWishlist } = useWishlist(productId);
+  const ref = useRef(null);
+  const isInView = useInView(ref);
 
-  const formattedPrice = formatPrice(price || "");
+  const formattedPrice = transformStringToNumber(price || "");
 
   const handleAddToCartClick = useCallback(async () => {
     try {
@@ -49,12 +52,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
   ]);
   return (
     <motion.article
-      // key={`${productId}-${index}`}
       initial={{ y: 20 }}
       whileInView={{ y: 0 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
       viewport={{ once: true }}
-      // layoutId={productId}
       className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300 h-full flex group w-full border min-h-[480px] border-transparent hover:border-accent-hover relative"
     >
       <Link
@@ -62,7 +63,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         className="flex flex-col h-full justify-between w-full"
       >
         {/* Image Section */}
-        <figure className="relative h-60 w-full bg-white flex items-center justify-center overflow-hidden">
+        <figure className="relative h-[360px] w-full bg-white flex items-center justify-center overflow-hidden">
           <ProductImage
             imageUrl={imageUrl || ""}
             productName={productName}
@@ -81,12 +82,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
           </h3>
           <div className="flex justify-between items-center">
             <motion.span
+              ref={ref}
               className="text-xl font-bold text-primary"
               initial={{ scale: 0, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
+              whileInView={isInView ? { scale: 1, opacity: 1 } : {}}
               transition={{ type: "spring", stiffness: 100, damping: 10 }}
             >
-              {formattedPrice}
+              {formatPrice(formattedPrice)}
               {" грн"}
             </motion.span>
             <BuyButton onClick={handleAddToCartClick} />
@@ -95,10 +97,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
             {isHovered && (
               <motion.div
                 className="absolute inset-0 w-full h-full light-gradient  -z-0"
-                initial={{ y: "100%" }}
-                animate={{ y: 1 }}
-                exit={{ y: "100%" }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
+                {...slideInBottom}
               />
             )}
           </AnimatePresence>
@@ -110,10 +109,15 @@ const ProductCard: React.FC<ProductCardProps> = ({
           onToggleWishlist={handleToggleWishlist}
           isWished={isWished}
           className="text-2xl"
+          aria-label={
+            isWished
+              ? `Видалити ${productName} зі списку бажань`
+              : `Додати ${productName} до списку бажань`
+          }
         />
       </div>
     </motion.article>
   );
 };
 
-export default ProductCard;
+export default React.memo(ProductCard);

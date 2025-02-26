@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import CountUp from "react-countup";
 import SectionTitle from "../typography/SectionTitle";
 import SectionSlogan from "../typography/SectionSlogan";
@@ -18,7 +18,7 @@ const counters: Counter[] = [
   { value: 6000, label: "задоволених малюків", suffix: "+" },
 ];
 
-const ShopBlurbSection: React.FC = () => {
+const ShopBlurbSection: React.FC = React.memo(() => {
   return (
     <section className="relative min-h-screen bg-white py-16 overflow-hidden">
       <div className="container mx-auto px-4 md:px-6 max-w-7xl">
@@ -67,6 +67,7 @@ const ShopBlurbSection: React.FC = () => {
       </div>
     </section>
   );
-};
+});
+ShopBlurbSection.displayName = "ShopBlurbSection";
 
 export default ShopBlurbSection;

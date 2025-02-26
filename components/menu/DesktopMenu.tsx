@@ -1,3 +1,4 @@
+import { slideInTop } from "@/lib/animations/animations";
 import { ROUTES } from "@/routes/routes";
 import { MenuItem } from "@/types/types";
 import { AnimatePresence, motion } from "motion/react";
@@ -34,13 +35,7 @@ const DesktopMenu: React.FC<MenuProps> = ({ menuItems }) => {
           <AnimatePresence>
             {children && hoveredItem === title && (
               <div className="absolute top-full left-0 bg-transparent mt-0 z-30 overflow-hidden w-48">
-                <motion.ul
-                  className="w-full"
-                  initial={{ opacity: 0, y: "-100%" }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ y: "-100%", opacity: 0 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                >
+                <motion.ul className="w-full" {...slideInTop}>
                   <div className="mt-4 shadow-lg rounded-b-lg w-full bg-white">
                     {children.map(({ title, href }) => (
                       <li key={title}>

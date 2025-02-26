@@ -1,17 +1,22 @@
 "use client";
-
 import React, { useState } from "react";
 import axios from "axios";
 import { useForm } from "@/hooks/useForm";
 import CustomInput from "../shared/inputs/CustomInput";
 import CustomButton from "../shared/buttons/CustomButton";
 import { useToast } from "@/providers/ToastContext";
+import CustomTextarea from "../shared/inputs/CustomTextarea";
 
 const initialState = {
   phoneNumber: "",
   message: "",
 };
-const ContactForm: React.FC = () => {
+
+interface ContactFormProps {
+  modalToggle?: () => void;
+}
+
+const ContactForm: React.FC<ContactFormProps> = ({ modalToggle }) => {
   const {
     formData,
     setFormData,
@@ -29,16 +34,17 @@ const ContactForm: React.FC = () => {
     if (!validateForm()) {
       return;
     }
+
     setLoading(true);
     try {
       const response = await axios.post("/api/message", {
-        message: `Телефон: ${formData.phoneNumber}, \n 
-        Повідомлення: ${formData.message}`,
+        message: `Телефон: ${formData.phoneNumber}, \nПовідомлення: ${formData.message}`,
       });
 
       if (response.status === 200) {
         showToast("Повідомлення відправлено успішно!");
         setFormData({ phoneNumber: "", message: "" });
+        if (modalToggle) modalToggle();
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
@@ -68,8 +74,7 @@ const ContactForm: React.FC = () => {
         error={errors.phoneNumber}
       />
 
-      <CustomInput
-        type="text"
+      <CustomTextarea
         placeholder="Введіть ваше повідомлення"
         name="message"
         label="Повідомлення"

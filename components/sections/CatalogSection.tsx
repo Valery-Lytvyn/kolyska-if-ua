@@ -1,14 +1,14 @@
 "use client";
 import { menuItems } from "@/lib/data/data";
-import { motion } from "framer-motion"; // Використовуємо framer-motion для анімацій
+import { motion } from "motion/react";
 import Link from "next/link";
-import { FC } from "react";
+import React, { FC } from "react";
 import SectionTitle from "../typography/SectionTitle";
 import Image from "next/image";
 import SectionSlogan from "../typography/SectionSlogan";
 import { ROUTES } from "@/routes/routes";
 
-const CatalogSection: FC = () => {
+const CatalogSection: FC = React.memo(() => {
   return (
     <section className="relative z-20 bg-white py-16 text-primary">
       <div className="max-w-7xl mx-auto w-full px-4">
@@ -31,7 +31,11 @@ const CatalogSection: FC = () => {
             >
               {/* Посилання на категорію */}
               <Link
-                href={href === "catalog" ? `${ROUTES.catalog}` : `${href}`}
+                href={
+                  href === "catalog"
+                    ? `${ROUTES.catalog}`
+                    : `${ROUTES.catalogSection(href)}`
+                }
                 className="block"
               >
                 <h3 className="text-2xl font-bold text-primary hover:text-accent transition-colors duration-300">
@@ -52,7 +56,7 @@ const CatalogSection: FC = () => {
                       className="w-full sm:w-[calc(50%-0.75rem)] lg:w-full"
                     >
                       <Link
-                        href={href}
+                        href={ROUTES.catalogSection(href)}
                         className="block bg-white p-4 rounded-lg text-primary shadow-md hover:shadow-lg hover:bg-accent-hover transition-colors duration-300 text-xl group"
                       >
                         <span className="text-secondary group-hover:text-white transition-colors duration-300">
@@ -78,22 +82,24 @@ const CatalogSection: FC = () => {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 2, delay: 0.5 }}
           viewport={{ once: true }}
-          className="flex w-full h-full justify-end items-end"
+          className="flex w-full h-full justify-end items-end relative"
         >
           <Image
             src="/bg-offers.webp"
             alt="Фонове зображення коляски"
-            width={800}
-            height={600}
+            // width={800}
+            // height={600}
+            fill
             loading="lazy"
             quality={75}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="h-full w-auto object-cover opacity-30 object-right-bottom"
+            className="h-full w-auto object-contain opacity-30 object-right-bottom"
           />
         </motion.div>
       </div>
     </section>
   );
-};
+});
+CatalogSection.displayName = "CatalogSection";
 
 export default CatalogSection;

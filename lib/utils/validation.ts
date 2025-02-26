@@ -28,12 +28,22 @@ export const validatePhoneNumber = (
 ): string | undefined | null => {
   if (!phoneNumber.trim()) return "Номер телефону обов'язковий";
 
+  // Оновлений регулярний вираз для підтримки нових форматів
   const phoneRegex =
-    /^(\+?[0-9]{1,3})?[-. (]?[0-9]{2,4}[-. )]?[0-9]{3,5}[-. ]?[0-9]{3,5}$/;
+    /^(\+?[0-9]{1,3}[-. ]?)?(\(?[0-9]{2,4}\)?[-. ]?)?[0-9]{2,3}[-. ]?[0-9]{2,3}[-. ]?[0-9]{2,4}$/;
 
   if (!phoneRegex.test(phoneNumber)) return "Невірний формат номера телефону";
-  if (phoneNumber.length < 10 || phoneNumber.length > 15)
-    return "Номер телефону має містити від 10 до 15 цифр";
+
+  // Видаляємо всі нецифрові символи для перевірки довжини
+  const digitsOnly = phoneNumber.replace(/\D/g, "");
+
+  // Визначаємо мінімальну довжину в залежності від початку номера
+  const minLength = phoneNumber.startsWith("+38") ? 12 : 10; // 12 цифр для +38, оскільки + не враховується
+  const maxLength = 15;
+
+  if (digitsOnly.length < minLength || digitsOnly.length > maxLength) {
+    return `Номер телефону має містити від ${minLength} до ${maxLength} цифр`;
+  }
 
   return null;
 };

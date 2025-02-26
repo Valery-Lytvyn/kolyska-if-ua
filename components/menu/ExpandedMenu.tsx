@@ -28,7 +28,7 @@ const ExpandedMenu: React.FC<ExpandedMenuProps> = ({ menuItems, onClick }) => {
               {children.map(({ href, title }) => (
                 <li key={href}>
                   <Link
-                    href={href}
+                    href={ROUTES.catalogSection(href)}
                     className="hover:text-accent transition-colors duration-200 text-white"
                     onClick={onClick}
                   >

@@ -15,12 +15,11 @@ const ProductImage: React.FC<ProductImageProps> = ({
     <Image
       src={imageUrl || "/fallback_image.webp"}
       alt={productName}
-      width={800}
-      height={600}
+      fill
       quality={75}
       priority={index < 6}
       loading={index < 6 ? "eager" : "lazy"}
-      className="h-full w-auto transition-all duration-1000 object-fill transform-gpu group-hover:scale-105"
+      className="transition-all duration-1000 object-contain transform-gpu group-hover:scale-105 h-auto w-full"
       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
     />
   );

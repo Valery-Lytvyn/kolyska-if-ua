@@ -11,6 +11,7 @@ const DesktopNavbar: React.FC<DesktopNavbarProps> = ({ navItems }) => (
       <Link
         key={item}
         href={href}
+        aria-label={item}
         className="relative py-2 px-3 hover:text-accent transition-colors"
       >
         {item}

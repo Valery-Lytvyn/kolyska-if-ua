@@ -12,7 +12,7 @@ import { selectOffersByIds } from "@/store/slices/catalogSlice";
 import ProductListSkeleton from "../productList/ProductListSkeleton";
 import { ROUTES } from "@/routes/routes";
 
-const NewOffersSection: React.FC = () => {
+const NewOffersSection: React.FC = React.memo(() => {
   const newOffers = useSelector((state: RootState) => state.catalog.bestOffers);
   const offers = useSelector((state: RootState) =>
     selectOffersByIds(state, newOffers)
@@ -50,7 +50,7 @@ const NewOffersSection: React.FC = () => {
         {/* Slider */}
         {!!offers.length ? (
           <Slider
-            slides={offers.filter((offer) => offer.price !== "0.00")}
+            slides={offers}
             renderSlide={({ $: { id }, price, picture, name }, index) => (
               <ProductCard
                 key={id}
@@ -68,6 +68,7 @@ const NewOffersSection: React.FC = () => {
       </div>
     </section>
   );
-};
+});
+NewOffersSection.displayName = "NewOffersSection";
 
 export default NewOffersSection;

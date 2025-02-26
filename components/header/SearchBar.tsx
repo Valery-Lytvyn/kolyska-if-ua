@@ -22,7 +22,7 @@ const SearchBar: React.FC = () => {
       const encodedQuery = encodeURIComponent(searchQuery.trim());
       router.push(`/search?q=${encodedQuery}&page=1`);
     } else {
-      showToast("Введіть назву товару!");
+      showToast("Введіть назву товару!", "error");
     }
   };
 

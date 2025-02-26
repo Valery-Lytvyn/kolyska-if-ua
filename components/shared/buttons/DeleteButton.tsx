@@ -2,6 +2,7 @@
 import React from "react";
 import { IoTrash } from "react-icons/io5";
 import { motion } from "motion/react";
+import { buttonVariants } from "@/lib/animations/animations";
 
 interface DeleteButtonProps {
   label: string;
@@ -10,11 +11,10 @@ interface DeleteButtonProps {
 const DeleteButton: React.FC<DeleteButtonProps> = ({ label, onClick }) => {
   return (
     <motion.button
-      className="w-full bg-red-500 text-white py-4 font-medium rounded-lg hover:bg-red-600 transition-colors duration-200 flex items-center justify-center gap-2 px-1"
+      className="w-full bg-red-500 text-white py-4 font-medium rounded-lg hover:bg-red-600 transition-colors duration-200 flex items-center justify-center gap-2 px-2"
       onClick={onClick}
       aria-label={label}
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
+      {...buttonVariants}
     >
       <IoTrash className="text-lg" />
       {label}

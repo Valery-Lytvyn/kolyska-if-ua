@@ -4,12 +4,13 @@ import { useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import Image from "next/image";
 import { FaUser } from "react-icons/fa";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import Link from "next/link";
 import Modal from "@/components/shared/modals/Modal";
 import LoadingSpinner from "@/components/shared/spiners/LoadingSpinner";
 import DeleteButton from "@/components/shared/buttons/DeleteButton";
 import { ROUTES } from "@/routes/routes";
+import { scaleUpSlow } from "@/lib/animations/animations";
 
 const adminName = process.env.NEXT_PUBLIC_ADMIN_NAME;
 const adminEmail = process.env.NEXT_PUBLIC_ADMIN_EMAIL;
@@ -23,7 +24,6 @@ const UserProfile = () => {
 
   const handleOpenModal = useCallback(() => setIsModalOpen(true), []);
   const handleCloseModal = useCallback(() => setIsModalOpen(false), []);
-  // Handle profile deletion
   const handleDeleteProfile = useCallback(async () => {
     setIsLoading(true);
     setError("");
@@ -55,16 +55,10 @@ const UserProfile = () => {
     }
   }, [router, handleCloseModal]);
 
-  console.log(
-    `${adminName} ${adminEmail},name:${userData?.name},email:${userData?.email}`
-  );
-
   return (
-    <div className="flex items-center justify-center p-4 bg-gray-100 min-h-[calc(100vh-13rem)]">
+    <div className="flex items-center justify-center p-4 bg-gray-100 min-h-[calc(100vh-10.5rem)] sm:min-h-[calc(100vh-11.5rem)] md:min-h-[calc(100vh-13rem)]">
       <motion.div
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.5 }}
+        {...scaleUpSlow}
         className="w-full max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden"
       >
         {/* Profile Header */}

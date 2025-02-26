@@ -2,10 +2,11 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Offer } from "@/types/types";
+import { sliderButtonVariants } from "@/lib/animations/animations";
 
 interface CarouselProps {
   slides: Offer[];
@@ -51,13 +52,10 @@ const Slider: React.FC<CarouselProps> = ({ slides, renderSlide }) => {
       </Swiper>
 
       {/* Custom Navigation Buttons with Framer Motion */}
-      <motion.div
+      <motion.button
         className="swiper-button-prev"
         aria-label="Попередній слайд"
-        initial={{ scale: 1, opacity: 0.6 }}
-        whileHover={{ scale: 1.1, opacity: 1 }}
-        whileTap={{ scale: 0.9 }}
-        transition={{ duration: 0.2, ease: "easeInOut" }}
+        {...sliderButtonVariants}
         style={{
           position: "absolute",
           top: "50%",
@@ -70,14 +68,11 @@ const Slider: React.FC<CarouselProps> = ({ slides, renderSlide }) => {
           height: "60px",
           boxShadow: "0 2px 5px rgba(0, 0, 0, 0.2)",
         }}
-      ></motion.div>
-      <motion.div
+      ></motion.button>
+      <motion.button
         className="swiper-button-next"
         aria-label="Наступний слайд"
-        initial={{ scale: 1, opacity: 0.6 }}
-        whileHover={{ scale: 1.1, opacity: 1 }}
-        whileTap={{ scale: 0.9 }}
-        transition={{ duration: 0.2, ease: "easeInOut" }}
+        {...sliderButtonVariants}
         style={{
           position: "absolute",
           top: "50%",
@@ -90,7 +85,7 @@ const Slider: React.FC<CarouselProps> = ({ slides, renderSlide }) => {
           height: "60px",
           boxShadow: "0 2px 5px rgba(0, 0, 0, 0.2)",
         }}
-      ></motion.div>
+      ></motion.button>
     </div>
   );
 };

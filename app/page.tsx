@@ -18,11 +18,12 @@ const ViewedProductsSection = lazy(
   () => import("@/components/sections/ViewedProductsSection")
 );
 
-const Home: React.FC = () => {
+const Home: React.FC = React.memo(() => {
+  console.log("HomePage");
   return (
     <main className="flex-1 bg-gray-50">
+      <HeroSection />
       <Suspense fallback={<Loader />}>
-        <HeroSection />
         <NewOffersSection />
         <CatalogSection />
         <BestOffersSection />
@@ -31,6 +32,6 @@ const Home: React.FC = () => {
       </Suspense>
     </main>
   );
-};
-
+});
+Home.displayName = "Home";
 export default Home;

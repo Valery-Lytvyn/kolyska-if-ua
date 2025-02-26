@@ -4,6 +4,7 @@ import { MdLocalPhone, MdMailOutline } from "react-icons/md";
 
 export const ITEMS_PER_PAGE = 12;
 
+
 export const SOCIALS: Social[] = [
   {
     href: "https://www.instagram.com/kolyska.if/",

@@ -96,7 +96,7 @@ const LoginForm = ({ goToLink }: { goToLink: (path: string) => void }) => {
       />
       <span
         onClick={() => goToLink("/register")}
-        className="text-sm text-[#888] transition duration-150 ease hover:text-black hover:underline cursor-pointer"
+        className="text-sm text-secondary transition duration-150 ease hover:text-black hover:underline cursor-pointer"
       >
         Не маєте облікового запису?
       </span>
@@ -107,16 +107,16 @@ const LoginForm = ({ goToLink }: { goToLink: (path: string) => void }) => {
 const LoginSection = () => {
   const [isVisible, setIsVisible] = useState(true);
   const router = useRouter();
-
   const goToLink = (path: string) => {
     setIsVisible(false);
     setTimeout(() => {
       router.push(path);
     }, 500);
   };
+
   return (
     <section className="bg-gray-100 w-full  m-auto">
-      <div className=" p-4 w-full min-h-[calc(100vh-13rem)] flex-1 max-w-7xl flex items-center justify-center mx-auto">
+      <div className=" p-4 w-full min-h-[calc(100vh-10.5rem)] sm:min-h-[calc(100vh-11.5rem)] md:min-h-[calc(100vh-13rem)] flex-1 max-w-7xl flex items-center justify-center mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2 w-full mx-auto md:max-w-screen-md max-w-sm">
           <AnimatedWrapper isVisible={isVisible}>
             <div className="flex flex-col justify-center items-center w-full h-full border p-6 bg-white rounded-lg shadow-md flex-1 overflow-hidden relative z-10">

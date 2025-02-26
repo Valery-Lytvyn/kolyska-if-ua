@@ -1,6 +1,6 @@
 "use client";
 import React, { useCallback, useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { IoTrashOutline } from "react-icons/io5";
 import { FiShoppingCart } from "react-icons/fi";
 import Link from "next/link";
@@ -13,7 +13,9 @@ import ProductImage from "@/components/productCard/ProductImage";
 import Loader from "../../loading";
 import CustomInput from "@/components/shared/inputs/CustomInput";
 import axios from "axios";
-
+import { validatePhoneNumber } from "@/lib/utils/validation";
+import { scaleUp, scaleUpSlow } from "../../../lib/animations/animations";
+import { formatPrice } from "@/helpers/formatPrice";
 interface CartItem {
   id: string;
   name: string;
@@ -84,7 +86,7 @@ const CartPage = () => {
             (item) =>
               `${item.name} - ${item.quantity} шт. x ${item.price} грн = ${
                 item.quantity * item.price
-              } грн`
+              } грн}`
           )
           .join("\n");
 
@@ -124,11 +126,9 @@ const CartPage = () => {
   }
 
   return (
-    <section className="flex items-center justify-center p-4 bg-light-gray min-h-[calc(100vh-13rem)]">
+    <section className="flex items-center justify-center p-4 bg-light-gray min-h-[calc(100vh-10.5rem)] sm:min-h-[calc(100vh-11.5rem)] md:min-h-[calc(100vh-13rem)]">
       <motion.div
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.5 }}
+        {...scaleUpSlow}
         className="w-full max-w-7xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden"
       >
         <CartHeader />
@@ -210,19 +210,19 @@ const CartItemCard = React.memo(
     handleUpdateItemQuantity: (id: string, quantity: number) => void;
   }) => (
     <motion.div
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.3 }}
+      {...scaleUp}
       className="flex flex-col sm:flex-row justify-between items-center gap-4 border-b pb-6 last:border-b-0 w-full"
     >
-      <div className="flex-shrink-0 w-24 h-24 rounded-lg overflow-hidden">
+      <div className="flex-shrink-0 w-24 h-24 rounded-lg overflow-hidden relative">
         <ProductImage imageUrl={imageUrl || ""} productName={name} index={0} />
       </div>
       <div className="flex-1 text-center sm:text-left overflow-hidden">
         <p className="text-lg font-semibold text-primary truncate whitespace-normal">
           {name}
         </p>
-        <p className="text-secondary text-lg mt-1">{price} грн</p>
+        <p className="text-secondary text-lg mt-1">
+          {formatPrice(price)} {" грн"}
+        </p>
       </div>
       <div className="flex items-center gap-4 flex-shrink-0">
         <Counter
@@ -268,32 +268,47 @@ const CartFooter = React.memo(
     handlePlaceAnOrder: (value: string) => void;
   }) => {
     const [phoneNumber, setPhoneNumber] = useState("");
+    const [phoneError, setPhoneError] = useState<string | null | undefined>(
+      null
+    );
+
+    const handlePhoneChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+      const value = ev.target.value;
+      setPhoneNumber(value);
+      setPhoneError(validatePhoneNumber(value) as string);
+    };
 
     return (
       <footer className="bg-gray-50 p-6 space-y-2">
         <div className="flex justify-between items-center mb-6">
           <span className="text-lg font-semibold text-gray-800">Разом:</span>
           <span className="text-xl font-bold text-accent">
-            {totalAmount} грн
+            {formatPrice(totalAmount)}
+            {" грн"}
           </span>
         </div>
-        <CustomInput
-          label="Щоб зробити замовлення, введіть номер телефону для зв'язку з вами."
-          type="tel"
-          name="phone"
-          value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
-          placeholder="Номер Вашого телефону"
-        />
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-2 my-4  ">
+        <div className="flex justify-end">
+          <div className="w-full sm:w-1/2 sm:pl-2">
+            <CustomInput
+              label="Щоб зробити замовлення, введіть номер телефону для зв'язку з Вами."
+              type="tel"
+              name="phone"
+              value={phoneNumber}
+              onChange={handlePhoneChange}
+              placeholder="Номер Вашого телефону"
+              error={phoneError}
+            />
+          </div>
+        </div>
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-2 my-4">
           <DeleteButton label="Очистити кошик" onClick={handleClearCart} />
           <motion.button
-            whileHover={{ scale: phoneNumber && 1.02 }}
-            whileTap={{ scale: phoneNumber && 0.98 }}
+            whileHover={{ scale: phoneNumber && !phoneError ? 1.02 : 1 }}
+            whileTap={{ scale: phoneNumber && !phoneError ? 0.98 : 1 }}
             type="button"
             className="w-full bg-accent text-white py-4 font-medium rounded-lg hover:bg-accent/90 transition duration-200"
             aria-label="Оформити замовлення"
-            disabled={!phoneNumber}
+            disabled={!phoneNumber || phoneError !== null}
             onClick={() => handlePlaceAnOrder(phoneNumber)}
           >
             Оформити замовлення
@@ -303,6 +318,7 @@ const CartFooter = React.memo(
     );
   }
 );
+
 CartFooter.displayName = "CartFooter";
 
 export default React.memo(CartPage);

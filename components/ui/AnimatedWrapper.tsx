@@ -1,5 +1,6 @@
 import React from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { scaleUpWithExit } from "@/lib/animations/animations";
 
 interface AnimatedWrapperProps {
   isVisible: boolean;
@@ -15,10 +16,7 @@ const AnimatedWrapper: React.FC<AnimatedWrapperProps> = ({
       {isVisible && (
         <motion.div
           style={{ willChange: "transform, opacity" }}
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          exit={{ scale: 0.8, opacity: 0 }}
-          transition={{ duration: 0.5 }}
+          {...scaleUpWithExit}
           className="w-full h-full"
         >
           {children}

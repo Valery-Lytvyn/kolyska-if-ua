@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { IoIosArrowUp } from "react-icons/io";
 
 const ScrollToTop: React.FC = () => {
@@ -46,4 +46,4 @@ const ScrollToTop: React.FC = () => {
   );
 };
 
-export default ScrollToTop;
+export default React.memo(ScrollToTop);

@@ -1,5 +1,4 @@
 "use client";
-import Loader from "@/app/loading";
 import SectionTitle from "@/components/typography/SectionTitle";
 import CustomLink from "@/components/shared/links/CustomLink";
 import WishedProductList from "@/components/wishedProductList/WishedProductList";
@@ -16,11 +15,9 @@ const WishedProductsPage: React.FC = () => {
   const products = useSelector((state: RootState) =>
     selectOffersByIds(state, wishedProducts)
   );
-  if (!!products.length) {
-    return <Loader />;
-  }
+
   return (
-    <div className="w-full h-full p-4 bg-white min-h-[calc(100vh-13rem)] mx-auto">
+    <div className="w-full h-full p-4 bg-white min-h-[calc(100vh-10.5rem)] sm:min-h-[calc(100vh-11.5rem)] md:min-h-[calc(100vh-13rem)] mx-auto flex flex-col items-center">
       {!products.length ? (
         <div>
           <SectionTitle title="Зараз ваш список порожній." />

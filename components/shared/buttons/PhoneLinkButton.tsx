@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
 import { ImPhone } from "react-icons/im";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import AnimatedHint from "../tooltips/AnimatedHint";
+import { buttonVariants } from "@/lib/animations/animations";
 
 interface PhoneLinkButtonProps {
   onClick: () => void;
@@ -10,12 +11,6 @@ interface PhoneLinkButtonProps {
 
 const PhoneLinkButton: React.FC<PhoneLinkButtonProps> = ({ onClick }) => {
   const [isShowHint, setIsShowHint] = React.useState(false);
-
-  const buttonVariants = {
-    start: { scale: 1 },
-    hover: { scale: 1.1 },
-    tap: { scale: 0.9 },
-  };
 
   return (
     <div className="fixed bottom-8 left-8 flex items-center gap-2 z-50">
@@ -25,9 +20,7 @@ const PhoneLinkButton: React.FC<PhoneLinkButtonProps> = ({ onClick }) => {
         onMouseEnter={() => setIsShowHint(true)}
         onMouseLeave={() => setIsShowHint(false)}
         onClick={onClick}
-        variants={buttonVariants}
-        whileHover="hover"
-        whileTap="tap"
+        {...buttonVariants}
         aria-label="Ми Вам зателефонуємо"
       >
         <ImPhone className="text-2xl" />

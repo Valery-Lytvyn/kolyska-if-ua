@@ -14,7 +14,7 @@ const SectionTitle: React.FC<SectionTitleProps> = ({ title, className }) => {
     <motion.h2
       ref={ref}
       className={`${className} text-4xl md:text-5xl lg:text-6xl  text-balance font-bold text-primary py-2`}
-      initial={{ scale: 0, opacity: 0 }}
+      initial={{ scale: 0.5, opacity: 0.5 }}
       animate={isInView ? { scale: 1, opacity: 1 } : {}}
       transition={{
         type: "spring",

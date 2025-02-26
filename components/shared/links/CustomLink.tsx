@@ -1,5 +1,6 @@
 "use client";
-import { motion } from "framer-motion";
+import { buttonVariants } from "@/lib/animations/animations";
+import { motion } from "motion/react";
 import Link from "next/link";
 
 interface CustomLinkProps {
@@ -16,8 +17,7 @@ const CustomLink: React.FC<CustomLinkProps> = ({
   return (
     <motion.div
       className={`flex justify-end my-8 ${className}`}
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
+      {...buttonVariants}
     >
       <Link
         href={href}

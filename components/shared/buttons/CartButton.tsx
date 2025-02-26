@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "motion/react";
 import { IoCartOutline } from "react-icons/io5";
+import { buttonVariants } from "@/lib/animations/animations";
 
 interface CartButtonProps {
   quantityItemsInCart: number;
@@ -14,8 +15,7 @@ const CartButton: React.FC<CartButtonProps> = ({
   return (
     <motion.button
       className="p-2 bg-primary text-white rounded-lg hover:bg-primary-hover transition-colors relative"
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      {...buttonVariants}
       aria-label="Cart"
       onClick={onClick}
     >

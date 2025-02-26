@@ -1,17 +1,15 @@
 import React from "react";
 
-interface CustomInputProps {
-  type: "text" | "email" | "password" | "tel";
+interface CustomTextareaProps {
   placeholder: string;
   name: string;
   label?: string;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  error?: string | null | undefined;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  error?: string;
 }
 
-const CustomInput: React.FC<CustomInputProps> = ({
-  type,
+const CustomTextarea: React.FC<CustomTextareaProps> = ({
   placeholder,
   name,
   label,
@@ -26,21 +24,22 @@ const CustomInput: React.FC<CustomInputProps> = ({
           {label}
         </label>
       )}
-      <input
+      <textarea
         id={name}
-        type={type}
         value={value}
         onChange={onChange}
         placeholder={placeholder}
         name={name}
         aria-label={label || name}
-        className={`w-full h-10 border ${
+        cols={30}
+        rows={5}
+        className={`w-full h-24 border ${
           error ? "border-error" : "border-gray-300"
-        } rounded-lg p-2 focus:outline-none focus:border-accent`}
+        } rounded-lg p-2 focus:outline-none focus:border-accent resize-none`}
       />
       {error && <p className="text-error text-sm mt-1">{error}</p>}
     </div>
   );
 };
 
-export default CustomInput;
+export default CustomTextarea;
