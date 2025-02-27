@@ -40,7 +40,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       showToast("Додано до кошика", "success");
     } catch (err) {
       console.error(err);
-      showToast("Помилка при додаванні до кошика.");
+      showToast("Помилка при додаванні до кошика.", "error");
     }
   }, [
     formattedPrice,
@@ -56,7 +56,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       whileInView={{ y: 0 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
       viewport={{ once: true }}
-      className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300 h-full flex group w-full border min-h-[480px] border-transparent hover:border-accent-hover relative"
+      className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300  flex group w-full border h-auto border-transparent hover:border-accent-hover relative"
     >
       <Link
         href={`/product/${productId}`}
@@ -73,17 +73,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
         {/* Content Section */}
         <motion.section
-          className="p-4 flex flex-col justify-between flex-1 bg-white relative overflow-hidden z-10"
+          className="p-4 flex flex-col flex-1 bg-white relative overflow-hidden z-10"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">
-            {productName}
-          </h3>
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center pb-4">
             <motion.span
               ref={ref}
-              className="text-xl font-bold text-primary"
+              className="text-xl md:text-2xl font-bold text-primary"
               initial={{ scale: 0, opacity: 0 }}
               whileInView={isInView ? { scale: 1, opacity: 1 } : {}}
               transition={{ type: "spring", stiffness: 100, damping: 10 }}
@@ -93,6 +90,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
             </motion.span>
             <BuyButton onClick={handleAddToCartClick} />
           </div>
+          <h3 className="text-lg font-semibold text-gray-800 pb-4">
+            {productName}
+          </h3>
+
           <AnimatePresence>
             {isHovered && (
               <motion.div

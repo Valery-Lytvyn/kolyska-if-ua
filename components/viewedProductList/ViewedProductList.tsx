@@ -21,6 +21,8 @@ const ViewedProductList: React.FC<ViewedProductListProps> = ({
   const clearList = () => {
     dispatch(clearViewedProducts());
   };
+
+  if (!products.length) return null;
   return (
     <div className="w-full max-w-7xl p-4  mx-auto flex flex-col  relative z-20">
       <h3 className="text-xl md:text-2xl lg:text-3xl  text-balance font-bold text-primary py-2 text-left">

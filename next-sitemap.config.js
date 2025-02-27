@@ -1,6 +1,6 @@
 
 const config = {
-   siteUrl: 'https://kolyska.if.ua',
+   siteUrl: 'https://kolyska-if-ua.vercel.app',
    generateRobotsTxt: true,
    changefreq: 'daily',
    priority: 0.7,

@@ -6,45 +6,64 @@ import Image from "next/image";
 import React from "react";
 
 const Delivery: React.FC = () => {
-  return (
-    <main className="bg-white min-h-screen flex items-center justify-center px-4">
-      <section className="w-full max-w-7xl mx-auto py-12 text-center">
-        <SectionTitle title="Як здійснюється доставка замовлень?" />
-        <SectionSlogan slogan="Ми робимо все можливе, щоб ваші замовлення були доставлені швидко та зручно. Ось основні деталі:" />
+  const deliveryDetails = [
+    {
+      title: "Щоденна відправка:",
+      content:
+        "Відправлення замовлень здійснюється щодня, тому ви можете бути впевнені, що ваше замовлення буде оброблене якнайшвидше.",
+    },
+    {
+      title: "Габаритні товари:",
+      content:
+        "Для замовлень з габаритними товарами передбачений мінімальний аванс у розмірі 500 грн. Це дозволяє нам швидше запустити процес доставки.",
+    },
+    {
+      title: "Транспортна компанія:",
+      content:
+        "Доставка здійснюється через Нову Пошту — одну з найнадійніших транспортних компаній України.",
+    },
+    {
+      title: "Вартість доставки:",
+      content:
+        "Вартість доставки залежить від габаритів, ваги товару, місця призначення та обраного способу доставки. Оплата послуг перевізника здійснюється при отриманні замовлення.",
+    },
+    {
+      title: "Термін доставки:",
+      content:
+        "Термін доставки становить від 1 до 7 днів залежно від вашого місця проживання та наявності товару.",
+    },
+    {
+      title: "Безкоштовна доставка:",
+      content:
+        "На окремі товари, позначені на сайті, діє безкоштовна доставка. Зверніть увагу: безкоштовна доставка не поширюється на замовлення, оформлені з послугою Оплати Частинами.",
+    },
+  ];
 
-        <div className="mt-8 space-y-8 text-left">
-          {[
-            {
-              title: "Щоденна відправка:",
-              content:
-                "Відправлення замовлень здійснюється щодня, тому ви можете бути впевнені, що ваше замовлення буде оброблене якнайшвидше.",
-            },
-            {
-              title: "Габаритні товари:",
-              content:
-                "Для замовлень з габаритними товарами передбачений мінімальний аванс у розмірі 500 грн. Це дозволяє нам швидше запустити процес доставки.",
-            },
-            {
-              title: "Транспортна компанія:",
-              content:
-                "Доставка здійснюється через Нову Пошту — одну з найнадійніших транспортних компаній України.",
-            },
-            {
-              title: "Вартість доставки:",
-              content:
-                "Вартість доставки залежить від габаритів, ваги товару, місця призначення та обраного способу доставки. Оплата послуг перевізника здійснюється при отриманні замовлення.",
-            },
-            {
-              title: "Термін доставки:",
-              content:
-                "Термін доставки становить від 1 до 7 днів залежно від вашого місця проживання та наявності товару.",
-            },
-            {
-              title: "Безкоштовна доставка:",
-              content:
-                "На окремі товари, позначені на сайті, діє безкоштовна доставка. Зверніть увагу: безкоштовна доставка не поширюється на замовлення, оформлені з послугою Оплати Частинами.",
-            },
-          ].map(({ title, content }) => (
+  const returnPolicy = {
+    title: "Повернення та обмін товару",
+    content: [
+      "Відповідно до «Закону України про захист прав споживачів», ви маєте право відмовитися від товару, придбаного в інтернет-магазині kolyska.if, або обміняти його на аналогічний.",
+      "Умови повернення або обміну товару належної якості:",
+      "Термін: Повернення або обмін можливі протягом 14 днів з моменту отримання товару.",
+      "Стан товару: Товар не повинен бути в експлуатації, має залишатися новим, зі збереженим товарним виглядом, споживчими властивостями, пломбами, ярликами та іншими елементами, що були на момент покупки.",
+      "Документи: Наявність товарного чека або іншого документа, що підтверджує факт покупки.",
+      "Умови обміну: Якщо аналогічний товар відсутній у продажу, ви маєте право обрати інший товар з наявного асортименту або отримати повну вартість товару назад.",
+      "Повернення товару з доставкою: Якщо товар доставлявся з іншого міста, клієнт зобов'язаний оплатити вартість доставки в обидві сторони.",
+      "У разі повернення товару через заводський брак, клієнт не оплачує доставку.",
+      "Важливо: Повернення коштів здійснюється на банківську картку або інший спосіб оплати, який був використаний при покупці, протягом 7 робочих днів з моменту отримання товару назад.",
+    ],
+  };
+
+  return (
+    <main className="bg-white min-h-screen flex items-center justify-center px-4 py-12">
+      <section className="w-full max-w-7xl mx-auto space-y-12">
+        <div className="text-center">
+          <SectionTitle title="Як здійснюється доставка замовлень?" />
+          <SectionSlogan slogan="Ми робимо все можливе, щоб ваші замовлення були доставлені швидко та зручно. Ось основні деталі:" />
+        </div>
+
+        <div className="space-y-8">
+          {deliveryDetails.map(({ title, content }) => (
             <div key={title} className="space-y-2">
               <h3 className="text-xl font-semibold text-primary">{title}</h3>
               <p className="text-secondary">{content}</p>
@@ -58,30 +77,20 @@ const Delivery: React.FC = () => {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[
-              {
-                address: `${LOCATIONS[0].address}(${LOCATIONS[0].name})`,
-                image: LOCATIONS[0].image,
-              },
-              {
-                address: `${LOCATIONS[1].address}(${LOCATIONS[1].name})`,
-                image: LOCATIONS[1].image,
-              },
-            ].map((item, index) => (
+            {LOCATIONS.slice(0, 2).map((location, index) => (
               <div key={index} className="w-full h-64 space-y-2">
-                <div className="relative h-56 w-full">
+                <div className="relative h-56 w-full rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
                   <Image
-                    src={item.image}
-                    alt="Магазин Колиска"
+                    src={location.image}
+                    alt={`Магазин ${location.name}`}
                     fill
                     priority
                     quality={75}
-                    loading="eager"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="rounded-lg shadow-lg object-cover "
+                    className="object-cover"
                   />
                 </div>
-                <p className="mt-2 text-secondary">{item.address}</p>
+                <p className="mt-2 text-secondary">{`${location.address} (${location.name})`}</p>
               </div>
             ))}
           </div>
@@ -111,7 +120,18 @@ const Delivery: React.FC = () => {
           </ul>
         </div>
 
-        <p className="mt-8 text-xl font-bold text-primary">
+        <div className="space-y-4">
+          <h3 className="text-xl font-semibold text-primary">
+            {returnPolicy.title}
+          </h3>
+          {returnPolicy.content.map((text, index) => (
+            <p key={index} className="text-secondary">
+              {text}
+            </p>
+          ))}
+        </div>
+
+        <p className="mt-8 text-xl font-bold text-primary text-center">
           «Колиска» — це не лише якісні товари для дітей, але й комфортний
           сервіс для вас!
         </p>

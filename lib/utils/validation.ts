@@ -32,7 +32,8 @@ export const validatePhoneNumber = (
   const phoneRegex =
     /^(\+?[0-9]{1,3}[-. ]?)?(\(?[0-9]{2,4}\)?[-. ]?)?[0-9]{2,3}[-. ]?[0-9]{2,3}[-. ]?[0-9]{2,4}$/;
 
-  if (!phoneRegex.test(phoneNumber)) return "Невірний формат номера телефону";
+  if (!phoneRegex.test(phoneNumber))
+    return "Введіть номер телефону в форматі +380ХХХХХХХХХ або 0ХХХХХХХХХ";
 
   // Видаляємо всі нецифрові символи для перевірки довжини
   const digitsOnly = phoneNumber.replace(/\D/g, "");
