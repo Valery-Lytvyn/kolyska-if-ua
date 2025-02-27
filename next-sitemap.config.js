@@ -19,6 +19,18 @@ const config = {
          priority: config.getPriority(path),
       };
    },
+   robotsTxtOptions: {
+      policies: [
+         {
+            userAgent: '*',
+            allow: '/',
+            disallow: ['/admin-dashboard', '/login', '/register', '/profile'],
+         },
+      ],
+      additionalSitemaps: [
+         'https://kolyska-if-ua.vercel.app/sitemap.xml',
+      ],
+   },
 };
 
 export default config;
