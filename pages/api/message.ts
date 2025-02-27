@@ -7,11 +7,11 @@ export default async function handler(
 ) {
   if (req.method === "POST") {
     const { message } = req.body;
-    const telegramUrl = `https://api.telegram.org/bot${process.env.NEXT_PUBLIC_TELEGRAM_BOT_TOKEN}/sendMessage`;
+    const telegramUrl = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`;
 
     try {
       const response = await axios.post(telegramUrl, {
-        chat_id: process.env.NEXT_PUBLIC_TELEGRAM_CHAT_ID,
+        chat_id: process.env.TELEGRAM_CHAT_ID,
         text: message,
       });
       if (response.data.ok) {
