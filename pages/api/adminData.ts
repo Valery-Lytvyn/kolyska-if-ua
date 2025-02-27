@@ -41,6 +41,5 @@ export default async function handler(
     return res.status(500).json({ message: "Internal server error" });
   } finally {
     await mongoose.disconnect();
-    console.log("Disconnected from MongoDB");
   }
 }

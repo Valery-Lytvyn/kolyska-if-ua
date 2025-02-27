@@ -18,7 +18,6 @@ import { ROUTES } from "@/routes/routes";
 import { CONTACTS, WORKING_HOURS } from "@/lib/data/constants";
 
 const Header: React.FC = React.memo(() => {
-  console.log(`Header _ rerender`);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
   const cartItems = useSelector((state: RootState) => state.cart.items);

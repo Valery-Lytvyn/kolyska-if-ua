@@ -19,7 +19,6 @@ const ViewedProductsSection = lazy(
 );
 
 const Home: React.FC = React.memo(() => {
-  console.log("HomePage");
   return (
     <main className="flex-1 bg-gray-50">
       <HeroSection />

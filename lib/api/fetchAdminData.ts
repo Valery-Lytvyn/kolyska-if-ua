@@ -1,8 +1,8 @@
 import axios from "axios";
+import { getBaseUrl } from "../utils/getBaseUrl";
 
 export const fetchAdminData = async () => {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || "https://kolyska.if.ua";
-  // "http://localhost:3000"  // Fallback for local dev
+  const baseUrl = getBaseUrl();
   try {
     const response = await axios.get(`${baseUrl}/api/adminData`, {
       responseType: "json",

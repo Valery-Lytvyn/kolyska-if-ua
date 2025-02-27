@@ -46,6 +46,11 @@ h3,
   background: linear-gradient(11deg, rgba(19, 19, 19, 0.76234243697479) 21%, rgba(31, 31, 31, 0.7539390756302521) 32%, rgba(246, 246, 246, 0) 100%);
 }
 
+.dark-bottom-gradient {
+  background: rgb(19, 19, 19);
+  background: linear-gradient(360deg, rgba(19, 19, 19, 0.7) 0%, rgba(246, 246, 246, 0) 100%);
+}
+
 .light-gradient {
   background: rgb(255, 255, 255);
   background: linear-gradient(180deg, rgba(77, 77, 77, 0.02) 0%, rgba(255, 255, 255, 0) 100%);

@@ -39,14 +39,25 @@ const rootReducer = combineReducers({
 
 const persistedReducer = persistReducer<RootState>(persistConfig, rootReducer);
 
+// export const store = configureStore({
+//   reducer: persistedReducer,
+//   middleware: (getDefaultMiddleware) =>
+//     getDefaultMiddleware({
+//       // serializableCheck: {
+//       //   ignoredActions: ["persist/PERSIST"],
+//       // },
+//       serializableCheck: false,
+//     }),
+// });
+
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      // serializableCheck: {
-      //   ignoredActions: ["persist/PERSIST"],
-      // },
       serializableCheck: false,
+      immutableCheck: {
+        warnAfter: 100, // Increase the threshold to 100ms
+      },
     }),
 });
 
