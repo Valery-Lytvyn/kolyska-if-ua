@@ -1,8 +1,7 @@
 import axios from "axios";
 
 export const fetchAdminData = async () => {
-  const baseUrl =
-    process.env.NEXT_PUBLIC_API_URL || "https://kolyska-if-ua.vercel.app";
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL || "https://kolyska.if.ua";
   // "http://localhost:3000"  // Fallback for local dev
   try {
     const response = await axios.get(`${baseUrl}/api/adminData`, {

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>https://kolyska-if-ua.vercel.app/about</loc><lastmod>2025-02-27T09:18:41.778Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
-<url><loc>https://kolyska-if-ua.vercel.app/best-offers</loc><lastmod>2025-02-27T09:18:41.779Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
-<url><loc>https://kolyska-if-ua.vercel.app/cart</loc><lastmod>2025-02-27T09:18:41.779Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
-<url><loc>https://kolyska-if-ua.vercel.app/contact</loc><lastmod>2025-02-27T09:18:41.779Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
-<url><loc>https://kolyska-if-ua.vercel.app/delivery</loc><lastmod>2025-02-27T09:18:41.779Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
-<url><loc>https://kolyska-if-ua.vercel.app/new-offers</loc><lastmod>2025-02-27T09:18:41.779Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
-<url><loc>https://kolyska-if-ua.vercel.app/payment</loc><lastmod>2025-02-27T09:18:41.779Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
-<url><loc>https://kolyska-if-ua.vercel.app/viewed-products</loc><lastmod>2025-02-27T09:18:41.779Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
-<url><loc>https://kolyska-if-ua.vercel.app/wished-products</loc><lastmod>2025-02-27T09:18:41.779Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
-<url><loc>https://kolyska-if-ua.vercel.app</loc><lastmod>2025-02-27T09:18:41.779Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
-<url><loc>https://kolyska-if-ua.vercel.app/user-profile</loc><lastmod>2025-02-27T09:18:41.779Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
-<url><loc>https://kolyska-if-ua.vercel.app/search</loc><lastmod>2025-02-27T09:18:41.779Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+<url><loc>https://kolyska.if.ua/about</loc><lastmod>2025-02-27T09:41:50.543Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+<url><loc>https://kolyska.if.ua/best-offers</loc><lastmod>2025-02-27T09:41:50.544Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+<url><loc>https://kolyska.if.ua/cart</loc><lastmod>2025-02-27T09:41:50.544Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+<url><loc>https://kolyska.if.ua/contact</loc><lastmod>2025-02-27T09:41:50.544Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+<url><loc>https://kolyska.if.ua/delivery</loc><lastmod>2025-02-27T09:41:50.544Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+<url><loc>https://kolyska.if.ua/new-offers</loc><lastmod>2025-02-27T09:41:50.544Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+<url><loc>https://kolyska.if.ua/payment</loc><lastmod>2025-02-27T09:41:50.544Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+<url><loc>https://kolyska.if.ua/viewed-products</loc><lastmod>2025-02-27T09:41:50.544Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+<url><loc>https://kolyska.if.ua/wished-products</loc><lastmod>2025-02-27T09:41:50.544Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+<url><loc>https://kolyska.if.ua</loc><lastmod>2025-02-27T09:41:50.544Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+<url><loc>https://kolyska.if.ua/user-profile</loc><lastmod>2025-02-27T09:41:50.544Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+<url><loc>https://kolyska.if.ua/search</loc><lastmod>2025-02-27T09:41:50.544Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
 </urlset>

@@ -18,23 +18,23 @@ export default async function handler(req, res) {
 
    // Створюємо масив URL-адрес на основі даних з Redux
    const urls = [
-      { loc: 'https://kolyska-if-ua.vercel.app/', lastmod: currentDate }, // Головна сторінка
-      { loc: 'https://kolyska-if-ua.vercel.app/login', lastmod: currentDate },
-      { loc: 'https://kolyska-if-ua.vercel.app/register', lastmod: currentDate },
-      { loc: 'https://kolyska-if-ua.vercel.app/profile', lastmod: currentDate },
-      { loc: 'https://kolyska-if-ua.vercel.app/about', lastmod: currentDate },
-      { loc: 'https://kolyska-if-ua.vercel.app/delivery', lastmod: currentDate },
-      { loc: 'https://kolyska-if-ua.vercel.app/payment', lastmod: currentDate },
-      { loc: 'https://kolyska-if-ua.vercel.app/contact', lastmod: currentDate },
-      { loc: 'https://kolyska-if-ua.vercel.app/best-offers', lastmod: currentDate },
-      { loc: 'https://kolyska-if-ua.vercel.app/new-offers', lastmod: currentDate },
-      { loc: 'https://kolyska-if-ua.vercel.app/admin-dashboard', lastmod: currentDate },
+      { loc: 'https://kolyska.if.ua/', lastmod: currentDate }, // Головна сторінка
+      { loc: 'https://kolyska.if.ua/login', lastmod: currentDate },
+      { loc: 'https://kolyska.if.ua/register', lastmod: currentDate },
+      { loc: 'https://kolyska.if.ua/profile', lastmod: currentDate },
+      { loc: 'https://kolyska.if.ua/about', lastmod: currentDate },
+      { loc: 'https://kolyska.if.ua/delivery', lastmod: currentDate },
+      { loc: 'https://kolyska.if.ua/payment', lastmod: currentDate },
+      { loc: 'https://kolyska.if.ua/contact', lastmod: currentDate },
+      { loc: 'https://kolyska.if.ua/best-offers', lastmod: currentDate },
+      { loc: 'https://kolyska.if.ua/new-offers', lastmod: currentDate },
+      { loc: 'https://kolyska.if.ua/admin-dashboard', lastmod: currentDate },
    ];
 
    // Додаємо URL-адреси для категорій
    categories.forEach((category) => {
       urls.push({
-         loc: `https://kolyska-if-ua.vercel.app/catalog/${category.categoryId}/1`, // Пагінація для каталогу
+         loc: `https://kolyska.if.ua/catalog/${category.categoryId}/1`, // Пагінація для каталогу
          lastmod: currentDate,
       });
    });
@@ -42,7 +42,7 @@ export default async function handler(req, res) {
    // Додаємо URL-адреси для продуктів
    offers.forEach((offer) => {
       urls.push({
-         loc: `https://kolyska-if-ua.vercel.app/product/${offer.$.id}`,
+         loc: `https://kolyska.if.ua/product/${offer.$.id}`,
          lastmod: currentDate,
       });
    });

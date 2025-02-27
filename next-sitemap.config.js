@@ -1,6 +1,6 @@
 
 const config = {
-   siteUrl: 'https://kolyska-if-ua.vercel.app',
+   siteUrl: 'https://kolyska.if.ua',
    generateRobotsTxt: true,
    changefreq: 'daily',
    priority: 0.7,
@@ -28,7 +28,7 @@ const config = {
          },
       ],
       additionalSitemaps: [
-         'https://kolyska-if-ua.vercel.app/sitemap.xml',
+         'https://kolyska.if.ua/sitemap.xml',
       ],
    },
 };

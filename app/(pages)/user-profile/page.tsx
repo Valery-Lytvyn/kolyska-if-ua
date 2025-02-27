@@ -12,8 +12,8 @@ import DeleteButton from "@/components/shared/buttons/DeleteButton";
 import { ROUTES } from "@/routes/routes";
 import { scaleUpSlow } from "@/lib/animations/animations";
 
-const adminName = process.env.NEXT_PUBLIC_ADMIN_NAME;
-const adminEmail = process.env.NEXT_PUBLIC_ADMIN_EMAIL;
+const adminName = process.env.ADMIN_NAME;
+const adminEmail = process.env.ADMIN_EMAIL;
 const UserProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);

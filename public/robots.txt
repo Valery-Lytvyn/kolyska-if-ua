@@ -7,7 +7,7 @@ Disallow: /register
 Disallow: /profile
 
 # Host
-Host: https://kolyska-if-ua.vercel.app
+Host: https://kolyska.if.ua
 
 # Sitemaps
-Sitemap: https://kolyska-if-ua.vercel.app/sitemap.xml
+Sitemap: https://kolyska.if.ua/sitemap.xml
