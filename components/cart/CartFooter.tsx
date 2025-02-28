@@ -4,17 +4,22 @@ import CustomInput from "../shared/inputs/CustomInput";
 import { formatPrice } from "@/helpers/formatPrice";
 import { validatePhoneNumber } from "@/lib/utils/validation";
 import { motion } from "framer-motion";
+import ReCAPTCHA from "react-google-recaptcha";
 
 interface CartFooterProps {
   totalAmount: number;
   handleClearCart: () => void;
   handlePlaceAnOrder: (value: string) => void;
+  sitekey: string;
+  onChange: (token: string | null) => void;
 }
 
 const CartFooter: React.FC<CartFooterProps> = ({
   totalAmount,
   handleClearCart,
   handlePlaceAnOrder,
+  sitekey,
+  onChange,
 }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [phoneError, setPhoneError] = useState<string | null | undefined>(null);
@@ -34,20 +39,17 @@ const CartFooter: React.FC<CartFooterProps> = ({
           {" грн"}
         </span>
       </div>
-      <div className="flex justify-end">
-        <div className="w-full sm:w-1/2 sm:pl-2">
-          <CustomInput
-            label="Щоб зробити замовлення, введіть номер телефону для зв'язку з Вами."
-            type="tel"
-            name="phone"
-            value={phoneNumber}
-            onChange={handlePhoneChange}
-            placeholder="Номер Вашого телефону"
-            error={phoneError}
-          />
-        </div>
-      </div>
-      <div className="flex flex-col sm:flex-row justify-center items-center gap-2 my-4">
+      <div className="grid sm:grid-cols-2 gap-2 my-4">
+        <ReCAPTCHA sitekey={sitekey} onChange={onChange} />
+        <CustomInput
+          label="Щоб зробити замовлення, введіть номер телефону для зв'язку з Вами."
+          type="tel"
+          name="phone"
+          value={phoneNumber}
+          onChange={handlePhoneChange}
+          placeholder="Номер Вашого телефону"
+          error={phoneError}
+        />
         <DeleteButton label="Очистити кошик" onClick={handleClearCart} />
         <motion.button
           whileHover={{ scale: phoneNumber && !phoneError ? 1.02 : 1 }}

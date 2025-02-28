@@ -11,7 +11,7 @@ const SearchBar: React.FC = () => {
   const { showToast } = useToast();
 
   const handleSearchInputChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(ev.target.value);
+    setSearchQuery(ev.target.value.toLowerCase());
   };
 
   const handleSearchSubmit = (ev: React.FormEvent<HTMLFormElement>) => {

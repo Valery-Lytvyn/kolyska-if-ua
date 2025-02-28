@@ -18,21 +18,25 @@ const Pagination: React.FC<PaginationProps> = ({
     if (page < 1 || page > totalPages) return; // Prevent invalid page navigation
     onPageChange(page);
   };
+  console.log(`visiblePages.length:${visiblePages.length}, ${visiblePages}`);
 
   return (
     <nav aria-label="Pagination" className="flex justify-center my-8 ">
       <ul className="flex gap-2 items-center">
         {/* Previous Button */}
-        <li>
-          <button
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-            aria-label="Previous Page"
-            className="px-4 py-2 rounded-lg bg-light-gray text-primary disabled:opacity-50 hover:bg-accent-hover transition-colors"
-          >
-            Previous
-          </button>
-        </li>
+
+        {visiblePages.length > 1 && (
+          <li>
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              aria-label="Previous Page"
+              className="px-4 py-2 rounded-lg bg-light-gray text-primary disabled:opacity-50 hover:bg-accent-hover transition-colors"
+            >
+              Previous
+            </button>
+          </li>
+        )}
 
         {/* Page Numbers */}
         {visiblePages.map((page, index) => (
@@ -59,16 +63,18 @@ const Pagination: React.FC<PaginationProps> = ({
         ))}
 
         {/* Next Button */}
-        <li>
-          <button
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
-            aria-label="Next Page"
-            className="px-4 py-2 rounded-lg bg-light-gray text-primary disabled:opacity-50 hover:bg-accent-hover transition-colors"
-          >
-            Next
-          </button>
-        </li>
+        {visiblePages.length > 1 && (
+          <li>
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              aria-label="Next Page"
+              className="px-4 py-2 rounded-lg bg-light-gray text-primary disabled:opacity-50 hover:bg-accent-hover transition-colors"
+            >
+              Next
+            </button>
+          </li>
+        )}
       </ul>
     </nav>
   );
