@@ -9,6 +9,7 @@ interface SortControlsProps {
   onSortByChange: (sortBy: "name" | "price") => void;
   onSortDirectionChange: (sortDirection: "asc" | "desc") => void;
   onCategoryChange: (categoryId: string | null) => void;
+  isDisabled?: boolean;
 }
 
 const SortControls: React.FC<SortControlsProps> = ({
@@ -17,7 +18,7 @@ const SortControls: React.FC<SortControlsProps> = ({
   categorySlug,
   onSortByChange,
   onSortDirectionChange,
-  onCategoryChange,
+    isDisabled = false,
 }) => {
   const handleSortByChange = useCallback(
     (type: "name" | "price") => {
@@ -60,10 +61,7 @@ const SortControls: React.FC<SortControlsProps> = ({
         </button>
       </div>
 
-      <CustomDropdown
-        categorySlug={categorySlug}
-        onCategoryChange={onCategoryChange}
-      />
+      <CustomDropdown categorySlug={categorySlug} isDisabled={isDisabled} />
     </div>
   );
 };

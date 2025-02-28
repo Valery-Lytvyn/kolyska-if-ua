@@ -3,7 +3,6 @@ interface PaginationProps {
   totalItems: number;
   currentPage: number;
   onPageChange: (page: number) => void;
-  categorySlug?: string;
 }
 
 const Pagination: React.FC<PaginationProps> = ({
@@ -11,7 +10,6 @@ const Pagination: React.FC<PaginationProps> = ({
   totalItems,
   currentPage,
   onPageChange,
-  // categorySlug,
 }) => {
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const visiblePages = getVisiblePages(currentPage, totalPages);

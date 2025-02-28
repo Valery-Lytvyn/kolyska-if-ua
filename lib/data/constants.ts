@@ -4,7 +4,6 @@ import { MdLocalPhone, MdMailOutline } from "react-icons/md";
 
 export const ITEMS_PER_PAGE = 12;
 
-
 export const SOCIALS: Social[] = [
   {
     href: "https://www.instagram.com/kolyska.if/",
@@ -12,7 +11,7 @@ export const SOCIALS: Social[] = [
     label: "instagram icon",
   },
   {
-    href: "https://www.facebook.com/kolyska.if/",
+    href: "https://www.facebook.com/share/18G3KmRFtR/",
     icon: FaFacebookF,
     label: "facebook icon",
   },
@@ -48,7 +47,7 @@ export const LOCATIONS: ContactLocation[] = [
   },
 ];
 
-export const WORKING_HOURS= {
+export const WORKING_HOURS = {
   weekdays: "Пн-Пт: 10:00 - 18:00",
   weekend: "Сб-Нд: 11:00 - 16:00",
 };

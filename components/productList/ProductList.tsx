@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import Pagination from "./Pagination";
 import ProductListSkeleton from "./ProductListSkeleton";
 import SortControls from "./SortControls";
 import { useViewedProducts } from "@/hooks/useViewedProducts";
@@ -9,12 +8,21 @@ import { Offer } from "@/types/types";
 import LoadingSpinner from "../shared/spiners/LoadingSpinner";
 import ProductCard from "../productCard/ProductCard";
 import ViewedProductList from "../viewedProductList/ViewedProductList";
+import dynamic from "next/dynamic";
+const Pagination = dynamic(
+  () => import("@/components/productList/Pagination"),
+  {
+    ssr: false,
+  }
+);
 
 interface ProductListProps {
   offers: Offer[];
   currentPage: number;
   categorySlug?: string;
   categoryId?: string[];
+  isSearch?: boolean;
+  searchQuery?: string;
 }
 
 const ProductList: React.FC<ProductListProps> = ({
@@ -22,6 +30,7 @@ const ProductList: React.FC<ProductListProps> = ({
   currentPage,
   categorySlug,
   categoryId,
+  searchQuery,
 }) => {
   const [sortBy, setSortBy] = useState<"name" | "price">("name");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
@@ -66,6 +75,8 @@ const ProductList: React.FC<ProductListProps> = ({
 
   const handlePageChange = useCallback(
     (pageNumber: number) => {
+      if (searchQuery)
+        return router.push(`/search?q=${searchQuery}&page=${pageNumber}`);
       if (categorySlug) {
         router.push(
           `/catalog/${encodeURIComponent(categorySlug)}/${pageNumber}`
@@ -74,7 +85,7 @@ const ProductList: React.FC<ProductListProps> = ({
         router.push(`/catalog/${pageNumber}`);
       }
     },
-    [categorySlug, router]
+    [categorySlug, router, searchQuery]
   );
 
   const handleCategoryChange = useCallback((categoryId: string | null) => {
@@ -92,6 +103,7 @@ const ProductList: React.FC<ProductListProps> = ({
   return (
     <main className="w-full max-w-7xl mx-auto p-4 z-10 relative flex flex-col">
       <SortControls
+        isDisabled={!!searchQuery}
         sortBy={sortBy}
         sortDirection={sortDirection}
         categorySlug={categorySlug}
@@ -123,7 +135,6 @@ const ProductList: React.FC<ProductListProps> = ({
           totalItems={filteredOffers.length}
           currentPage={currentPage}
           onPageChange={handlePageChange}
-          categorySlug={categorySlug}
         />
       )}
 

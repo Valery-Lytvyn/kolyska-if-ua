@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from "react";
 import axios from "axios";
 import { useForm } from "@/hooks/useForm";
@@ -22,11 +23,11 @@ const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "";
 const ContactForm: React.FC<ContactFormProps> = ({ modalToggle }) => {
   const {
     formData,
-    setFormData,
     handleChange,
     errors,
     setErrors,
     validateForm,
+    setFormData,
   } = useForm(initialState);
   const [loading, setLoading] = useState(false);
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
@@ -35,19 +36,20 @@ const ContactForm: React.FC<ContactFormProps> = ({ modalToggle }) => {
   const handleRecaptchaChange = (token: string | null) => {
     setRecaptchaToken(token);
   };
+  console.log(`RECAPTCHA_SITE_KEY:${RECAPTCHA_SITE_KEY}`);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!validateForm()) {
-      return;
-    }
 
     if (!recaptchaToken) {
       setErrors((prev) => ({
         ...prev,
         form: "Будь ласка, пройдіть reCAPTCHA",
       }));
+      return;
+    }
+
+    if (!validateForm()) {
       return;
     }
 
@@ -60,13 +62,13 @@ const ContactForm: React.FC<ContactFormProps> = ({ modalToggle }) => {
 
       if (response.status === 200) {
         showToast("Повідомлення відправлено успішно!");
-        setFormData({ phoneNumber: "", message: "" });
-        if (modalToggle) modalToggle();
+        setFormData(initialState);
+        modalToggle?.();
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error(error);
-      setErrors((prev) => ({ ...prev, form: error?.message as string }));
+      setErrors((prev) => ({ ...prev, form: "Помилка при відправці" }));
     } finally {
       setLoading(false);
     }
@@ -100,13 +102,16 @@ const ContactForm: React.FC<ContactFormProps> = ({ modalToggle }) => {
         error={errors.message}
       />
 
-      {/* reCAPTCHA */}
       <ReCAPTCHA
         sitekey={RECAPTCHA_SITE_KEY}
         onChange={handleRecaptchaChange}
       />
 
-      {errors.form && <p className="text-error text-sm mt-1">{errors.form}</p>}
+      {errors.form && (
+        <p className="text-error text-sm mt-1" aria-live="polite">
+          {errors.form}
+        </p>
+      )}
 
       <CustomButton
         name={loading ? "Відправлення..." : "Відправити"}

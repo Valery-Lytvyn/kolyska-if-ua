@@ -8,10 +8,13 @@ import { ROUTES } from "@/routes/routes";
 
 interface CustomDropdownProps {
   categorySlug?: string;
-  onCategoryChange?: (categoryId: string | null) => void;
+  isDisabled?: boolean;
 }
 
-const CustomDropdown: React.FC<CustomDropdownProps> = ({ categorySlug }) => {
+const CustomDropdown: React.FC<CustomDropdownProps> = ({
+  categorySlug,
+  isDisabled,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -41,6 +44,8 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({ categorySlug }) => {
 
   // Toggle dropdown visibility
   const toggleDropdown = useCallback(() => setIsOpen((prev) => !prev), []);
+
+  if (isDisabled) return null;
 
   return (
     <div className="relative w-56" ref={dropdownRef}>
