@@ -12,7 +12,7 @@ import CartItemList from "@/components/cart/CartItemList";
 import CartHeader from "@/components/cart/CartHeader";
 import ReCAPTCHA from "react-google-recaptcha";
 
-const RECAPTCHA_SITE_KEY = process.env.RECAPTCHA_SITE_KEY || "";
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "";
 
 const CartPage = () => {
   const {

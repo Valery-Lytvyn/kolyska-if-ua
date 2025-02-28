@@ -17,7 +17,7 @@ interface ContactFormProps {
   modalToggle?: () => void;
 }
 
-const RECAPTCHA_SITE_KEY = process.env.RECAPTCHA_SITE_KEY || "";
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "";
 
 const ContactForm: React.FC<ContactFormProps> = ({ modalToggle }) => {
   const {
