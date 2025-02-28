@@ -13,7 +13,7 @@ import ProductListSkeleton from "../productList/ProductListSkeleton";
 import { ROUTES } from "@/routes/routes";
 
 const NewOffersSection: React.FC = React.memo(() => {
-  const newOffers = useSelector((state: RootState) => state.catalog.bestOffers);
+  const newOffers = useSelector((state: RootState) => state.catalog.newOffers);
   const offers = useSelector((state: RootState) =>
     selectOffersByIds(state, newOffers)
   );

@@ -12,7 +12,7 @@ import CartItemList from "@/components/cart/CartItemList";
 import CartHeader from "@/components/cart/CartHeader";
 import ReCAPTCHA from "react-google-recaptcha";
 
-const ReCAPTCHA_SITE_KEY = process.env.RECAPTCHA_SITE_KEY || "";
+const RECAPTCHA_SITE_KEY = process.env.RECAPTCHA_SITE_KEY || "";
 
 const CartPage = () => {
   const {
@@ -146,7 +146,7 @@ const CartPage = () => {
             {/* reCAPTCHA */}
             <div className="p-4">
               <ReCAPTCHA
-                sitekey={ReCAPTCHA_SITE_KEY}
+                sitekey={RECAPTCHA_SITE_KEY}
                 onChange={(token) => setRecaptchaToken(token)}
               />
             </div>
