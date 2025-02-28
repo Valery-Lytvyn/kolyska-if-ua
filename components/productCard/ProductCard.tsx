@@ -56,7 +56,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       whileInView={{ y: 0 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
       viewport={{ once: true }}
-      className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300  flex group w-full border h-auto border-transparent hover:border-accent-hover relative"
+      className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300  flex group w-full border h-full border-transparent hover:border-accent-hover relative"
     >
       <Link
         href={`/product/${productId}`}

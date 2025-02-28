@@ -11,6 +11,7 @@ import { setUser } from "@/store/slices/userSlice";
 import { useDispatch } from "react-redux";
 import AnimatedWrapper from "@/components/ui/AnimatedWrapper";
 import { ROUTES } from "@/routes/routes";
+import PasswordInput from "@/components/shared/inputs/PasswordInput";
 const initialState = {
   name: "",
   email: "",
@@ -79,8 +80,7 @@ const LoginForm = ({ goToLink }: { goToLink: (path: string) => void }) => {
         value={formData.email}
         error={errors.email}
       />
-      <CustomInput
-        type="password"
+      <PasswordInput
         placeholder="Пароль"
         name="password"
         label="Пароль"

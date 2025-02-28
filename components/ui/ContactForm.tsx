@@ -6,6 +6,7 @@ import CustomInput from "../shared/inputs/CustomInput";
 import CustomButton from "../shared/buttons/CustomButton";
 import { useToast } from "@/providers/ToastContext";
 import CustomTextarea from "../shared/inputs/CustomTextarea";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const initialState = {
   phoneNumber: "",
@@ -15,6 +16,8 @@ const initialState = {
 interface ContactFormProps {
   modalToggle?: () => void;
 }
+
+const ReCAPTCHA_SITE_KEY = process.env.RECAPTCHA_SITE_KEY || "";
 
 const ContactForm: React.FC<ContactFormProps> = ({ modalToggle }) => {
   const {
@@ -26,7 +29,12 @@ const ContactForm: React.FC<ContactFormProps> = ({ modalToggle }) => {
     validateForm,
   } = useForm(initialState);
   const [loading, setLoading] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const { showToast } = useToast();
+
+  const handleRecaptchaChange = (token: string | null) => {
+    setRecaptchaToken(token);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,10 +43,19 @@ const ContactForm: React.FC<ContactFormProps> = ({ modalToggle }) => {
       return;
     }
 
+    if (!recaptchaToken) {
+      setErrors((prev) => ({
+        ...prev,
+        form: "Будь ласка, пройдіть reCAPTCHA",
+      }));
+      return;
+    }
+
     setLoading(true);
     try {
       const response = await axios.post("/api/message", {
         message: `Телефон: ${formData.phoneNumber}, \nПовідомлення: ${formData.message}`,
+        recaptchaToken,
       });
 
       if (response.status === 200) {
@@ -82,6 +99,14 @@ const ContactForm: React.FC<ContactFormProps> = ({ modalToggle }) => {
         onChange={handleChange}
         error={errors.message}
       />
+
+      {/* reCAPTCHA */}
+      <ReCAPTCHA
+        sitekey={ReCAPTCHA_SITE_KEY}
+        onChange={handleRecaptchaChange}
+      />
+
+      {errors.form && <p className="text-error text-sm mt-1">{errors.form}</p>}
 
       <CustomButton
         name={loading ? "Відправлення..." : "Відправити"}

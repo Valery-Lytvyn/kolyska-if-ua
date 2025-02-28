@@ -3,7 +3,7 @@ import DeleteButton from "../shared/buttons/DeleteButton";
 import CustomInput from "../shared/inputs/CustomInput";
 import { formatPrice } from "@/helpers/formatPrice";
 import { validatePhoneNumber } from "@/lib/utils/validation";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 
 interface CartFooterProps {
   totalAmount: number;

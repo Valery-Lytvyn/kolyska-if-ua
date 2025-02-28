@@ -36,26 +36,26 @@ const SortControls: React.FC<SortControlsProps> = ({
       <div className="flex gap-4">
         <button
           onClick={() => handleSortByChange("name")}
-          aria-label="Sort by name"
+          aria-label="Сортувати за ім'ям"
           className={`px-4 py-2 rounded-lg ${
             sortBy === "name"
               ? "bg-primary text-white"
               : "bg-light-gray text-primary"
           }`}
         >
-          Sort by Name{" "}
+          Сортувати за ім&apos;ям{" "}
           {sortBy === "name" && (sortDirection === "asc" ? "↑" : "↓")}
         </button>
         <button
           onClick={() => handleSortByChange("price")}
-          aria-label="Sort by price"
+          aria-label="Сортувати за ціною"
           className={`px-4 py-2 rounded-lg ${
             sortBy === "price"
               ? "bg-primary text-white"
               : "bg-light-gray text-primary"
           }`}
         >
-          Sort by Price{" "}
+          Сортувати за ціною{" "}
           {sortBy === "price" && (sortDirection === "asc" ? "↑" : "↓")}
         </button>
       </div>

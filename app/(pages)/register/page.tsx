@@ -7,6 +7,7 @@ import CustomInput from "@/components/shared/inputs/CustomInput";
 import CustomButton from "@/components/shared/buttons/CustomButton";
 import { useForm } from "@/hooks/useForm";
 import { ROUTES } from "@/routes/routes";
+import PasswordInput from "@/components/shared/inputs/PasswordInput";
 
 const initialState = {
   name: "",
@@ -30,6 +31,7 @@ const RegisterForm = ({ goToLink }: { goToLink: (path: string) => void }) => {
     setLoading(true);
 
     if (!validateForm()) {
+      setLoading(false);
       return;
     }
 
@@ -76,8 +78,7 @@ const RegisterForm = ({ goToLink }: { goToLink: (path: string) => void }) => {
         value={formData.email}
         error={errors.email}
       />
-      <CustomInput
-        type="password"
+      <PasswordInput
         placeholder="Пароль"
         name="password"
         label="Пароль"
@@ -85,8 +86,7 @@ const RegisterForm = ({ goToLink }: { goToLink: (path: string) => void }) => {
         value={formData.password}
         error={errors.password}
       />
-      <CustomInput
-        type="password"
+      <PasswordInput
         placeholder="Повторіть пароль"
         name="confirmPassword"
         label="Повторіть пароль"

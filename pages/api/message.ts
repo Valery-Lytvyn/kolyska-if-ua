@@ -1,17 +1,30 @@
 import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
 
+const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
+const RECAPTCHA_SECRET_KEY = process.env.RECAPTCHA_SECRET_KEY;
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const { message, recaptchaToken } = req.body;
+
+  const recaptchaResponse = await axios.post(
+    `https://www.google.com/recaptcha/api/siteverify?secret=${RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`
+  );
+
+  if (!recaptchaResponse.data.success) {
+    return res.status(400).json({ message: "Помилка reCAPTCHA" });
+  }
+
   if (req.method === "POST") {
-    const { message } = req.body;
-    const telegramUrl = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`;
+    const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
 
     try {
       const response = await axios.post(telegramUrl, {
-        chat_id: process.env.TELEGRAM_CHAT_ID,
+        chat_id: TELEGRAM_CHAT_ID,
         text: message,
       });
       if (response.data.ok) {

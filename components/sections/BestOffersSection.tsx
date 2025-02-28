@@ -38,16 +38,18 @@ const BestOffersSection: React.FC = React.memo(() => {
           {/* Products List */}
           {!!offers.length ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 my-8">
-              {offers.map(({ $: { id }, price, picture, name }, index) => (
-                <ProductCard
-                  key={index}
-                  index={index}
-                  productId={id}
-                  price={price}
-                  imageUrl={picture}
-                  productName={name}
-                />
-              ))}
+              {offers
+                .slice(0, 8)
+                .map(({ $: { id }, price, picture, name }, index) => (
+                  <ProductCard
+                    key={index}
+                    index={index}
+                    productId={id}
+                    price={price}
+                    imageUrl={picture}
+                    productName={name}
+                  />
+                ))}
             </div>
           ) : (
             <ProductListSkeleton />
