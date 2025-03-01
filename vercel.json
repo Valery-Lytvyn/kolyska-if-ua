@@ -5,7 +5,16 @@
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "no-cache, no-store, must-revalidate"
+          "value": "public, max-age=86400, stale-while-revalidate=3600"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://maps.googleapis.com https://www.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://www.google.com https://www.gstatic.com; img-src 'self' https://babytilly.s3.amazonaws.com https://lh3.googleusercontent.com http://www.w3.org/2000/; frame-src 'self' https://www.google.com/maps https://www.google.com/recaptcha/;"
         }
       ]
     }

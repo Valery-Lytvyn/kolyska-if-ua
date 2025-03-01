@@ -5,5 +5,5 @@ export const getBaseUrl = () => {
   if (process.env.NEXT_PUBLIC_API_URL) {
     return process.env.NEXT_PUBLIC_API_URL;
   }
-  return "https://kolyska.if.ua";
+  return "https://www.kolyska.if.ua";
 };

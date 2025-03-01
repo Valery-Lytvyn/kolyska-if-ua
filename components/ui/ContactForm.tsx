@@ -36,7 +36,6 @@ const ContactForm: React.FC<ContactFormProps> = ({ modalToggle }) => {
   const handleRecaptchaChange = (token: string | null) => {
     setRecaptchaToken(token);
   };
-  console.log(`RECAPTCHA_SITE_KEY:${RECAPTCHA_SITE_KEY}`);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

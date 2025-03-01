@@ -20,7 +20,7 @@ const counters: Counter[] = [
 
 const ShopBlurbSection: React.FC = React.memo(() => {
   return (
-    <section className="relative min-h-screen bg-white py-16 overflow-hidden">
+    <section className="relative  bg-white py-16 overflow-hidden">
       <div className="container mx-auto px-4 md:px-6 max-w-7xl">
         <div className="text-center mb-12">
           <SectionTitle title="Чому обирають Kolyska.if.ua" />
