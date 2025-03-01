@@ -101,7 +101,7 @@ const ProductList: React.FC<ProductListProps> = ({
   }
 
   return (
-    <main className="w-full max-w-7xl mx-auto p-4 z-10 relative flex flex-col">
+    <main className="w-full max-w-7xl mx-auto p-4 z-10 relative flex flex-col h-full">
       <SortControls
         isDisabled={!!searchQuery}
         sortBy={sortBy}
@@ -113,7 +113,7 @@ const ProductList: React.FC<ProductListProps> = ({
       />
 
       {!!currentItems.length ? (
-        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 my-8 flex-1">
+        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 my-8 flex-1 h-full">
           {currentItems.map((offer, index) => (
             <ProductCard
               index={index}

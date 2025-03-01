@@ -18,7 +18,6 @@ const Pagination: React.FC<PaginationProps> = ({
     if (page < 1 || page > totalPages) return; // Prevent invalid page navigation
     onPageChange(page);
   };
-  console.log(`visiblePages.length:${visiblePages.length}, ${visiblePages}`);
 
   return (
     <nav aria-label="Pagination" className="flex justify-center my-8 ">

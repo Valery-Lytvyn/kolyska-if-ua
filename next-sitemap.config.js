@@ -15,7 +15,7 @@ const config = {
       return {
          loc: path,
          lastmod: new Date().toISOString(),
-         changefreq: 'weekly',
+         changefreq: path.includes('/catalog') || path.includes('/product') ? 'daily' : 'weekly',
          priority: config.getPriority(path),
       };
    },
@@ -25,6 +25,11 @@ const config = {
             userAgent: '*',
             allow: '/',
             disallow: ['/admin-dashboard', '/login', '/register', '/profile'],
+         },
+         {
+            userAgent: 'Googlebot',
+            allow: '/',
+            disallow: ['/admin-dashboard'],
          },
       ],
       additionalSitemaps: [

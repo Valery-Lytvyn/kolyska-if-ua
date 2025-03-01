@@ -5,7 +5,7 @@ import {
   PayloadAction,
 } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { CatalogState, Categories, Category, Offer } from "@/types/types";
+import { CatalogState, Category, Offer, ProductCategory } from "@/types/types";
 import { fetchCatalogData } from "@/lib/api/fetchCatalogData";
 import { fetchAdminData } from "@/lib/api/fetchAdminData";
 import { renameCategory } from "@/helpers/renameCategory";
@@ -28,6 +28,9 @@ export const fetchCatalog = createAsyncThunk(
       const data = await fetchCatalogData();
       const adminData = await fetchAdminData();
 
+      const filteredOffers = data.yml_catalog.shop.offers.offer.filter(
+        (offer: Offer) => offer.price !== "0.00" && offer.price !== "0,00"
+      );
       const renamedCategories = data.yml_catalog.shop.categories.category
         .map((category: Category) => {
           if (!category || !category.$ || !category._) {
@@ -40,11 +43,13 @@ export const fetchCatalog = createAsyncThunk(
             cyrillicName: category._,
           };
         })
-        .filter(Boolean);
+        .filter((category: ProductCategory) => {
+          if (!category) return false;
+          return filteredOffers.some(
+            (offer: Offer) => offer.categoryId === category.categoryId
+          );
+        });
 
-      const filteredOffers = data.yml_catalog.shop.offers.offer.filter(
-        (offer: Offer) => offer.price !== "0.00" && offer.price !== "0,00"
-      );
       dispatch(setCategories(renamedCategories));
       dispatch(setOffers(filteredOffers));
       dispatch(setBestOffers(adminData.bestOffer));
@@ -65,9 +70,9 @@ const catalogSlice = createSlice({
   name: "catalog",
   initialState,
   reducers: {
-    setCategories: (state, action: PayloadAction<Categories[]>) => {
+    setCategories: (state, action: PayloadAction<ProductCategory[]>) => {
       state.categoryMap = action.payload.map(
-        ({ categoryId, name, cyrillicName }: Categories) => ({
+        ({ categoryId, name, cyrillicName }: ProductCategory) => ({
           categoryId,
           name,
           cyrillicName,

@@ -36,7 +36,7 @@ const CatalogPage: React.FC = () => {
   }
 
   return (
-    <main className="w-full mx-auto relative z-10 bg-white overflow-hidden min-h-[calc(100vh-10.5rem)] sm:min-h-[calc(100vh-11.5rem)] md:min-h-[calc(100vh-13rem)] flex flex-col items-center">
+    <main className="w-full mx-auto relative z-10 bg-white overflow-hidden min-h-[calc(100vh-10.5rem)] sm:min-h-[calc(100vh-11.5rem)] md:min-h-[calc(100vh-13rem)] flex flex-col items-center h-full">
       <CustomLink href={ROUTES.home} label="Повернутися на головну" />
       <ProductList
         offers={offers}

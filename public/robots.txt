@@ -1,4 +1,3 @@
-# *
 User-agent: *
 Allow: /
 Disallow: /admin-dashboard
@@ -11,3 +10,5 @@ Host: https://kolyska.if.ua
 
 # Sitemaps
 Sitemap: https://kolyska.if.ua/sitemap.xml
+Sitemap: https://kolyska.if.ua/sitemap-0.xml
+

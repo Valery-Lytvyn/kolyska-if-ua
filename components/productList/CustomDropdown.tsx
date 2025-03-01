@@ -1,10 +1,12 @@
 "use client";
-import React, { useState, useRef, useCallback, useMemo } from "react";
+import React, { useState, useRef, useCallback, useMemo, Fragment } from "react";
 import { useOnClickOutside } from "@/hooks/useOnClickOutside";
 import { menuItems } from "@/lib/data/data";
 import Link from "next/link";
 import { MenuItem } from "@/types/types";
 import { ROUTES } from "@/routes/routes";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 interface CustomDropdownProps {
   categorySlug?: string;
@@ -17,6 +19,9 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const categoryNames = useSelector(
+    (state: RootState) => state.catalog.categoryMap
+  ).map((c) => c.name);
 
   // Close dropdown when clicking outside
   useOnClickOutside(dropdownRef as React.RefObject<HTMLElement>, () =>
@@ -97,18 +102,22 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
               {children && (
                 <ul className="pl-4 space-y-1">
                   {children.map(({ href, title }) => (
-                    <li key={href}>
-                      <Link
-                        href={ROUTES.catalogSection(href)}
-                        className={`block px-4 py-2 text-sm text-secondary hover:bg-accent-hover hover:text-white transition-colors duration-200 ${
-                          title === currentCategory
-                            ? "bg-accent text-white"
-                            : ""
-                        }`}
-                      >
-                        {title}
-                      </Link>
-                    </li>
+                    <Fragment key={href}>
+                      {categoryNames.includes(href) && (
+                        <li>
+                          <Link
+                            href={ROUTES.catalogSection(href)}
+                            className={`block px-4 py-2 text-sm text-secondary hover:bg-accent-hover hover:text-white transition-colors duration-200 ${
+                              title === currentCategory
+                                ? "bg-accent text-white"
+                                : ""
+                            }`}
+                          >
+                            {title}
+                          </Link>
+                        </li>
+                      )}
+                    </Fragment>
                   ))}
                 </ul>
               )}

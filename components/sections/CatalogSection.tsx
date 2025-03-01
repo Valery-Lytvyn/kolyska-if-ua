@@ -2,13 +2,18 @@
 import { menuItems } from "@/lib/data/data";
 import { motion } from "motion/react";
 import Link from "next/link";
-import React, { FC } from "react";
+import React, { FC, Fragment } from "react";
 import SectionTitle from "../typography/SectionTitle";
 import Image from "next/image";
 import SectionSlogan from "../typography/SectionSlogan";
 import { ROUTES } from "@/routes/routes";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 const CatalogSection: FC = React.memo(() => {
+  const categoryNames = useSelector(
+    (state: RootState) => state.catalog.categoryMap
+  ).map((c) => c.name);
   return (
     <section className="relative z-20 bg-white py-16 text-primary">
       <div className="max-w-7xl mx-auto w-full px-4">
@@ -45,27 +50,30 @@ const CatalogSection: FC = React.memo(() => {
 
               {/* Підкатегорії */}
               {children && (
-                <div className="mt-4 flex flex-wrap gap-3">
+                <ul className="mt-4 flex flex-wrap gap-3">
                   {children.map(({ title, href }, subIndex) => (
-                    <motion.div
-                      key={title}
-                      initial={{ opacity: 0, y: 10 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.3, delay: subIndex * 0.1 }}
-                      viewport={{ once: true }}
-                      className="w-full sm:w-[calc(50%-0.75rem)] lg:w-full"
-                    >
-                      <Link
-                        href={ROUTES.catalogSection(href)}
-                        className="block bg-white p-4 rounded-lg text-primary shadow-md hover:shadow-lg hover:bg-accent-hover transition-colors duration-300 text-xl group"
-                      >
-                        <span className="text-secondary group-hover:text-white transition-colors duration-300">
-                          {title}
-                        </span>
-                      </Link>
-                    </motion.div>
+                    <Fragment key={href}>
+                      {categoryNames.includes(href) && (
+                        <motion.li
+                          initial={{ opacity: 0, y: 10 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.3, delay: subIndex * 0.1 }}
+                          viewport={{ once: true }}
+                          className="w-full sm:w-[calc(50%-0.75rem)] lg:w-full"
+                        >
+                          <Link
+                            href={ROUTES.catalogSection(href)}
+                            className="block bg-white p-4 rounded-lg text-primary shadow-md hover:shadow-lg hover:bg-accent-hover transition-colors duration-300 text-xl group"
+                          >
+                            <span className="text-secondary group-hover:text-white transition-colors duration-300">
+                              {title}
+                            </span>
+                          </Link>
+                        </motion.li>
+                      )}
+                    </Fragment>
                   ))}
-                </div>
+                </ul>
               )}
             </motion.div>
           ))}

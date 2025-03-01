@@ -143,12 +143,12 @@ const ProductPage = () => {
                 >
                   {isDescriptionExpanded ? (
                     <>
-                      <span>Show Less</span>
+                      <span>Показати менше</span>
                       <IoChevronUpCircleOutline className="w-5 h-5 ml-1" />
                     </>
                   ) : (
                     <>
-                      <span>Read More</span>
+                      <span>Показати більше</span>
                       <IoChevronDownCircleOutline className="w-5 h-5 ml-1" />
                     </>
                   )}

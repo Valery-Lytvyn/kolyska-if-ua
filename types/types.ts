@@ -62,14 +62,14 @@ export interface ProductCardProps {
   productName: string;
 }
 
-export interface Categories {
+export interface ProductCategory {
   categoryId: string;
   name: string;
   cyrillicName: string;
 }
 
 export interface CatalogState {
-  categoryMap: Categories[];
+  categoryMap: ProductCategory[];
   offers: Offer[];
   bestOffers: string[];
   newOffers: string[];
@@ -77,11 +77,6 @@ export interface CatalogState {
   loaded: boolean;
   loading: boolean;
   error: string | null;
-}
-export interface ProductCategory {
-  categoryId: string;
-  name: string;
-  cyrillicName: string;
 }
 
 export interface CartItem {

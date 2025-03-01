@@ -1,9 +1,11 @@
 import { slideInTop } from "@/lib/animations/animations";
 import { ROUTES } from "@/routes/routes";
+import { RootState } from "@/store/store";
 import { MenuItem } from "@/types/types";
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
+import { useSelector } from "react-redux";
 
 interface MenuProps {
   menuItems: MenuItem[];
@@ -11,6 +13,9 @@ interface MenuProps {
 
 const DesktopMenu: React.FC<MenuProps> = ({ menuItems }) => {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+  const categoryNames = useSelector(
+    (state: RootState) => state.catalog.categoryMap
+  ).map((c) => c.name);
 
   return (
     <ul className="flex justify-center items-center gap-2 lg:gap-6 flex-wrap">
@@ -38,14 +43,18 @@ const DesktopMenu: React.FC<MenuProps> = ({ menuItems }) => {
                 <motion.ul className="w-full" {...slideInTop}>
                   <div className="mt-4 shadow-lg rounded-b-lg w-full bg-white">
                     {children.map(({ title, href }) => (
-                      <li key={title}>
-                        <Link
-                          href={ROUTES.catalogSection(href)}
-                          className="block px-4 py-2 hover:bg-accent hover:text-white transition-colors duration-200"
-                        >
-                          {title}
-                        </Link>
-                      </li>
+                      <Fragment key={href}>
+                        {categoryNames.includes(href) && (
+                          <li>
+                            <Link
+                              href={ROUTES.catalogSection(href)}
+                              className="block px-4 py-2 hover:bg-accent hover:text-white transition-colors duration-200"
+                            >
+                              {title}
+                            </Link>
+                          </li>
+                        )}
+                      </Fragment>
                     ))}
                   </div>
                 </motion.ul>

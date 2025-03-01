@@ -12,56 +12,56 @@ export const navItems: NavItem[] = [
   { item: "Оплата", href: ROUTES.payment, icon: IoCardOutline },
   { item: "Контакти", href: ROUTES.contact, icon: RiContactsBook3Line },
 ];
-export const categories = [
-  {
-    categoryId: "11053",
-    categoryName: "АВТОКРІСЛА",
-  },
-  {
-    categoryId: "96754",
-    categoryName: "АКСЕСУАРИ",
-  },
-  {
-    categoryId: "67665",
-    categoryName: "БІГОВЕЛИ",
-  },
-  {
-    categoryId: "11037",
-    categoryName: "ДВОКОЛІСНІ",
-  },
-  {
-    categoryId: "50591",
-    categoryName: "ДИТЯЧІ ШЕЗЛОНГИ",
-  },
-  {
-    categoryId: "11082",
-    categoryName: "КОЛЯСКИ ПРОГУЛЯНКОВІ",
-  },
-  {
-    categoryId: "42772",
-    categoryName: "КОЛЯСКИ УНІВЕРСАЛЬНІ",
-  },
-  {
-    categoryId: "7550",
-    categoryName: "ЛІЖЕЧКА ТА МАТРАЦИ",
-  },
-  {
-    categoryId: "11050",
-    categoryName: "МАНЕЖІ",
-  },
-  {
-    categoryId: "11051",
-    categoryName: "СТІЛЬЧИКИ ДЛЯ ГОДУВАННЯ",
-  },
-  {
-    categoryId: "11038",
-    categoryName: "ТРИКОЛІСНІ",
-  },
-  {
-    categoryId: "11054",
-    categoryName: "ХОДУНКИ",
-  },
-];
+// const categories = [
+//   {
+//     categoryId: "11053",
+//     categoryName: "АВТОКРІСЛА",
+//   },
+//   {
+//     categoryId: "96754",
+//     categoryName: "АКСЕСУАРИ",
+//   },
+//   {
+//     categoryId: "67665",
+//     categoryName: "БІГОВЕЛИ",
+//   },
+//   {
+//     categoryId: "11037",
+//     categoryName: "ДВОКОЛІСНІ",
+//   },
+//   {
+//     categoryId: "50591",
+//     categoryName: "ДИТЯЧІ ШЕЗЛОНГИ",
+//   },
+//   {
+//     categoryId: "11082",
+//     categoryName: "КОЛЯСКИ ПРОГУЛЯНКОВІ",
+//   },
+//   {
+//     categoryId: "42772",
+//     categoryName: "КОЛЯСКИ УНІВЕРСАЛЬНІ",
+//   },
+//   {
+//     categoryId: "7550",
+//     categoryName: "ЛІЖЕЧКА ТА МАТРАЦИ",
+//   },
+//   {
+//     categoryId: "11050",
+//     categoryName: "МАНЕЖІ",
+//   },
+//   {
+//     categoryId: "11051",
+//     categoryName: "СТІЛЬЧИКИ ДЛЯ ГОДУВАННЯ",
+//   },
+//   {
+//     categoryId: "11038",
+//     categoryName: "ТРИКОЛІСНІ",
+//   },
+//   {
+//     categoryId: "11054",
+//     categoryName: "ХОДУНКИ",
+//   },
+// ];
 
 export const categoryMap: Record<string, string> = {
   "коляски універсальні": "universal-strollers",
