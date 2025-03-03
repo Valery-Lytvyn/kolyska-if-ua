@@ -13,7 +13,7 @@ const ProductImage: React.FC<ProductImageProps> = ({
 }) => {
   return (
     <Image
-      src={imageUrl || "/fallback_image.webp"}
+      src={imageUrl}
       alt={productName}
       fill
       quality={75}

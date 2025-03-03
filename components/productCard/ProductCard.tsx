@@ -50,6 +50,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
     productName,
     showToast,
   ]);
+  const proxiedUrl = `/api/image-proxy?imageUrl=${encodeURIComponent(
+    imageUrl
+  )}`;
+
   return (
     <motion.article
       initial={{ y: 20 }}
@@ -65,7 +69,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         {/* Image Section */}
         <figure className="relative h-[360px] w-full bg-white flex items-center justify-center overflow-hidden">
           <ProductImage
-            imageUrl={imageUrl || ""}
+            imageUrl={proxiedUrl || "/fallback_image.webp"}
             productName={productName}
             index={index}
           />
