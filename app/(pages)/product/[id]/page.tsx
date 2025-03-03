@@ -115,7 +115,7 @@ const ProductPage = () => {
           {/* Image Section */}
           <div className="w-full min-h-[40rem] relative  flex-1 flex justify-center items-center">
             <ProductImage
-              imageUrl={imageUrl || ""}
+              imageUrl={imageUrl || "/fallback_image.webp"}
               productName={productName || ""}
               index={0}
             />

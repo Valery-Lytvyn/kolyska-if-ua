@@ -30,7 +30,11 @@ const CartItemCard: React.FC<CartItemCardProps> = ({
     className="flex flex-col sm:flex-row justify-between items-center gap-4 border-b pb-6 last:border-b-0 w-full"
   >
     <div className="flex-shrink-0 w-24 h-24 rounded-lg overflow-hidden relative">
-      <ProductImage imageUrl={imageUrl || ""} productName={name} index={0} />
+      <ProductImage
+        imageUrl={imageUrl || "/fallback_image.webp"}
+        productName={name}
+        index={0}
+      />
     </div>
     <div className="flex-1 text-center sm:text-left overflow-hidden">
       <p className="text-lg font-semibold text-primary truncate whitespace-normal">

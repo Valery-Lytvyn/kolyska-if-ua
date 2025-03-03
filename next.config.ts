@@ -18,13 +18,13 @@ const nextConfig = {
         source: "/:path*",
         headers: [
           {
-            key: "Content-Security-Policy-Report-Only",
+            key: "Content-Security-Policy",
             value: `
               default-src 'self';
-              script-src 'self' 'unsafe-inline' 'unsafe-eval' https://maps.googleapis.com https://www.google-analytics.com https://www.google.com https://www.gstatic.com http://www.w3.org/2000/;
-              style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://www.google.com https://www.gstatic.com http://www.w3.org/2000/;
-              font-src 'self' https://fonts.gstatic.com;
-              img-src 'self' data: https://babytilly.s3.amazonaws.com https://lh3.googleusercontent.com http://www.w3.org/2000/;
+              script-src 'strict-dynamic' 'nonce-{random-nonce}' 'unsafe-eval' https://maps.googleapis.com https://www.google-analytics.com https://www.google.com https://www.gstatic.com;
+              style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://www.google.com https://www.gstatic.com;
+              font-src 'self' data: https://fonts.gstatic.com;
+              img-src 'self' data: https://babytilly.s3.amazonaws.com https://lh3.googleusercontent.com;
               connect-src 'self' https://carrellobaby.com https://maps.googleapis.com https://maps.gstatic.com https://www.google-analytics.com https://*.mongodb.net;
               frame-src 'self' https://www.google.com https://www.google.com/recaptcha/;
               object-src 'none';
